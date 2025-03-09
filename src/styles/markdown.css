@@ -1,0 +1,142 @@
+/* Container principal do Markdown */
+.markdown-content {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.75;
+  color: #333;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Dark mode */
+.dark .markdown-content {
+  color: #ddd;
+}
+
+/* Títulos */
+.markdown-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.dark .markdown-content h2 {
+  color: #f3f4f6;
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+/* Parágrafos */
+.markdown-content p {
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.dark .markdown-content p {
+  color: #d1d5db;
+}
+
+/* Listas */
+.markdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+.markdown-content blockquote {
+  border-left: 4px solid #6366f1;
+  padding-left: 1rem;
+  color: #4b5563;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.dark .markdown-content blockquote {
+  color: #d1d5db;
+  border-left-color: #818cf8;
+}
+
+/* Código inline */
+.markdown-content code {
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+}
+
+.dark .markdown-content code {
+  background-color: #1f2937;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Código em bloco */
+.markdown-content pre {
+  background-color: #1f2937;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.markdown-content pre code {
+  background-color: transparent;
+  color: #f3f4f6;
+  font-size: 0.875rem;
+}
+
+/* Links */
+.markdown-content a {
+  color: #6366f1;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.markdown-content a:hover {
+  color: #4338ca;
+}
+
+/* Tabela */
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  text-align: left;
+}
+
+.dark .markdown-content th,
+.dark .markdown-content td {
+  border-color: #374151;
+}
+
+/* Imagens */
+.markdown-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1rem 0;
+}

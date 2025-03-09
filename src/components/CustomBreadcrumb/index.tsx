@@ -18,20 +18,24 @@ export function CustomBreadcrumb({ pathnames }: CustomBreadcrumbProps) {
       <BreadcrumbList>
         {pathnames.map((name, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`
-
-          const isChallenges = name === 'challenges'
+          const isLast = index === pathnames.length - 1 // Último item
 
           return (
             <BreadcrumbItem key={routeTo} className="font-rubik font-300">
-              {!isChallenges ? (
-                <BreadcrumbLink>
-                  <Link to={routeTo}>{name}</Link>
-                </BreadcrumbLink>
-              ) : (
-                <BreadcrumbLink aria-disabled>{name}</BreadcrumbLink>
-              )}
+              <BreadcrumbLink>
+                <Link
+                  to={routeTo}
+                  className={`${
+                    isLast
+                      ? 'text-rose-500 '
+                      : 'hover:bg-rose-500 hover:text-white px-2 py-1 rounded-md transition'
+                  }`}
+                >
+                  {name}
+                </Link>
+              </BreadcrumbLink>
 
-              {index !== pathnames.length - 1 && <BreadcrumbSeparator />}
+              {!isLast && <BreadcrumbSeparator />}
             </BreadcrumbItem>
           )
         })}

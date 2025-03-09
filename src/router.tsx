@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { About, BoraCodar, FrontendMentor, Home, Socials } from '@/pages'
-import { CustomTabContent } from '@/pages/challenges/components'
+import { About, Blog, ChallengesPage, Home, Projects, Socials } from '@/pages'
+import { BoraCodar, FrontendMentor } from '@/pages/challenges/paths'
+import { CustomTabContent } from '@/pages/challenges/paths/components'
 
 import App from './App'
 
@@ -14,6 +15,22 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: 'challenges',
+        element: <ChallengesPage />
+      },
+      {
+        path: 'blog',
+        element: <Blog />
+      },
+      {
+        path: 'blog/:slug',
+        element: <Blog />
+      },
+      {
+        path: 'projects',
+        element: <Projects />
       },
       {
         path: 'challenges/frontend-mentor',
