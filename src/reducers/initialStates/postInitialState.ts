@@ -4,5 +4,6 @@ export const postInitialState: PostState = {
   posts: [],
   content: null,
   loading: true,
-  error: null
+  error: null,
+  tags: []
 }
