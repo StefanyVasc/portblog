@@ -1,40 +1,93 @@
-import { CustomBreadcrumb, Header } from '@/components'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
+import { CustomBreadcrumb, Header, Pagination, SearchBar } from '@/components'
+import { useBlogSearch } from '@/hooks/useBlogSearch'
 import { usePost } from '@/hooks/usePost'
+import { formatBreadcrumb } from '@/utils/formatBreadcrumb'
 
 import { ErrorMessage, Loading, PostContent, PostList } from './components'
 
 export function Blog() {
-  const { slug, posts, content, loading, error } = usePost()
+  const { slug, content, loading, error, tags } = usePost()
+  const postsPerPage = 5
+  const {
+    search,
+    setSearch,
+    searchType,
+    setSearchType,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    currentPosts,
+    allTags
+  } = useBlogSearch(postsPerPage)
+  const pathnames = formatBreadcrumb(slug)
 
-  // Formatar a URL no breadcrumb para mostrar "DD/MM/YYYY - Nome do post"
-  const pathnames = location.pathname
-    .split('/')
-    .filter(path => path)
-    .map((segment, index, array) => {
-      if (index === array.length - 1 && slug) {
-        // Extrai a data e o título corretamente
-        const dateMatch = slug.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/)
-        if (dateMatch) {
-          const [, year, month, day, rawTitle] = dateMatch
-          const formattedDate = `${day}/${month}/${year}` // Converte para DD/MM/YYYY
-          const formattedTitle = rawTitle.replace(/_/g, ' ') // Remove underscores
-          return `${formattedDate} - ${formattedTitle}`
-        }
+  const { slug: routeSlug } = useParams()
+
+  useEffect(() => {
+    if (routeSlug) {
+      document.title = `blog/${routeSlug}`
+
+      // Atualiza ou cria a meta tag og:title
+      let metaTag = document.querySelector('meta[property="og:title"]')
+
+      if (metaTag) {
+        metaTag.setAttribute('content', `${routeSlug}`)
+      } else {
+        metaTag = document.createElement('meta')
+        metaTag.setAttribute('property', 'og:title')
+        metaTag.setAttribute('content', `blog/${routeSlug}`)
+        document.head.appendChild(metaTag)
       }
-      return segment
-    })
-
-  const shouldHasPost = !loading && !error
+    } else {
+      document.title = 'Meu Blog'
+    }
+  }, [routeSlug])
 
   return (
     <div>
       <Header headerName="Blog" />
-      {pathnames.length > 1 && <CustomBreadcrumb pathnames={pathnames} />}
+      {slug && <CustomBreadcrumb pathnames={pathnames} />}
 
       {loading && <Loading />}
       {error && <ErrorMessage message={error} />}
-      {shouldHasPost &&
-        (slug ? <PostContent content={content} /> : <PostList posts={posts} />)}
+
+      {/* ✅ Se tem slug, só mostra o conteúdo do post */}
+      {slug ? (
+        <PostContent content={content} tags={tags} />
+      ) : (
+        <>
+          <div className="mt-6">
+            <SearchBar
+              search={search}
+              setSearch={setSearch}
+              searchType={searchType}
+              setSearchType={setSearchType}
+              allTags={allTags}
+            />
+          </div>
+          {search && (
+            <p className="text-gray-700 dark:text-gray-300 text-sm mt-2 text-right">
+              Há {currentPosts.length}{' '}
+              {currentPosts.length === 1 ? 'post' : 'posts'} sobre &quot;
+              {search}&quot;
+            </p>
+          )}
+          <PostList posts={currentPosts} searched={search} />
+
+          {totalPages > 1 && (
+            <footer className="w-full py-4">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </footer>
+          )}
+        </>
+      )}
     </div>
   )
 }

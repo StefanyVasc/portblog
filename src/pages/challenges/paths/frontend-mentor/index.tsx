@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 
@@ -12,7 +13,6 @@ import {
 
 export function FrontendMentor() {
   const { tabValue } = useParams()
-
   const navigate = useNavigate()
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
@@ -56,13 +56,21 @@ export function FrontendMentor() {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent
+
+          <motion.div
             key={currentTab}
-            value={currentTab}
-            className="mt-5 ml-3"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
           >
-            <Outlet />
-          </TabsContent>
+            <TabsContent
+              key={currentTab}
+              value={currentTab}
+              className="mt-5 ml-3"
+            >
+              <Outlet />
+            </TabsContent>
+          </motion.div>
         </Tabs>
       </main>
     </div>

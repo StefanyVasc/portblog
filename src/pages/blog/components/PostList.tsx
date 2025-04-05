@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom'
 
+import { Badge } from '@/components'
 import { Post } from '@/reducers/types/posts'
 
-export const PostList = ({ posts }: { posts: Post[] }) => (
-  <div className="p-6 max-w-3xl mx-auto">
-    <h4 className="text-xl font-semibold mb-4">Últimos posts</h4>
+export const PostList = ({
+  posts,
+  searched
+}: {
+  posts: Post[]
+  searched: string
+}) => (
+  <div className="flex-grow py-6 max-w-3xl mx-auto min-h-[60vh]">
+    {!searched && <h4 className="text-xl font-semibold mb-4">Últimos posts</h4>}
 
     {posts.length > 0 ? (
       <ul className="space-y-4">
@@ -22,6 +29,21 @@ export const PostList = ({ posts }: { posts: Post[] }) => (
             <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
               {post.description}
             </p>
+
+            {/*  Exibir tags, se existirem */}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {post.tags.map(tag => (
+                  <Badge
+                    color="rose"
+                    key={tag}
+                    text={tag}
+                    variant="outline"
+                    size="xxs"
+                  />
+                ))}
+              </div>
+            )}
           </li>
         ))}
       </ul>

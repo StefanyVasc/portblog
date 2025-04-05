@@ -9,6 +9,8 @@ export function postReducer(state: PostState, action: PostActions): PostState {
       return { ...state, posts: payload, loading: false, error: null }
     case 'SET_CONTENT':
       return { ...state, content: payload, loading: false, error: null }
+    case 'SET_TAGS':
+      return { ...state, tags: payload || [], loading: false, error: null }
     case 'SET_LOADING':
       return { ...state, loading: payload }
     case 'SET_ERROR':

@@ -3,6 +3,7 @@ export type Post = {
   title: string
   date: string
   description: string
+  tags: string[]
 }
 
 export type PostState = {
@@ -10,4 +11,5 @@ export type PostState = {
   content: string | null
   loading: boolean
   error: string | null
+  tags: string[]
 }

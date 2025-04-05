@@ -1,5 +1,8 @@
 import { BackpackIcon, CalendarIcon, LapTimerIcon } from '@radix-ui/react-icons'
 import dayjs from 'dayjs'
+import { motion } from 'framer-motion'
+import { MoveHorizontal } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   Badge,
@@ -12,16 +15,61 @@ import {
 import { CustomTimelineProps } from './types'
 
 export function CustomTimeline({ items }: CustomTimelineProps) {
-  const sortedItems = items.sort(
-    (a, b) => dayjs(b.yearStart).year() - dayjs(a.yearStart).year()
+  const [showArrow, setShowArrow] = useState(true)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const sortedItems = useMemo(
+    () =>
+      items.sort(
+        (a, b) => dayjs(b.yearStart).year() - dayjs(a.yearStart).year()
+      ),
+    [items]
   )
+
+  const handleScroll = () => {
+    setShowArrow(true)
+
+    // Limpa o timeout anterior para evitar esconder prematuramente
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+
+    // Inicia um novo timeout para esconder a seta após 0.5s sem scroll
+    timeoutRef.current = setTimeout(() => {
+      setShowArrow(false)
+    }, 500)
+  }
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [])
+
   return (
-    <div className="h-60 p-6 relative">
+    <motion.div
+      className="h-60 p-6 relative"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       {/* Linha horizontal da timeline */}
       <div className="absolute top-10 left-6 right-6 h-px bg-gray-500/20 dark:bg-gray-400/20" />
 
-      <div className="relative overflow-x-auto pl-6 h-full">
-        <div className="flex gap-10 min-w-max">
+      {/* Scroll horizontal da timeline */}
+      <motion.div
+        ref={scrollRef}
+        className="relative overflow-x-auto pl-6 h-full custom-scrollbar"
+      >
+        <motion.div className="flex gap-10 min-w-max">
           {sortedItems.map((item, index) => {
             const {
               yearStart,
@@ -36,10 +84,19 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
             } = item
 
             return (
-              <div
+              <motion.div
                 key={`${yearStart}-${index}`}
                 className="relative text-sm flex flex-col items-start flex-shrink-0 w-64"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: 'easeOut'
+                }}
               >
+                {/* Ponto na Timeline */}
                 <div
                   className={`w-3 h-3 rounded-full absolute left-0 top-4 -translate-y-1/2 ${
                     current
@@ -57,218 +114,63 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                     <HoverCardTrigger>
                       <div className="text-base cursor-pointer">{title}</div>
                     </HoverCardTrigger>
-                    <HoverCardContent className="max-w-xs max-h-[500px] overflow-y-auto p-3 rounded-lg shadow-lg">
-                      <div className="flex justify-between">
-                        <span className="flex gap-2 my-2">
-                          <CalendarIcon />
-                          {yearStart} - {!current ? yearEnd : 'Present'}
-                        </span>
-
-                        {!current && duration && (
+                    <HoverCardContent asChild>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="max-w-xs max-h-[500px] overflow-y-auto p-3 rounded-lg shadow-lg bg-white dark:bg-gray-800"
+                      >
+                        <div className="flex justify-between">
                           <span className="flex gap-2 my-2">
-                            <LapTimerIcon />
-                            {duration}
+                            <CalendarIcon />
+                            {yearStart} - {!current ? yearEnd : 'Present'}
                           </span>
-                        )}
-                      </div>
 
-                      <span className="font-400">{about}</span>
-
-                      {/* Frontend */}
-                      {competencies?.frontend && (
-                        <Section title="Frontend">
-                          {competencies.frontend.libs?.map((lib, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={lib}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                          {competencies.frontend.frameworks?.map(
-                            (framework, i) => (
-                              <Badge
-                                key={i}
-                                color="gray"
-                                text={framework}
-                                variant="outline"
-                                size="xxs"
-                              />
-                            )
+                          {!current && duration && (
+                            <span className="flex gap-2 my-2">
+                              <LapTimerIcon />
+                              {duration}
+                            </span>
                           )}
-                        </Section>
-                      )}
+                        </div>
 
-                      {/* Styling */}
-                      {competencies?.styling && (
-                        <Section title="Styling">
-                          {competencies.styling.libraries?.map((lib, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={lib}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
+                        <span className="font-400">{about}</span>
 
-                      {/* Tools */}
-                      {competencies?.tools && (
-                        <Section title="Tools">
-                          {competencies.tools.visualization?.map((tool, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={tool}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
+                        {/* Competências */}
+                        {competencies &&
+                          Object.entries(competencies).map(
+                            ([sectionTitle, sectionData], i) => {
+                              if (
+                                !sectionData ||
+                                typeof sectionData !== 'object'
+                              )
+                                return null
 
-                      {/* Backend */}
-                      {competencies?.backend && (
-                        <Section title="Backend">
-                          {competencies.backend.technologies?.map((tech, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={tech}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
+                              // Filtra apenas os arrays dentro de cada seção
+                              const allValues = Object.values(sectionData)
+                                .filter(Array.isArray)
+                                .flat()
 
-                      {/* Cloud */}
-                      {competencies?.cloud && (
-                        <Section title="Cloud">
-                          {competencies.cloud.providers?.map((provider, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={provider}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
-
-                      {/* Databases */}
-                      {competencies?.databases && (
-                        <Section title="Databases">
-                          {competencies.databases.technologies?.map((db, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={db}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
-
-                      {/* Containers */}
-                      {competencies?.containers && (
-                        <Section title="Containers">
-                          {competencies.containers.tools?.map(
-                            (container, i) => (
-                              <Badge
-                                key={i}
-                                color="gray"
-                                text={container}
-                                variant="outline"
-                                size="xxs"
-                              />
-                            )
+                              return (
+                                allValues.length > 0 && (
+                                  <Section key={i} title={sectionTitle}>
+                                    {allValues.map((item, j) => (
+                                      <Badge
+                                        key={j}
+                                        color="gray"
+                                        text={item}
+                                        variant="outline"
+                                        size="xxs"
+                                      />
+                                    ))}
+                                  </Section>
+                                )
+                              )
+                            }
                           )}
-                        </Section>
-                      )}
-
-                      {/* Orchestration */}
-                      {competencies?.orchestration && (
-                        <Section title="Orchestration">
-                          {competencies.orchestration.tools?.map((tool, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={tool}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
-
-                      {/* Deploy (CI/CD) */}
-                      {competencies?.deploy && (
-                        <>
-                          {competencies.deploy.ci?.tools && (
-                            <Section title="CI">
-                              {competencies.deploy.ci.tools.map((tool, i) => (
-                                <Badge
-                                  key={i}
-                                  color="gray"
-                                  text={tool}
-                                  variant="outline"
-                                  size="xxs"
-                                />
-                              ))}
-                            </Section>
-                          )}
-
-                          {competencies.deploy.cd?.tools && (
-                            <Section title="CD">
-                              {competencies.deploy.cd.tools.map((tool, i) => (
-                                <Badge
-                                  key={i}
-                                  color="gray"
-                                  text={tool}
-                                  variant="outline"
-                                  size="xxs"
-                                />
-                              ))}
-                            </Section>
-                          )}
-                        </>
-                      )}
-
-                      {/* Monitoring */}
-                      {competencies?.monitoring && (
-                        <Section title="Monitoring">
-                          {competencies.monitoring.tools?.map((tool, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={tool}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
-
-                      {/* Observability */}
-                      {competencies?.observability && (
-                        <Section title="Observability">
-                          {competencies.observability.tools?.map((tool, i) => (
-                            <Badge
-                              key={i}
-                              color="gray"
-                              text={tool}
-                              variant="outline"
-                              size="xxs"
-                            />
-                          ))}
-                        </Section>
-                      )}
+                      </motion.div>
                     </HoverCardContent>
                   </HoverCard>
 
@@ -281,11 +183,33 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                     {description}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+
+        {/* Indicador de arraste (some apenas quando o usuário fizer scroll) */}
+        {showArrow && (
+          <motion.div
+            className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-md shadow-lg flex items-center"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              animate={{ x: [0, 5, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                ease: 'easeInOut'
+              }}
+            >
+              <MoveHorizontal size={20} />
+            </motion.div>
+          </motion.div>
+        )}
+      </motion.div>
+    </motion.div>
   )
 }

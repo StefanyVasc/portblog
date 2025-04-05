@@ -57,12 +57,11 @@ export function PageHeader() {
               <NavigationMenuContent>
                 <ul className="flex flex-col w-[150px] gap-3 p-2">
                   {components.map(component => (
-                    <NavigationMenuLink
-                      key={component.title}
-                      className="block px-2 py-1 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
-                      <Link to={component.to}>{component.title}</Link>
-                    </NavigationMenuLink>
+                    <Link to={component.to} key={component.title}>
+                      <NavigationMenuLink className="block px-2 py-1 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                        {component.title}
+                      </NavigationMenuLink>
+                    </Link>
                   ))}
                 </ul>
               </NavigationMenuContent>

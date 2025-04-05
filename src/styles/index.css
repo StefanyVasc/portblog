@@ -29,6 +29,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --scrollbar-bg: hsl(220, 10%, 90%);
+    --scrollbar-thumb: hsl(220, 10%, 60%);
+    --scrollbar-thumb-hover: hsl(220, 10%, 50%);
   }
   .dark {
     --background: 20 14.3% 4.1%;
@@ -55,8 +58,12 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --scrollbar-bg: hsl(220, 10%, 20%);
+    --scrollbar-thumb: hsl(220, 10%, 40%);
+    --scrollbar-thumb-hover: hsl(220, 10%, 50%);
   }
 }
+
 @layer base {
   * {
     @apply border-border;
