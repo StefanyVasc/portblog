@@ -1,5 +1,5 @@
 type HeaderProps = {
-  headerName: string
+  headerName?: string
   children?: React.ReactNode
 }
 

@@ -10,12 +10,14 @@ import {
   TabsList,
   TabsTrigger
 } from '@/components'
+import { useTranslation } from 'react-i18next'
 
 export function FrontendMentor() {
   const { tabValue } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
+  const { t } = useTranslation()
 
   const tabsInfos = [
     { value: 'newbie', label: 'Newbie' },
@@ -40,7 +42,7 @@ export function FrontendMentor() {
 
   return (
     <div>
-      <Header headerName="Frontend Mentor">
+      <Header headerName={t('challenges.frontendMentor.title')}>
         <CustomBreadcrumb pathnames={pathnames} />
       </Header>
       <main>

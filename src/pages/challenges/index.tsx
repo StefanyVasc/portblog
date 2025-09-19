@@ -12,21 +12,22 @@ import {
   UnderConstruction
 } from '@/components'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 export function ChallengesPage() {
+  const { t } = useTranslation()
+
   return (
     <div>
-      <Header headerName="Challenges" />
+      <Header headerName={t('challenges.header')} />
       <section className="py-5 font-300">
-        Aqui você encontrará as séries de desafios que eu estou fazendo e também
-        os que estão prontos. A ideia é que você possa acompanhar o meu
-        progresso e também se desafiar a fazer os mesmos desafios.
+        {t('challenges.intro')}
       </section>
 
       <section>
         <Card className={cn('w-[380px] mt-5')}>
           <CardHeader>
-            <CardTitle>Frontend Mentor</CardTitle>
+            <CardTitle>{t('challenges.frontendMentor.title')}</CardTitle>
             <CardDescription> </CardDescription>
           </CardHeader>
           <CardContent>
@@ -38,7 +39,7 @@ export function ChallengesPage() {
           </CardContent>
           <CardFooter>
             <Button variant={'link'} asChild>
-              <Link to="frontend-mentor">Acessar os desafios</Link>
+              <Link to="frontend-mentor">{t('challenges.frontendMentor.link')}</Link>
             </Button>
           </CardFooter>
         </Card>

@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { usePost } from '@/hooks/usePost'
+import { Post } from '@/reducers/types/posts'
 
-export function useBlogSearch(postsPerPage = 2) {
-  const { posts } = usePost()
+export function useBlogSearch(
+  posts: Post[],
+  postsPerPage = 2,
+  options: { disabled?: boolean } = {}
+) {
   const [searchParams, setSearchParams] = useSearchParams()
+  const disabled = options.disabled ?? false
 
   // Recuperando valores da URL
   const searchFromUrl = searchParams.get('search') || ''
@@ -21,19 +25,30 @@ export function useBlogSearch(postsPerPage = 2) {
   const [currentPage, setCurrentPage] = useState(pageFromUrl)
 
   useEffect(() => {
-    setSearchParams({ page: String(currentPage), type: searchType, search })
-  }, [search, searchType, currentPage, setSearchParams])
+    if (disabled) return
 
-  // Filtragem de posts
-  const filteredPosts = posts.filter(post =>
-    searchType === 'text'
-      ? [post.title, post.description, ...(post.tags || [])]
-          .join(' ')
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      : post.tags?.some(
-          tag => tag.toLowerCase() === search.toLowerCase().replace('#', '')
-        )
+    setSearchParams({ page: String(currentPage), type: searchType, search })
+  }, [search, searchType, currentPage, setSearchParams, disabled])
+
+  const normalizedSearch = search.toLowerCase()
+  const filteredPosts = useMemo(
+    () =>
+      posts.filter(post =>
+        searchType === 'text'
+          ? [post.title, post.description, ...(post.tags || [])]
+              .join(' ')
+              .toLowerCase()
+              .includes(normalizedSearch)
+          : post.tags?.some(
+              tag => tag.toLowerCase() === normalizedSearch.replace('#', '')
+            )
+      ),
+    [posts, searchType, normalizedSearch]
+  )
+
+  const allTags = useMemo(
+    () => [...new Set(posts.flatMap(post => post.tags || []))].sort(),
+    [posts]
   )
 
   // Paginação
@@ -52,6 +67,6 @@ export function useBlogSearch(postsPerPage = 2) {
     totalPages,
     filteredPosts,
     currentPosts,
-    allTags: [...new Set(posts.flatMap(post => post.tags || []))].sort()
+    allTags
   }
 }

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Milestone } from 'lucide-react'
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
   Avatar,
@@ -13,19 +14,20 @@ import { aboutILike, careerItems } from '@/static'
 
 export function About() {
   const items = useMemo(() => careerItems.items, [])
+  const { t } = useTranslation()
 
   return (
     <div>
-      <Header headerName="About..." />
+      <Header headerName={t('about.header')} />
       <section className="py-5">
         <GlobalScrollAnimation>
           <div className="my-10 ">
-            <h5>...Me</h5>
+            <h5>{t('about.me.title')}</h5>
             <div className="flex items-center justify-center">
               <Avatar />
               <Paragraph>
-                Hi, I&apos;m Goku!... Wait a minute 😅... <br />
-                ...Hello there, my name is{' '}
+                {t('about.me.introPart1')} <br />
+                {t('about.me.introPart2')}{' '}
                 <span className="relative inline-block px-2 mr-1">
                   <motion.span
                     initial={{ width: '0%' }}
@@ -42,7 +44,7 @@ export function About() {
                     Stefany Sá
                   </motion.span>
                 </span>
-                and I&apos;m a Front End Developer.
+                {t('about.me.introPart3')}
               </Paragraph>
             </div>
             {/* Características em Grid */}
@@ -89,22 +91,14 @@ export function About() {
 
         <GlobalScrollAnimation>
           <div className="mb-5">
-            <h5>...Career</h5>
+            <h5>{t('about.career.title')}</h5>
             <Paragraph>
-              As an enthusiast of the user interface and dedicated Front End
-              Developer with an unshakable passion for JavaScript. With over six
-              years of experience, I bring a deep understanding of critical
-              technologies, including HTML, CSS, JavaScript, TypeScript,
-              ReactJS, Tailwind CSS, D3.js for interactive graph creation,
-              Angular, Git, and Github. Throughout my professional journey, I
-              maintain an unwavering commitment to continuous learning,
-              regularly exploring emerging technologies and conducting Proof of
-              Concepts (POCs).
+              {t('about.career.description')}
             </Paragraph>
 
             <div className="py-10">
               <h5 className="flex gap-2 items-center">
-                The road so far...
+                {t('about.career.timelineTitle')}
                 <Milestone size={18} />
               </h5>
               <CustomTimeline items={items} />

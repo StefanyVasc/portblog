@@ -3,8 +3,12 @@ import {
   LinkedInLogoIcon,
   TwitterLogoIcon
 } from '@radix-ui/react-icons'
+import { useTranslation } from 'react-i18next'
 
 export function PageFooter() {
+  const { t } = useTranslation()
+  const year = new Date().getFullYear()
+
   return (
     <footer className="font-rubik font-normal flex h-20 w-full justify-between shrink-0 items-center px-4 md:px-6">
       <ul className="flex space-x-6">
@@ -38,9 +42,9 @@ export function PageFooter() {
         </li>
       </ul>
       <div className="mt-4 text-xs text-gray-400">
-        &copy; 2025 Stefany Sá.
+        {t('footer.copyright', { year })}
         <br />
-        All rights reserved.
+        {t('footer.rights')}
       </div>
     </footer>
   )

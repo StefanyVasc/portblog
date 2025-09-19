@@ -5,11 +5,12 @@ import { CustomBreadcrumb, Header, Pagination, SearchBar } from '@/components'
 import { useBlogSearch } from '@/hooks/useBlogSearch'
 import { usePost } from '@/hooks/usePost'
 import { formatBreadcrumb } from '@/utils/formatBreadcrumb'
+import { useTranslation } from 'react-i18next'
 
 import { ErrorMessage, Loading, PostContent, PostList } from './components'
 
 export function Blog() {
-  const { slug, content, loading, error, tags } = usePost()
+  const { slug, content, loading, error, tags, posts } = usePost()
   const postsPerPage = 5
   const {
     search,
@@ -21,34 +22,50 @@ export function Blog() {
     totalPages,
     currentPosts,
     allTags
-  } = useBlogSearch(postsPerPage)
+  } = useBlogSearch(posts, postsPerPage, { disabled: Boolean(slug) })
   const pathnames = formatBreadcrumb(slug)
 
   const { slug: routeSlug } = useParams()
+  const { t, i18n } = useTranslation()
+
+  const currentPostTitle = routeSlug
+    ? posts.find(post => post.slug === routeSlug)?.title
+    : null
 
   useEffect(() => {
-    if (routeSlug) {
-      document.title = `blog/${routeSlug}`
+    const titleToUse = routeSlug
+      ? currentPostTitle ?? `blog/${routeSlug}`
+      : t('blog.header')
 
-      // Atualiza ou cria a meta tag og:title
-      let metaTag = document.querySelector('meta[property="og:title"]')
+    document.title = titleToUse
 
-      if (metaTag) {
-        metaTag.setAttribute('content', `${routeSlug}`)
-      } else {
-        metaTag = document.createElement('meta')
-        metaTag.setAttribute('property', 'og:title')
-        metaTag.setAttribute('content', `blog/${routeSlug}`)
-        document.head.appendChild(metaTag)
-      }
-    } else {
-      document.title = 'Meu Blog'
+    let metaTag = document.querySelector('meta[property="og:title"]')
+
+    if (!metaTag) {
+      metaTag = document.createElement('meta')
+      metaTag.setAttribute('property', 'og:title')
+      document.head.appendChild(metaTag)
     }
-  }, [routeSlug])
+
+    metaTag.setAttribute('content', titleToUse)
+
+    if (!routeSlug) {
+      const savedScroll =
+        (typeof window !== 'undefined' &&
+          window.history.state &&
+          typeof window.history.state.blogScroll === 'number'
+          ? window.history.state.blogScroll
+          : 0)
+
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: savedScroll, behavior: 'auto' })
+      })
+    }
+  }, [routeSlug, currentPostTitle, t, i18n.language])
 
   return (
     <div>
-      <Header headerName="Blog" />
+      <Header headerName={t('blog.header')} />
       {slug && <CustomBreadcrumb pathnames={pathnames} />}
 
       {loading && <Loading />}
@@ -59,7 +76,7 @@ export function Blog() {
         <PostContent content={content} tags={tags} />
       ) : (
         <>
-          <div className="mt-6">
+          <div className="mt-6 w-full max-w-5xl mx-auto">
             <SearchBar
               search={search}
               setSearch={setSearch}
@@ -70,9 +87,10 @@ export function Blog() {
           </div>
           {search && (
             <p className="text-gray-700 dark:text-gray-300 text-sm mt-2 text-right">
-              Há {currentPosts.length}{' '}
-              {currentPosts.length === 1 ? 'post' : 'posts'} sobre &quot;
-              {search}&quot;
+              {t('blog.searchResults', {
+                count: currentPosts.length,
+                query: search
+              })}
             </p>
           )}
           <PostList posts={currentPosts} searched={search} />

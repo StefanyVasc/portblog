@@ -11,6 +11,7 @@ import {
   HoverCardTrigger,
   Section
 } from '@/components'
+import { useTranslation } from 'react-i18next'
 
 import { CustomTimelineProps } from './types'
 
@@ -18,6 +19,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
   const [showArrow, setShowArrow] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const { t } = useTranslation()
 
   const sortedItems = useMemo(
     () =>
@@ -125,7 +127,8 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                         <div className="flex justify-between">
                           <span className="flex gap-2 my-2">
                             <CalendarIcon />
-                            {yearStart} - {!current ? yearEnd : 'Present'}
+                            {yearStart} -
+                            {!current ? yearEnd : t('common.present')}
                           </span>
 
                           {!current && duration && (

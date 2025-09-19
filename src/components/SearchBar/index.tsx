@@ -1,4 +1,5 @@
 import { ChevronDown, Filter, Search, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface SearchBarProps {
   search: string
@@ -15,6 +16,8 @@ export function SearchBar({
   setSearchType,
   allTags
 }: SearchBarProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="flex gap-4 items-center mb-4">
       {/* Select de Filtro Apenas com Ícone */}
@@ -25,8 +28,8 @@ export function SearchBar({
           className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-transparent focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 appearance-none"
         >
           <option value="" className="hidden" />
-          <option value="text">Texto</option>
-          <option value="tag">Tag</option>
+          <option value="text">{t('blog.search.filter.text')}</option>
+          <option value="tag">{t('blog.search.filter.tag')}</option>
         </select>
         <div className="absolute inset-0 flex items-center justify-center text-gray-400 pointer-events-none">
           <Filter size={18} />
@@ -43,7 +46,7 @@ export function SearchBar({
             />
             <input
               type="text"
-              placeholder="Buscar posts..."
+              placeholder={t('blog.search.placeholder')}
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="w-full p-2 pl-10 pr-10 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm"
@@ -64,7 +67,7 @@ export function SearchBar({
               onChange={e => setSearch(e.target.value)}
               className="w-full p-2 pl-3 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 appearance-none"
             >
-              <option value="">Selecione uma tag</option>
+              <option value="">{t('blog.search.selectTag')}</option>
               {allTags.map(tag => (
                 <option key={tag} value={tag}>
                   {tag}

@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -5,6 +6,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components'
 
@@ -21,22 +23,23 @@ export function CustomBreadcrumb({ pathnames }: CustomBreadcrumbProps) {
           const isLast = index === pathnames.length - 1 // Último item
 
           return (
-            <BreadcrumbItem key={routeTo} className="font-rubik font-300">
-              <BreadcrumbLink>
-                <Link
-                  to={routeTo}
-                  className={`${
-                    isLast
-                      ? 'text-rose-500 '
-                      : 'hover:bg-rose-500 hover:text-white px-2 py-1 rounded-md transition'
-                  }`}
-                >
-                  {name}
-                </Link>
-              </BreadcrumbLink>
-
+            <Fragment key={routeTo}>
+              <BreadcrumbItem className="font-rubik font-300">
+                {isLast ? (
+                  <BreadcrumbPage className="text-rose-500">{name}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link
+                      to={routeTo}
+                      className="hover:bg-rose-500 hover:text-white px-2 py-1 rounded-md transition"
+                    >
+                      {name}
+                    </Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
               {!isLast && <BreadcrumbSeparator />}
-            </BreadcrumbItem>
+            </Fragment>
           )
         })}
       </BreadcrumbList>
