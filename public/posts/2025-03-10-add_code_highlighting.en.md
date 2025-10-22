@@ -12,8 +12,8 @@ We already use `react-markdown` to render posts, so we just need to plug `rehype
 npm install react-markdown rehype-highlight rehype-raw
 ```
 
-- **`react-markdown`** converts Markdown into React nodes.  
-- **`rehype-highlight`** injects Highlight.js under the hood.  
+- **`react-markdown`** converts Markdown into React nodes.
+- **`rehype-highlight`** injects Highlight.js under the hood.
 - **`rehype-raw`** allows HTML inside the markdown when we explicitly opt in.
 
 ---
@@ -51,16 +51,16 @@ The highlight theme can be swapped just by importing a different CSS file from H
 
 Some favorites:
 
-| Theme               | Import                                                 | Vibe |
-| ------------------- | ------------------------------------------------------ | ---- |
-| GitHub Dark         | `import 'highlight.js/styles/github-dark.css'`         | 🖤   |
-| GitHub Light        | `import 'highlight.js/styles/github.css'`              | 🤍   |
-| Dracula             | `import 'highlight.js/styles/dracula.css'`             | 🦇   |
-| Monokai             | `import 'highlight.js/styles/monokai.css'`             | 🟢   |
-| Atom One Dark       | `import 'highlight.js/styles/atom-one-dark.css'`       | 💙   |
-| Nord                | `import 'highlight.js/styles/nord.css'`                | ❄️   |
-| Solarized Light     | `import 'highlight.js/styles/solarized-light.css'`     | 🌞   |
-| Solarized Dark      | `import 'highlight.js/styles/solarized-dark.css'`      | 🌚   |
+| Theme           | Import                                             | Vibe |
+| --------------- | -------------------------------------------------- | ---- |
+| GitHub Dark     | `import 'highlight.js/styles/github-dark.css'`     | 🖤   |
+| GitHub Light    | `import 'highlight.js/styles/github.css'`          | 🤍   |
+| Dracula         | `import 'highlight.js/styles/dracula.css'`         | 🦇   |
+| Monokai         | `import 'highlight.js/styles/monokai.css'`         | 🟢   |
+| Atom One Dark   | `import 'highlight.js/styles/atom-one-dark.css'`   | 💙   |
+| Nord            | `import 'highlight.js/styles/nord.css'`            | ❄️   |
+| Solarized Light | `import 'highlight.js/styles/solarized-light.css'` | 🌞   |
+| Solarized Dark  | `import 'highlight.js/styles/solarized-dark.css'`  | 🌚   |
 
 Switching is literally one import away:
 

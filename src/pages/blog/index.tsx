@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { CustomBreadcrumb, Header, Pagination, SearchBar } from '@/components'
 import { useBlogSearch } from '@/hooks/useBlogSearch'
 import { usePost } from '@/hooks/usePost'
 import { formatBreadcrumb } from '@/utils/formatBreadcrumb'
-import { useTranslation } from 'react-i18next'
 
 import { ErrorMessage, Loading, PostContent, PostList } from './components'
 
@@ -34,7 +34,7 @@ export function Blog() {
 
   useEffect(() => {
     const titleToUse = routeSlug
-      ? currentPostTitle ?? `blog/${routeSlug}`
+      ? (currentPostTitle ?? `blog/${routeSlug}`)
       : t('blog.header')
 
     document.title = titleToUse
@@ -51,11 +51,11 @@ export function Blog() {
 
     if (!routeSlug) {
       const savedScroll =
-        (typeof window !== 'undefined' &&
-          window.history.state &&
-          typeof window.history.state.blogScroll === 'number'
+        typeof window !== 'undefined' &&
+        window.history.state &&
+        typeof window.history.state.blogScroll === 'number'
           ? window.history.state.blogScroll
-          : 0)
+          : 0
 
       requestAnimationFrame(() => {
         window.scrollTo({ top: savedScroll, behavior: 'auto' })
@@ -76,7 +76,7 @@ export function Blog() {
         <PostContent content={content} tags={tags} />
       ) : (
         <>
-          <div className="mt-6 w-full max-w-5xl mx-auto">
+          <div className="mx-auto mt-6 w-full max-w-5xl">
             <SearchBar
               search={search}
               setSearch={setSearch}
@@ -86,7 +86,7 @@ export function Blog() {
             />
           </div>
           {search && (
-            <p className="text-gray-700 dark:text-gray-300 text-sm mt-2 text-right">
+            <p className="mt-2 text-right text-sm text-gray-700 dark:text-gray-300">
               {t('blog.searchResults', {
                 count: currentPosts.length,
                 query: search

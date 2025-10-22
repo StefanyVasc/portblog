@@ -117,7 +117,7 @@ const en = {
           description:
             'Contributed to the development of the e-commerce site and partners platform.',
           about:
-            "As a Senior Front-End Developer, I lead multiple projects, guiding the front-end team on best practices, integrations, and architecture decisions to keep our solutions scalable and maintainable."
+            'As a Senior Front-End Developer, I lead multiple projects, guiding the front-end team on best practices, integrations, and architecture decisions to keep our solutions scalable and maintainable.'
         },
         strada: {
           title: 'Frontend Engineer',
@@ -133,7 +133,7 @@ const en = {
             'Worked on international projects as a UI Developer outsourced to a BigTech company.',
           duration: '2y 10m',
           about:
-            "Built applications for the company and its partners, focusing on interactive dashboards with D3.js for data visualization."
+            'Built applications for the company and its partners, focusing on interactive dashboards with D3.js for data visualization.'
         },
         cesarConsultant: {
           title: 'Qualification Consultant',
@@ -157,7 +157,7 @@ const en = {
             'Taught Introduction to Programming classes for high school students.',
           duration: '1 year',
           about:
-            "Taught programming through the PernambuCoders project, using Scratch, AppInventor, unplugged activities, and project-based learning in partnership with UFRPE, C.E.S.A.R., and Softex."
+            'Taught programming through the PernambuCoders project, using Scratch, AppInventor, unplugged activities, and project-based learning in partnership with UFRPE, C.E.S.A.R., and Softex.'
         }
       }
     }

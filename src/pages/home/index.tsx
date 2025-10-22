@@ -21,32 +21,36 @@ export function Home() {
 
       {/* Articles section */}
       <section className="py-5">
-        <h4 className="text-lg md:text-xl font-medium mb-3">
+        <h4 className="mb-3 text-lg font-medium md:text-xl">
           {t('home.latestArticles')}
         </h4>
 
         {latestPosts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map(post => (
-              <Card key={post.slug} className="p-4 h-[190px] flex flex-col">
+              <Card key={post.slug} className="flex h-[190px] flex-col p-4">
                 <div className="flex-1">
-                  <h5 className="text-sm md:text-base font-semibold">
+                  <h5 className="text-sm font-semibold md:text-base">
                     {post.title}
                   </h5>
                   <p
-                    className="text-xs md:text-sm text-gray-500 mt-1 overflow-hidden max-h-[60px]"
-                    style={{ display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}
+                    className="mt-1 max-h-[60px] overflow-hidden text-xs text-gray-500 md:text-sm"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 4,
+                      WebkitBoxOrient: 'vertical'
+                    }}
                   >
                     {post.description}
                   </p>
                 </div>
 
-                <div className="flex justify-between items-center mt-3 text-xs md:text-sm">
+                <div className="mt-3 flex items-center justify-between text-xs md:text-sm">
                   <p className="text-gray-400">{post.date}</p>
 
                   <Link
                     to={`/blog/${post.slug}`}
-                    className="text-rose-600 dark:text-rose-400 hover:underline"
+                    className="text-rose-600 hover:underline dark:text-rose-400"
                   >
                     {t('common.readMore')}
                   </Link>
@@ -61,10 +65,10 @@ export function Home() {
 
       {/* What I'm doing section */}
       <section className="py-5">
-        <h4 className="text-lg font-medium mb-4">{t('home.doing.title')}</h4>
+        <h4 className="mb-4 text-lg font-medium">{t('home.doing.title')}</h4>
         <Card>
           <h5>{t('home.doing.workingWith')}</h5>
-          <ul className="flex gap-2 flex-wrap my-4">
+          <ul className="my-4 flex flex-wrap gap-2">
             {technologiesILike.map((tech, i) => (
               <li key={`${tech}-${i}`}>
                 <Badge text={tech} color="gray" variant="outline" />
@@ -73,7 +77,7 @@ export function Home() {
           </ul>
 
           <h5 className="mt-4">{t('home.doing.learningAbout')}</h5>
-          <ul className="flex gap-2 flex-wrap my-4">
+          <ul className="my-4 flex flex-wrap gap-2">
             {learningNow.map((tech, i) => (
               <li key={`${tech}-${i}`}>
                 <Badge text={tech} color="gray" variant="outline" />

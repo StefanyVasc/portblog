@@ -10,11 +10,11 @@ export function ReadingSection() {
 
   return (
     <section className="py-5">
-      <h4 className="text-lg md:text-xl font-medium mb-3">
+      <h4 className="mb-3 text-lg font-medium md:text-xl">
         {t('home.reading.title')}
       </h4>
       <Card>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <ReadingList
             title={t('home.reading.technical')}
             items={technicalReadings}

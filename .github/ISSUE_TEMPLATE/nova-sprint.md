@@ -1,13 +1,11 @@
 ---
 name: Nova Sprint
 about: Para agrupar itens contidos numa sprint
-title: "[NEW]"
+title: '[NEW]'
 labels: new-sprint
 assignees: StefanyVasc
-
 ---
 
-Objetivo: 
-
+Objetivo:
 
 Pontos de atenção:

@@ -18,7 +18,7 @@ export function ReadingList({ title, items }: ReadingListProps) {
 
   return (
     <div>
-      <h5 className="text-sm md:text-base font-semibold">{title}</h5>
+      <h5 className="text-sm font-semibold md:text-base">{title}</h5>
       <ul className="mt-4 space-y-3">
         {items.map(reading => (
           <li key={reading.title} className="text-sm md:text-base">
@@ -35,7 +35,9 @@ export function ReadingList({ title, items }: ReadingListProps) {
               ))}
             </div>
             {reading.author && (
-              <p className="text-xs md:text-sm text-gray-500">{reading.author}</p>
+              <p className="text-xs text-gray-500 md:text-sm">
+                {reading.author}
+              </p>
             )}
           </li>
         ))}

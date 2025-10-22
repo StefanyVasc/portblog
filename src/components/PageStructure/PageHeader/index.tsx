@@ -66,7 +66,7 @@ export function PageHeader() {
                   {t('header.explore')}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="flex flex-col w-[150px] gap-3 p-2">
+                  <ul className="flex w-[150px] flex-col gap-3 p-2">
                     {components.map(component => (
                       <NavigationMenuLink
                         asChild

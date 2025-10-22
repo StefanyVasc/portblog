@@ -1,29 +1,32 @@
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import globals from 'globals';
-import tseslint from "typescript-eslint";
-
+import pluginJs from '@eslint/js'
+import configPrettier from 'eslint-config-prettier'
+import pluginPrettier from 'eslint-plugin-prettier'
+import pluginReact from 'eslint-plugin-react'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ["**/*.{ts,tsx}"],
+    ignores: ['dist/**', 'node_modules/**']
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
     rules: {
-      'react/react-in-jsx-scope': 'off',
+      'react/react-in-jsx-scope': 'off'
     },
-    languageOptions: { 
-      globals: globals.browser, 
+    languageOptions: {
+      globals: globals.browser,
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
+        sourceType: 'module'
       }
     }
-    
   },
   // ESLint recommended config
   pluginJs.configs.recommended,
-  
+
   // TypeScript recommended config
   ...tseslint.configs.recommended,
 
@@ -31,27 +34,25 @@ export default [
   pluginReact.configs.flat.recommended,
 
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
-          jsx: true,
-        },
-      },
+          jsx: true
+        }
+      }
     },
     settings: {
       react: {
-        version: 'detect',
-      },
+        version: 'detect'
+      }
     },
     rules: {
-      'react/react-in-jsx-scope': 'off', 
+      'react/react-in-jsx-scope': 'off'
     }
   },
 
-  
-
-// Configuração para ordenação de imports
+  // Configuração para ordenação de imports
   {
     plugins: {
       'simple-import-sort': simpleImportSort
@@ -59,5 +60,17 @@ export default [
     rules: {
       'simple-import-sort/imports': 'error'
     }
+  },
+
+  configPrettier,
+
+  // Integração com Prettier para manter formatação consistente
+  {
+    plugins: {
+      prettier: pluginPrettier
+    },
+    rules: {
+      'prettier/prettier': 'error'
+    }
   }
-];
+]

@@ -7,7 +7,7 @@ export const Card = ({
   children: React.ReactNode
   className?: string
 }) => (
-  <div className={clsx('p-6 border rounded-lg shadow-md my-4', className)}>
+  <div className={clsx('my-4 rounded-lg border p-6 shadow-md', className)}>
     {children}
   </div>
 )

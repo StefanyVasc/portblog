@@ -34,12 +34,12 @@ export function Pagination({
   }
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-6">
+    <div className="mt-6 flex items-center justify-center gap-2">
       {/* 🔙 Botão Anterior */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="p-2 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50"
+        className="p-2 text-gray-500 hover:text-gray-900 disabled:opacity-50 dark:hover:text-gray-100"
       >
         <ChevronLeft size={18} />
       </button>
@@ -50,10 +50,10 @@ export function Pagination({
           <button
             key={index}
             onClick={() => onPageChange(page)}
-            className={`px-3 py-1 rounded-md ${
+            className={`rounded-md px-3 py-1 ${
               page === currentPage
-                ? 'bg-rose-500 text-white font-bold'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'bg-rose-500 font-bold text-white'
+                : 'text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700'
             }`}
           >
             {page}
@@ -69,7 +69,7 @@ export function Pagination({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="p-2 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50"
+        className="p-2 text-gray-500 hover:text-gray-900 disabled:opacity-50 dark:hover:text-gray-100"
       >
         <ChevronRight size={18} />
       </button>

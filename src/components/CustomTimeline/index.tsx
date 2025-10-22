@@ -57,21 +57,21 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
   return (
     <motion.div
-      className="h-60 p-6 relative"
+      className="relative h-60 p-6"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       {/* Linha horizontal da timeline */}
-      <div className="absolute top-10 left-6 right-6 h-px bg-gray-500/20 dark:bg-gray-400/20" />
+      <div className="absolute left-6 right-6 top-10 h-px bg-gray-500/20 dark:bg-gray-400/20" />
 
       {/* Scroll horizontal da timeline */}
       <motion.div
         ref={scrollRef}
-        className="relative overflow-x-auto pl-6 h-full custom-scrollbar"
+        className="custom-scrollbar relative h-full overflow-x-auto pl-6"
       >
-        <motion.div className="flex gap-10 min-w-max">
+        <motion.div className="flex min-w-max gap-10">
           {sortedItems.map((item, index) => {
             const {
               yearStart,
@@ -88,7 +88,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
             return (
               <motion.div
                 key={`${yearStart}-${index}`}
-                className="relative text-sm flex flex-col items-start flex-shrink-0 w-64"
+                className="relative flex w-64 flex-shrink-0 flex-col items-start text-sm"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -100,21 +100,21 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
               >
                 {/* Ponto na Timeline */}
                 <div
-                  className={`w-3 h-3 rounded-full absolute left-0 top-4 -translate-y-1/2 ${
+                  className={`absolute left-0 top-4 h-3 w-3 -translate-y-1/2 rounded-full ${
                     current
-                      ? 'bg-rose-500 animate-glow'
+                      ? 'animate-glow bg-rose-500'
                       : 'bg-gray-900 dark:bg-gray-50'
                   }`}
                 />
 
-                <div className="flex flex-col items-start mt-8 font-rubik">
-                  <div className="font-500 text-gray-500 dark:text-gray-400 text-xs">
+                <div className="mt-8 flex flex-col items-start font-rubik">
+                  <div className="text-xs font-500 text-gray-500 dark:text-gray-400">
                     {yearStart}
                   </div>
 
                   <HoverCard>
                     <HoverCardTrigger>
-                      <div className="text-base cursor-pointer">{title}</div>
+                      <div className="cursor-pointer text-base">{title}</div>
                     </HoverCardTrigger>
                     <HoverCardContent asChild>
                       <motion.div
@@ -122,10 +122,10 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 10 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="max-w-xs max-h-[500px] overflow-y-auto p-3 rounded-lg shadow-lg bg-white dark:bg-gray-800"
+                        className="max-h-[500px] max-w-xs overflow-y-auto rounded-lg bg-white p-3 shadow-lg dark:bg-gray-800"
                       >
                         <div className="flex items-start gap-3">
-                          <span className="flex items-center gap-2 my-2 whitespace-nowrap">
+                          <span className="my-2 flex items-center gap-2 whitespace-nowrap">
                             <CalendarIcon />
                             <span>
                               {yearStart} -{' '}
@@ -134,9 +134,9 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                           </span>
 
                           {!current && duration && (
-                            <span className="flex items-start gap-2 my-2 min-w-0">
+                            <span className="my-2 flex min-w-0 items-start gap-2">
                               <LapTimerIcon />
-                              <span className="whitespace-normal leading-snug break-words">
+                              <span className="whitespace-normal break-words leading-snug">
                                 {duration}
                               </span>
                             </span>
@@ -181,12 +181,12 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                     </HoverCardContent>
                   </HoverCard>
 
-                  <div className="text-sm flex items-center gap-1 mt-4 mb-2 w-full">
+                  <div className="mb-2 mt-4 flex w-full items-center gap-1 text-sm">
                     <BackpackIcon />
                     <span> {company}</span>
                   </div>
 
-                  <div className="font-300 text-gray-500 dark:text-gray-400 text-xs">
+                  <div className="text-xs font-300 text-gray-500 dark:text-gray-400">
                     {description}
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
         {/* Indicador de arraste (some apenas quando o usuário fizer scroll) */}
         {showArrow && (
           <motion.div
-            className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-md shadow-lg flex items-center"
+            className="absolute bottom-20 left-1/2 flex -translate-x-1/2 transform items-center rounded-md bg-gray-200 px-3 py-1 text-gray-500 shadow-lg dark:bg-gray-700 dark:text-gray-400"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

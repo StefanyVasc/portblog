@@ -153,8 +153,8 @@ import { Link } from 'react-router-dom'
 import { Post } from '@/reducers/types/postTypes'
 
 export const PostList = ({ posts }: { posts: Post[] }) => (
-  <div className="p-6 max-w-3xl mx-auto">
-    <h2 className="text-2xl font-semibold mb-4">Últimos posts</h2>
+  <div className="mx-auto max-w-3xl p-6">
+    <h2 className="mb-4 text-2xl font-semibold">Últimos posts</h2>
 
     {posts.length > 0 ? (
       <ul className="space-y-4">
@@ -162,11 +162,11 @@ export const PostList = ({ posts }: { posts: Post[] }) => (
           <li key={i} className="border-b pb-3">
             <Link
               to={`/blog/${slug}`}
-              className="text-rose-600 dark:text-rose-400 font-medium hover:underline"
+              className="font-medium text-rose-600 hover:underline dark:text-rose-400"
             >
               {date} - {title}
             </Link>
-            <p className="text-gray-500 text-sm mt-1">{description}</p>
+            <p className="mt-1 text-sm text-gray-500">{description}</p>
           </li>
         ))}
       </ul>

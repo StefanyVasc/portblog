@@ -2,9 +2,7 @@ import { type TFunction } from 'i18next'
 
 import { CustomTimelineProps } from '@/components/CustomTimeline/types'
 
-export const getCareerItems = (
-  t: TFunction
-): CustomTimelineProps['items'] => [
+export const getCareerItems = (t: TFunction): CustomTimelineProps['items'] => [
   {
     yearStart: '2024',
     yearEnd: 'Present',
@@ -161,9 +159,7 @@ export const getCareerItems = (
     yearEnd: '2021',
     title: t('about.career.timelineItems.cesarConsultant.title'),
     company: 'CESAR School',
-    description: t(
-      'about.career.timelineItems.cesarConsultant.description'
-    ),
+    description: t('about.career.timelineItems.cesarConsultant.description'),
     current: false,
     duration: t('about.career.timelineItems.cesarConsultant.duration'),
     about: t('about.career.timelineItems.cesarConsultant.about'),

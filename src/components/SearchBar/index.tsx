@@ -19,19 +19,19 @@ export function SearchBar({
   const { t } = useTranslation()
 
   return (
-    <div className="flex gap-4 items-center mb-4">
+    <div className="mb-4 flex items-center gap-4">
       {/* Select de Filtro Apenas com Ícone */}
       <div className="relative w-10">
         <select
           value={searchType}
           onChange={e => setSearchType(e.target.value as 'text' | 'tag')}
-          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-transparent focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 appearance-none"
+          className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 text-transparent shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
         >
           <option value="" className="hidden" />
           <option value="text">{t('blog.search.filter.text')}</option>
           <option value="tag">{t('blog.search.filter.tag')}</option>
         </select>
-        <div className="absolute inset-0 flex items-center justify-center text-gray-400 pointer-events-none">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-gray-400">
           <Filter size={18} />
         </div>
       </div>
@@ -49,7 +49,7 @@ export function SearchBar({
               placeholder={t('blog.search.placeholder')}
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full p-2 pl-10 pr-10 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm"
+              className="w-full rounded-md border border-gray-300 bg-white p-2 pl-10 pr-10 text-gray-900 shadow-sm outline-none transition-all duration-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
             {search && (
               <button
@@ -65,7 +65,7 @@ export function SearchBar({
             <select
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full p-2 pl-3 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500 outline-none transition-all duration-200 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 appearance-none"
+              className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 pl-3 text-gray-900 shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
             >
               <option value="">{t('blog.search.selectTag')}</option>
               {allTags.map(tag => (
@@ -74,7 +74,7 @@ export function SearchBar({
                 </option>
               ))}
             </select>
-            <div className="absolute right-3 top-3 pointer-events-none text-gray-400">
+            <div className="pointer-events-none absolute right-3 top-3 text-gray-400">
               <ChevronDown size={16} />
             </div>
           </div>

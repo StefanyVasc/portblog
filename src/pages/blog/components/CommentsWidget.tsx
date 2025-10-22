@@ -71,7 +71,7 @@ export function CommentsWidget({ title }: CommentsWidgetProps) {
   return (
     <div
       ref={containerRef}
-      className="mt-8 border-t border-gray-300 pt-6 max-w-2xl mx-auto"
+      className="mx-auto mt-8 max-w-2xl border-t border-gray-300 pt-6"
     />
   )
 }

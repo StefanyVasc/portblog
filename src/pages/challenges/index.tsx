@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import {
@@ -12,7 +13,6 @@ import {
   UnderConstruction
 } from '@/components'
 import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
 
 export function ChallengesPage() {
   const { t } = useTranslation()
@@ -20,12 +20,10 @@ export function ChallengesPage() {
   return (
     <div>
       <Header headerName={t('challenges.header')} />
-      <section className="py-5 font-300">
-        {t('challenges.intro')}
-      </section>
+      <section className="py-5 font-300">{t('challenges.intro')}</section>
 
       <section>
-        <Card className={cn('w-[380px] mt-5')}>
+        <Card className={cn('mt-5 w-[380px]')}>
           <CardHeader>
             <CardTitle>{t('challenges.frontendMentor.title')}</CardTitle>
             <CardDescription> </CardDescription>
@@ -39,7 +37,9 @@ export function ChallengesPage() {
           </CardContent>
           <CardFooter>
             <Button variant={'link'} asChild>
-              <Link to="frontend-mentor">{t('challenges.frontendMentor.link')}</Link>
+              <Link to="frontend-mentor">
+                {t('challenges.frontendMentor.link')}
+              </Link>
             </Button>
           </CardFooter>
         </Card>

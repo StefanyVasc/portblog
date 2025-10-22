@@ -2,7 +2,7 @@ import { PageLayout } from './components'
 
 const App = () => {
   return (
-    <div className="font-400 font-rubik selection:bg-rose-500 selection:text-white">
+    <div className="font-rubik font-400 selection:bg-rose-500 selection:text-white">
       <PageLayout />
     </div>
   )

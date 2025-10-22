@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import {
@@ -10,7 +11,6 @@ import {
   TabsList,
   TabsTrigger
 } from '@/components'
-import { useTranslation } from 'react-i18next'
 
 export function FrontendMentor() {
   const { tabValue } = useParams()
@@ -49,7 +49,7 @@ export function FrontendMentor() {
         <Tabs
           value={currentTab}
           onValueChange={handleTabChange}
-          className="w-[400px] mt-7"
+          className="mt-7 w-[400px]"
         >
           <TabsList>
             {tabsInfos.map(tab => (
@@ -68,7 +68,7 @@ export function FrontendMentor() {
             <TabsContent
               key={currentTab}
               value={currentTab}
-              className="mt-5 ml-3"
+              className="ml-3 mt-5"
             >
               <Outlet />
             </TabsContent>

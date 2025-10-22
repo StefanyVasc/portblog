@@ -10,7 +10,7 @@ export function PageFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="font-rubik font-normal flex h-20 w-full justify-between shrink-0 items-center px-4 md:px-6">
+    <footer className="flex h-20 w-full shrink-0 items-center justify-between px-4 font-rubik font-normal md:px-6">
       <ul className="flex space-x-6">
         <li>
           <a

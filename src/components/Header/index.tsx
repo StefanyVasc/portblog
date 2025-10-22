@@ -6,7 +6,7 @@ type HeaderProps = {
 export function Header({ headerName, children }: HeaderProps) {
   return (
     <header>
-      <h4 className="font-itim scroll-m-20 text-2xl font-semibold tracking-tight">
+      <h4 className="scroll-m-20 font-itim text-2xl font-semibold tracking-tight">
         {headerName}
       </h4>
 

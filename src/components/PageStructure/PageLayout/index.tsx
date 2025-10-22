@@ -15,7 +15,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
   )
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 min-h-screen flex flex-col">
+    <div className="container mx-auto flex min-h-screen flex-col px-4 md:px-6 lg:px-8">
       <PageHeader />
 
       <main className="flex-grow px-4 md:px-6">
@@ -26,13 +26,13 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
               initial={{ x: 50 }}
               animate={{ x: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="w-full h-full"
+              className="h-full w-full"
             >
               {children}
               <Outlet />
             </motion.div>
           ) : (
-            <div className="w-full h-full">
+            <div className="h-full w-full">
               {children}
               <Outlet />
             </div>

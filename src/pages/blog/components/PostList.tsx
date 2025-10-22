@@ -14,9 +14,9 @@ export const PostList = ({
   const { t } = useTranslation()
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 py-6 min-h-[60vh]">
+    <div className="mx-auto min-h-[60vh] w-full max-w-4xl px-4 py-6 sm:px-6 lg:px-10">
       {!searched && (
-        <h4 className="text-xl font-semibold mb-4">{t('blog.latestPosts')}</h4>
+        <h4 className="mb-4 text-xl font-semibold">{t('blog.latestPosts')}</h4>
       )}
 
       {posts.length > 0 ? (
@@ -24,7 +24,7 @@ export const PostList = ({
           {posts.map(post => (
             <li
               key={post.slug}
-              className="border-y py-4 min-h-[150px] flex flex-col justify-between gap-2"
+              className="flex min-h-[150px] flex-col justify-between gap-2 border-y py-4"
             >
               <div className="flex flex-wrap items-center gap-2 text-gray-800 dark:text-gray-200">
                 <span className="text-gray-500">{post.date} -</span>
@@ -39,17 +39,17 @@ export const PostList = ({
                       )
                     }
                   }}
-                  className="text-rose-600 dark:text-rose-400 hover:underline font-semibold"
+                  className="font-semibold text-rose-600 hover:underline dark:text-rose-400"
                 >
                   {post.title}
                 </Link>
               </div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 {post.description}
               </p>
 
               {post.tags && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
+                <div className="mt-2 flex flex-wrap gap-2">
                   {post.tags.map(tag => (
                     <Badge
                       color="rose"

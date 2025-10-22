@@ -1,7 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { CustomBreadcrumb, Header } from '@/components'
-import { useTranslation } from 'react-i18next'
 
 export function BoraCodar() {
   const location = useLocation()
