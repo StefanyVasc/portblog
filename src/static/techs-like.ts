@@ -11,5 +11,6 @@ export const technologiesILike = [
   'React Query',
   'zod',
   'Jest & Testing Library',
-  'Clean Architecture & MVVM'
+  'Clean Architecture & MVVM',
+  'Featured sliced'
 ]

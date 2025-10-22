@@ -1,5 +1,6 @@
-import { Header, UnderConstruction } from '@/components'
 import { useTranslation } from 'react-i18next'
+
+import { Header, UnderConstruction } from '@/components'
 
 export function Projects() {
   const { t } = useTranslation()

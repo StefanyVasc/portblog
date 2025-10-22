@@ -1,5 +1,6 @@
-import { Header } from '@/components'
 import { useTranslation } from 'react-i18next'
+
+import { Header } from '@/components'
 
 export function Socials() {
   const { t } = useTranslation()

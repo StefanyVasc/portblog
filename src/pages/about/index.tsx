@@ -10,11 +10,11 @@ import {
   Header,
   Paragraph
 } from '@/components'
-import { aboutILike, careerItems } from '@/static'
+import { aboutILike, getCareerItems } from '@/static'
 
 export function About() {
-  const items = useMemo(() => careerItems.items, [])
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const items = useMemo(() => getCareerItems(t), [t, i18n.language])
 
   return (
     <div>

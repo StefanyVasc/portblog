@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { motion } from 'framer-motion'
 import { MoveHorizontal } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
   Badge,
@@ -11,7 +12,6 @@ import {
   HoverCardTrigger,
   Section
 } from '@/components'
-import { useTranslation } from 'react-i18next'
 
 import { CustomTimelineProps } from './types'
 
@@ -124,17 +124,21 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                         transition={{ duration: 0.3, ease: 'easeOut' }}
                         className="max-w-xs max-h-[500px] overflow-y-auto p-3 rounded-lg shadow-lg bg-white dark:bg-gray-800"
                       >
-                        <div className="flex justify-between">
-                          <span className="flex gap-2 my-2">
+                        <div className="flex items-start gap-3">
+                          <span className="flex items-center gap-2 my-2 whitespace-nowrap">
                             <CalendarIcon />
-                            {yearStart} -
-                            {!current ? yearEnd : t('common.present')}
+                            <span>
+                              {yearStart} -{' '}
+                              {!current ? yearEnd : t('common.present')}
+                            </span>
                           </span>
 
                           {!current && duration && (
-                            <span className="flex gap-2 my-2">
+                            <span className="flex items-start gap-2 my-2 min-w-0">
                               <LapTimerIcon />
-                              {duration}
+                              <span className="whitespace-normal leading-snug break-words">
+                                {duration}
+                              </span>
                             </span>
                           )}
                         </div>
