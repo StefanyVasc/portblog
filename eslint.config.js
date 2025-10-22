@@ -52,6 +52,20 @@ export default [
     }
   },
 
+  {
+    files: ['**/*.{js,jsx}'],
+    rules: {
+      '@typescript-eslint/no-unused-expressions': 'off'
+    }
+  },
+
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-unused-expressions': ['error', {}]
+    }
+  },
+
   // Configuração para ordenação de imports
   {
     plugins: {
