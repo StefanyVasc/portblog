@@ -1,0 +1,130 @@
+name: Update branches when main changes
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  update-branches:
+    runs-on: ubuntu-latest
+
+    # ====== CONFIGURÁVEL ======
+    env:
+      # Branches exatas do teu fluxo:
+      RELEASE_BRANCH: "release"
+      FEATURE_BRANCH: "feature"
+      HOTFIX_BRANCH: "hotfix"
+
+      # Modo de atualização das branches de trabalho:
+      # use "rebase" (exige force-push) ou "merge" (sem reescrever histórico)
+      FEATURE_MODE: "rebase"
+      HOTFIX_MODE: "rebase"
+
+      # Identidade do bot
+      GIT_AUTHOR_NAME: "workflow-bot"
+      GIT_AUTHOR_EMAIL: "workflow-bot@users.noreply.github.com"
+      GIT_COMMITTER_NAME: "workflow-bot"
+      GIT_COMMITTER_EMAIL: "workflow-bot@users.noreply.github.com"
+    # ==========================
+
+    steps:
+      - name: Checkout (fetch all)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Se usar REBASE, pode precisar de PAT se houver proteção.
+          # Caso contrário, o GITHUB_TOKEN costuma bastar em repositório pessoal.
+          token: ${{ secrets.REBASE_PAT || github.token }}
+
+      - name: Prepare git
+        run: |
+          set -e
+          git config user.name  "$GIT_AUTHOR_NAME"
+          git config user.email "$GIT_AUTHOR_EMAIL"
+          git fetch --all --prune
+
+      # --- 1) RELEASE <- MERGE origin/main ---
+      - name: Merge main into release
+        run: |
+          set -e
+          if git show-ref --verify --quiet "refs/remotes/origin/${RELEASE_BRANCH}"; then
+            git checkout "${RELEASE_BRANCH}"
+            git fetch origin main --prune
+            if git merge-base --is-ancestor origin/main HEAD; then
+              echo "release já contém main. Pulando."
+            else
+              if git merge --no-edit origin/main; then
+                git push origin "${RELEASE_BRANCH}"
+              else
+                echo "Conflito ao fazer merge em ${RELEASE_BRANCH}. Abortando."
+                git merge --abort || true
+              fi
+            fi
+          else
+            echo "Branch release não existe em origin. Pulando."
+          fi
+
+      # --- 2) FEATURE ---
+      - name: Update feature from main
+        if: env.FEATURE_BRANCH != ''
+        run: |
+          set -e
+          if git show-ref --verify --quiet "refs/remotes/origin/${FEATURE_BRANCH}"; then
+            git checkout "${FEATURE_BRANCH}"
+            git fetch origin main --prune
+            if git merge-base --is-ancestor origin/main HEAD; then
+              echo "feature já contém main. Pulando."
+            else
+              if [ "${FEATURE_MODE}" = "rebase" ]; then
+                if git rebase origin/main; then
+                  git push --force-with-lease origin "${FEATURE_BRANCH}"
+                else
+                  echo "Conflito ao rebase em feature. Abortando."
+                  git rebase --abort || true
+                fi
+              else
+                if git merge --no-edit origin/main; then
+                  git push origin "${FEATURE_BRANCH}"
+                else
+                  echo "Conflito ao merge em feature. Abortando."
+                  git merge --abort || true
+                fi
+              fi
+            fi
+          else
+            echo "Branch feature não existe. Pulando."
+          fi
+
+      # --- 3) HOTFIX ---
+      - name: Update hotfix from main
+        if: env.HOTFIX_BRANCH != ''
+        run: |
+          set -e
+          if git show-ref --verify --quiet "refs/remotes/origin/${HOTFIX_BRANCH}"; then
+            git checkout "${HOTFIX_BRANCH}"
+            git fetch origin main --prune
+            if git merge-base --is-ancestor origin/main HEAD; then
+              echo "hotfix já contém main. Pulando."
+            else
+              if [ "${HOTFIX_MODE}" = "rebase" ]; then
+                if git rebase origin/main; then
+                  git push --force-with-lease origin "${HOTFIX_BRANCH}"
+                else
+                  echo "Conflito ao rebase em hotfix. Abortando."
+                  git rebase --abort || true
+                fi
+              else
+                if git merge --no-edit origin/main; then
+                  git push origin "${HOTFIX_BRANCH}"
+                else
+                  echo "Conflito ao merge em hotfix. Abortando."
+                  git merge --abort || true
+                fi
+              fi
+            fi
+          else
+            echo "Branch hotfix não existe. Pulando."
+          fi
