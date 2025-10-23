@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Badge, Header, ProjectCard } from '@/components'
+import { Header, ProjectCard } from '@/components'
 import { useGithubProjects, usePost } from '@/hooks'
 import { learningNow, technologiesILike } from '@/static'
 
 import { Card } from './components/Card'
 import { ReadingSection } from './components/ReadingSection'
+import { TechBadgeList } from './components/TechBadgeList'
 
 export function Home() {
   const { posts } = usePost()
@@ -115,32 +116,25 @@ export function Home() {
       {/* What I'm doing & reading section */}
       <section className="py-5">
         <div className="grid gap-6 md:grid-cols-2 md:items-start">
-          <div>
+          <div className="flex h-full flex-col">
             <h4 className="mb-4 text-lg font-medium">
               {t('home.doing.title')}
             </h4>
-            <Card>
-              <h5>{t('home.doing.workingWith')}</h5>
-              <ul className="my-4 flex flex-wrap gap-2">
-                {technologiesILike.map((tech, i) => (
-                  <li key={`${tech}-${i}`}>
-                    <Badge text={tech} color="gray" variant="outline" />
-                  </li>
-                ))}
-              </ul>
-
-              <h5 className="mt-4">{t('home.doing.learningAbout')}</h5>
-              <ul className="my-4 flex flex-wrap gap-2">
-                {learningNow.map((tech, i) => (
-                  <li key={`${tech}-${i}`}>
-                    <Badge text={tech} color="gray" variant="outline" />
-                  </li>
-                ))}
-              </ul>
+            <Card className="flex-1">
+              <div className="grid gap-6 md:grid-cols-2">
+                <TechBadgeList
+                  title={t('home.doing.workingWith')}
+                  items={technologiesILike}
+                />
+                <TechBadgeList
+                  title={t('home.doing.learningAbout')}
+                  items={learningNow}
+                />
+              </div>
             </Card>
           </div>
 
-          <ReadingSection embedded />
+          <ReadingSection embedded className="flex h-full flex-col" />
         </div>
       </section>
     </div>

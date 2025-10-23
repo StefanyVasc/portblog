@@ -56,8 +56,12 @@ export function ReadingList({ title, items }: ReadingListProps) {
               <div className="flex flex-col gap-1">
                 <span className="font-medium">{reading.title}</span>
 
-                <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground md:text-sm">
-                  {reading.author && <span>{reading.author}</span>}
+                <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground md:text-xs">
+                  {reading.author ? (
+                    <span className="text-[11px] md:text-xs">
+                      {reading.author}
+                    </span>
+                  ) : null}
 
                   <div className="flex items-center gap-2">
                     {tagOrder
