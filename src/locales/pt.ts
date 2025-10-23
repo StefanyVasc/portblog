@@ -48,8 +48,16 @@ const pt = {
       casual: 'Leituras casuais',
       tags: {
         recommendation: 'recomendação',
-        reading: 'lendo agora'
+        reading: 'lendo agora',
+        'last read': 'última leitura'
       }
+    },
+    projects: {
+      title: 'Projetos em destaque',
+      viewAll: 'Ver todos os projetos',
+      loading: 'Carregando projetos em destaque...',
+      empty: 'Nenhum projeto em destaque no momento.',
+      error: 'Não foi possível carregar os projetos agora.'
     }
   },
   blog: {
@@ -93,7 +101,28 @@ const pt = {
     }
   },
   projects: {
-    header: 'Projetos'
+    header: 'Projetos',
+    filters: {
+      search: 'Buscar projetos',
+      searchPlaceholder: 'Busque por nome, descrição ou tag',
+      tag: 'Filtrar por tag',
+      tagAll: 'Todas as tags'
+    },
+    states: {
+      loading: 'Carregando projetos...',
+      error:
+        'Não foi possível carregar os projetos do GitHub agora. Tente novamente mais tarde.',
+      empty: 'Nenhum projeto encontrado com esses filtros.'
+    },
+    card: {
+      repository: 'Repositório',
+      visit: 'Ver online',
+      lastUpdated: 'Atualizado em {{date}}',
+      noDescription: 'Sem descrição disponível.'
+    },
+    pagination: {
+      total: 'Projetos'
+    }
   },
   socials: {
     header: 'Redes sociais'

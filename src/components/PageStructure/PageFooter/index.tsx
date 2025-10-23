@@ -1,4 +1,5 @@
 import {
+  CameraIcon,
   GitHubLogoIcon,
   LinkedInLogoIcon,
   TwitterLogoIcon
@@ -38,6 +39,15 @@ export function PageFooter() {
             rel="noopener noreferrer"
           >
             <TwitterLogoIcon className="text-2xl hover:text-rose-500" />
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://unsplash.com/pt-br/@stevasc"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <CameraIcon className="text-2xl hover:text-rose-500" />
           </a>
         </li>
       </ul>
