@@ -5,11 +5,19 @@ import { casualReadings, technicalReadings } from '@/static'
 import { Card } from './Card'
 import { ReadingList } from './ReadingList'
 
-export function ReadingSection() {
+type ReadingSectionProps = {
+  embedded?: boolean
+  className?: string
+}
+
+export function ReadingSection({
+  embedded = false,
+  className = ''
+}: ReadingSectionProps) {
   const { t } = useTranslation()
 
-  return (
-    <section className="py-5">
+  const content = (
+    <>
       <h4 className="mb-3 text-lg font-medium md:text-xl">
         {t('home.reading.title')}
       </h4>
@@ -25,6 +33,14 @@ export function ReadingSection() {
           />
         </div>
       </Card>
-    </section>
+    </>
   )
+
+  if (embedded) {
+    return <div className={className}>{content}</div>
+  }
+
+  const wrapperClass = className ? `py-5 ${className}` : 'py-5'
+
+  return <section className={wrapperClass}>{content}</section>
 }

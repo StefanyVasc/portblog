@@ -50,6 +50,13 @@ const en = {
         recommendation: 'recommendation',
         reading: 'reading now'
       }
+    },
+    projects: {
+      title: 'Featured Projects',
+      viewAll: 'See all projects',
+      loading: 'Loading highlighted projects...',
+      empty: 'No projects to highlight yet.',
+      error: 'Unable to load projects right now.'
     }
   },
   blog: {
@@ -93,7 +100,28 @@ const en = {
     }
   },
   projects: {
-    header: 'Projects'
+    header: 'Projects',
+    filters: {
+      search: 'Search projects',
+      searchPlaceholder: 'Search by name, description, or tag',
+      tag: 'Filter by tag',
+      tagAll: 'All tags'
+    },
+    states: {
+      loading: 'Loading projects...',
+      error:
+        'Could not load GitHub projects right now. Please try again later.',
+      empty: 'No projects match your filters yet.'
+    },
+    card: {
+      repository: 'Repository',
+      visit: 'Live preview',
+      lastUpdated: 'Last update · {{date}}',
+      noDescription: 'No description available yet.'
+    },
+    pagination: {
+      total: 'Projects'
+    }
   },
   socials: {
     header: 'Socials'
