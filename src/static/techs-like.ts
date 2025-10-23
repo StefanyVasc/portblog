@@ -3,14 +3,14 @@ export const technologiesILike = [
   'TypeScript',
   'React.js',
   'Next.js',
-  'Styled Components',
   'D3.js',
   'Radix UI',
   'SWR',
   'Axios',
-  'React Query',
   'zod',
+  'React Query',
   'Jest & Testing Library',
   'Clean Architecture & MVVM',
-  'Featured sliced'
+  'Featured sliced',
+  'Styled Components'
 ]

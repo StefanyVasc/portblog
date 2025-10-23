@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom'
 import { Badge } from '@/components'
 import { Post } from '@/reducers/types/posts'
 
-export const PostList = ({
-  posts,
-  searched
-}: {
+type PostListProps = {
   posts: Post[]
-  searched: string
-}) => {
+  searched?: string
+}
+
+export const PostList = ({ posts, searched }: PostListProps) => {
   const { t } = useTranslation()
 
   return (

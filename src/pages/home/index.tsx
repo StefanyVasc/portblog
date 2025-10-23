@@ -1,15 +1,23 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Badge, Header } from '@/components'
-import { usePost } from '@/hooks/usePost'
+import { Header, ProjectCard } from '@/components'
+import { useGithubProjects, usePost } from '@/hooks'
 import { learningNow, technologiesILike } from '@/static'
 
 import { Card } from './components/Card'
 import { ReadingSection } from './components/ReadingSection'
+import { TechBadgeList } from './components/TechBadgeList'
 
 export function Home() {
   const { posts } = usePost()
+  const {
+    projects: featuredProjects,
+    loading: projectsLoading,
+    error: projectsError
+  } = useGithubProjects({
+    limit: 3
+  })
   const { t } = useTranslation()
 
   // Get the 3 most recent posts (assuming the hook already sorts them)
@@ -63,31 +71,72 @@ export function Home() {
         )}
       </section>
 
-      {/* What I'm doing section */}
+      {/* Featured projects */}
       <section className="py-5">
-        <h4 className="mb-4 text-lg font-medium">{t('home.doing.title')}</h4>
-        <Card>
-          <h5>{t('home.doing.workingWith')}</h5>
-          <ul className="my-4 flex flex-wrap gap-2">
-            {technologiesILike.map((tech, i) => (
-              <li key={`${tech}-${i}`}>
-                <Badge text={tech} color="gray" variant="outline" />
-              </li>
-            ))}
-          </ul>
+        <div className="mb-4 flex items-center justify-between">
+          <h4 className="text-lg font-medium md:text-xl">
+            {t('home.projects.title')}
+          </h4>
+          <Link
+            to="/projects"
+            className="text-sm font-semibold text-rose-600 hover:underline dark:text-rose-400"
+          >
+            {t('home.projects.viewAll')}
+          </Link>
+        </div>
 
-          <h5 className="mt-4">{t('home.doing.learningAbout')}</h5>
-          <ul className="my-4 flex flex-wrap gap-2">
-            {learningNow.map((tech, i) => (
-              <li key={`${tech}-${i}`}>
-                <Badge text={tech} color="gray" variant="outline" />
-              </li>
+        {projectsLoading ? (
+          <p className="text-sm text-muted-foreground">
+            {t('home.projects.loading')}
+          </p>
+        ) : projectsError ? (
+          <p className="text-sm text-rose-500">{t('home.projects.error')}</p>
+        ) : featuredProjects.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            {t('home.projects.empty')}
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {featuredProjects.map(project => (
+              <ProjectCard
+                key={project.id}
+                name={project.name}
+                description={project.description}
+                tags={project.tags}
+                repository={project.repository}
+                homepage={project.homepage}
+                stars={project.stars}
+                updatedAt={project.updatedAt}
+              />
             ))}
-          </ul>
-        </Card>
+          </div>
+        )}
       </section>
 
-      <ReadingSection />
+      {/* What I'm doing & reading section */}
+      <section className="py-5">
+        <div className="grid gap-6 md:grid-cols-2 md:items-start">
+          <div className="flex h-full flex-col">
+            <h4 className="mb-4 text-lg font-medium">
+              {t('home.doing.title')}
+            </h4>
+            <Card className="flex-1">
+              <div className="grid gap-6 md:grid-cols-2">
+                <TechBadgeList
+                  title={t('home.doing.workingWith')}
+                  items={technologiesILike}
+                />
+                <TechBadgeList
+                  title={t('home.doing.learningAbout')}
+                  items={learningNow}
+                />
+              </div>
+            </Card>
+          </div>
+
+          <ReadingSection embedded className="flex h-full flex-col" />
+        </div>
+      </section>
     </div>
   )
 }

@@ -21,6 +21,7 @@ export function Blog() {
     setCurrentPage,
     totalPages,
     currentPosts,
+    filteredPosts,
     allTags
   } = useBlogSearch(posts, postsPerPage, { disabled: Boolean(slug) })
   const pathnames = formatBreadcrumb(slug)
@@ -100,6 +101,8 @@ export function Blog() {
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
+                totalItems={filteredPosts.length}
+                pageSize={postsPerPage}
                 onPageChange={setCurrentPage}
               />
             </footer>
