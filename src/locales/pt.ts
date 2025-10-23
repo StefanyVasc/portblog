@@ -48,7 +48,8 @@ const pt = {
       casual: 'Leituras casuais',
       tags: {
         recommendation: 'recomendação',
-        reading: 'lendo agora'
+        reading: 'lendo agora',
+        'last read': 'última leitura'
       }
     },
     projects: {

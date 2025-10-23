@@ -15,6 +15,9 @@ export function ReadingSection({
   className = ''
 }: ReadingSectionProps) {
   const { t } = useTranslation()
+  const MAX_ITEMS_PER_LIST = 3
+  const limitedTechnical = technicalReadings.slice(0, MAX_ITEMS_PER_LIST)
+  const limitedCasual = casualReadings.slice(0, MAX_ITEMS_PER_LIST)
 
   const content = (
     <>
@@ -25,12 +28,9 @@ export function ReadingSection({
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <ReadingList
             title={t('home.reading.technical')}
-            items={technicalReadings}
+            items={limitedTechnical}
           />
-          <ReadingList
-            title={t('home.reading.casual')}
-            items={casualReadings}
-          />
+          <ReadingList title={t('home.reading.casual')} items={limitedCasual} />
         </div>
       </Card>
     </>

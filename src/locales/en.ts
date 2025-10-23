@@ -48,7 +48,8 @@ const en = {
       casual: 'Casual Reads',
       tags: {
         recommendation: 'recommendation',
-        reading: 'reading now'
+        reading: 'reading now',
+        'last read': 'last read'
       }
     },
     projects: {

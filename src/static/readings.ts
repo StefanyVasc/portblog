@@ -1,4 +1,4 @@
-export type ReadingTag = 'recommendation' | 'reading'
+export type ReadingTag = 'recommendation' | 'reading' | 'last read'
 
 export type Reading = {
   title: string
@@ -20,7 +20,7 @@ export const technicalReadings: Reading[] = [
   {
     title: 'Refactoring UI',
     author: 'Adam Wathan & Steve Schoger',
-    tags: ['recommendation']
+    tags: ['last read']
   }
 ]
 
@@ -28,7 +28,7 @@ export const casualReadings: Reading[] = [
   {
     title: 'Torto Arado',
     author: 'Itamar Vieira Junior',
-    tags: ['recommendation']
+    tags: ['last read']
   },
   {
     title: 'The Invisible Life of Eurídice Gusmão',
