@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_BRANCH: "release"
+      TMP_BRANCH: "ci/update-release-from-main"
       BOT_NAME: "workflow-bot"
       BOT_EMAIL: "workflow-bot@users.noreply.github.com"
 
@@ -27,57 +28,76 @@ jobs:
           git config user.email "$BOT_EMAIL"
           git fetch --all --prune
 
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
-        with:
-          version: latest
-
-      - name: Create/Update PR release <- main (no direct push)
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Sanity checks (does release exist? is it already up-to-date?)
+        id: sanity
         run: |
-          set -e
-
           if ! git show-ref --verify --quiet "refs/remotes/origin/${RELEASE_BRANCH}"; then
-            echo "Branch ${RELEASE_BRANCH} não existe. Saindo."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          echo "exists=true" >> "$GITHUB_OUTPUT"
 
-          # Se release já contém main, não precisa de PR
+          # release já contém a main?
           git checkout "${RELEASE_BRANCH}"
           git fetch origin main --prune
           if git merge-base --is-ancestor origin/main HEAD; then
-            echo "release já contém main. Nada a fazer."
-            exit 0
+            echo "uptodate=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "uptodate=false" >> "$GITHUB_OUTPUT"
           fi
 
-          TMP="ci/update-${RELEASE_BRANCH}-from-main"
-          git checkout -B "${TMP}" "origin/${RELEASE_BRANCH}"
-
-          # Merge (sem reescrever histórico)
+      - name: Create temp branch with merge main -> release
+        if: steps.sanity.outputs.exists == 'true' && steps.sanity.outputs.uptodate == 'false'
+        id: merge
+        run: |
+          set -e
+          git checkout -B "${TMP_BRANCH}" "origin/${RELEASE_BRANCH}"
           if ! git merge --no-edit origin/main; then
-            echo "Conflito ao mesclar main em release. Abortando tentativa."
+            echo "has_conflict=true" >> "$GITHUB_OUTPUT"
             git merge --abort || true
             exit 0
           fi
+          echo "has_conflict=false" >> "$GITHUB_OUTPUT"
+          git push -u origin "${TMP_BRANCH}"
 
-          git push -u origin "${TMP}"
+      - name: Create or update PR (base=release, head=TMP_BRANCH)
+        if: steps.sanity.outputs.exists == 'true' && steps.sanity.outputs.uptodate == 'false' && steps.merge.outputs.has_conflict == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const base = process.env.RELEASE_BRANCH;
+            const head = `${owner}:${process.env.TMP_BRANCH}`;
+            const title = `chore: update ${base} with latest main`;
+            const body = [
+              `Atualiza a branch \`${base}\` com a última \`main\`.`,
+              `- PR criada automaticamente pelo workflow.`,
+              `- Os checks desta PR precisam passar para liberar o merge.`
+            ].join('\n');
 
-          TITLE="chore: update ${RELEASE_BRANCH} with latest main"
-          BODY=$'Atualiza a branch '"\`${RELEASE_BRANCH}\`"' com a última main.\n\nPR aberta automaticamente pelo workflow.'
+            // procura PR existente head->base
+            const { data: prs } = await github.rest.pulls.list({
+              owner, repo, state: 'open', base, head
+            });
 
-          # Reusa PR se já existir
-          EXISTING=$(gh pr list --base "${RELEASE_BRANCH}" --head "${TMP}" --json number --jq '.[0].number' || true)
-          if [ -n "$EXISTING" ]; then
-            echo "PR #$EXISTING já existe. Atualizada com novo push."
-          else
-            gh pr create \
-              --base "${RELEASE_BRANCH}" \
-              --head "${TMP}" \
-              --title "${TITLE}" \
-              --body  "${BODY}" \
-              --label "auto-update"
+            if (prs.length > 0) {
+              core.info(`PR #${prs[0].number} já existe. Nada a criar.`);
+            } else {
+              const { data: pr } = await github.rest.pulls.create({
+                owner, repo, base, head: process.env.TMP_BRANCH, title, body
+              });
+              core.info(`PR criada: #${pr.number}`);
+            }
+
+      - name: Log when up-to-date or conflicting
+        if: steps.sanity.outputs.exists != 'true' || steps.sanity.outputs.uptodate == 'true' || steps.merge.outputs.has_conflict == 'true'
+        run: |
+          if [ "${{ steps.sanity.outputs.exists }}" != "true" ]; then
+            echo "Branch release não existe. Nada a fazer."
+          elif [ "${{ steps.sanity.outputs.uptodate }}" = "true" ]; then
+            echo "release já está atualizada com main."
+          elif [ "${{ steps.merge.outputs.has_conflict }}" = "true" ]; then
+            echo "Conflito ao mesclar main em release. PR não aberta."
           fi
-
-          # (Opcional) Auto-merge quando checks passarem:
-          # gh pr merge "${TMP}" --auto --merge || true
