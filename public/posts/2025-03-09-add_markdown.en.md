@@ -1,3 +1,14 @@
+---
+slug: 2025-03-09-add_markdown
+title: 'Adding Markdown Support to the Blog'
+description: 'How I wired Markdown into the blog: folder structure, helper hooks, rendering setup and a styled reading experience.'
+date: 'March 9, 2025'
+tags:
+  - blog
+  - webdev
+  - markdown
+---
+
 # 📝 Adding Markdown Support to the Portfolio Blog
 
 Having a **blog inside the portfolio** was always one of my goals. I wanted something lightweight, easy to maintain, and that wouldn’t require standing up a CMS for every new post.

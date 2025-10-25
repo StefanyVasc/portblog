@@ -39,8 +39,11 @@ collections:
       - label: Slug
         name: slug
         widget: string
-        hint: 'Usado para gerar a URL e relacionar com a lista em posts.json.'
+        hint: 'Usado para gerar a URL do post.'
         i18n: duplicate
+        pattern:
+          - '^[a-z0-9]+[a-z0-9-_]*$'
+          - 'Use apenas letras minúsculas, números, hífen e underscore.'
       - label: Title
         name: title
         widget: string
@@ -65,46 +68,3 @@ collections:
         name: body
         widget: markdown
         i18n: translate
-
-  - name: posts_index
-    label: Listagem do Blog
-    delete: false
-    editor:
-      preview: false
-    files:
-      - label: Lista (Português)
-        name: posts_pt
-        file: public/posts/posts.json
-        format: json
-        fields:
-          - label: Posts
-            name: posts
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - { label: Slug, name: slug, widget: string }
-              - { label: Título, name: title, widget: string }
-              - { label: Data, name: date, widget: string }
-              - { label: Descrição, name: description, widget: text }
-              - label: Tags
-                name: tags
-                widget: list
-                allow_add: true
-      - label: Listing (English)
-        name: posts_en
-        file: public/posts/posts.en.json
-        format: json
-        fields:
-          - label: Posts
-            name: posts
-            widget: list
-            summary: '{{fields.title}}'
-            fields:
-              - { label: Slug, name: slug, widget: string }
-              - { label: Title, name: title, widget: string }
-              - { label: Date, name: date, widget: string }
-              - { label: Description, name: description, widget: text }
-              - label: Tags
-                name: tags
-                widget: list
-                allow_add: true

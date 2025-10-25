@@ -6,6 +6,7 @@ Passos para usar o painel `/admin` em produção.
 
 - Suba o repositório para a Netlify e configure o build com `NPM_VERSION` (opcional), comando `npm run build` e diretório de publicação `dist`.
 - Confirme que o arquivo `public/_redirects` foi publicado (garante que `/admin` sirva o painel).
+- O build já executa `node scripts/generate-posts-index.mjs` antes do `vite build`, gerando os JSONs consumidos pelo blog.
 
 ### 2. Variáveis de ambiente (opcionais)
 
@@ -33,12 +34,12 @@ Passos para usar o painel `/admin` em produção.
 2. Faça login com o usuário configurado no Identity.
 3. Crie um post de teste:
    - O workflow vai criar um draft; ao clicar em “Ready → Publish” a Netlify abre um PR/commit no repositório.
-   - Certifique-se de que o arquivo Markdown e os JSONs são atualizados após o merge.
-4. Rode o build novamente e valide se o novo post aparece em `/blog`.
+   - O build dispara `node scripts/generate-posts-index.mjs`, que atualiza automaticamente `posts.json` e `posts.en.json` a partir dos frontmatters.
+4. Assim que o deploy terminar, valide se o novo post aparece na listagem e na busca em `/blog`.
 
 ### 6. Uso local com workflow editorial
 
-- Mantenha `npm run dev` aberto.
+- Mantenha `npm run dev` aberto (o comando já sincroniza os JSONs antes de subir o Vite).
 - Em outro terminal execute `npx decap-server --publish-mode editorial_workflow`.
 - Abra `http://localhost:5173/admin/index.html`; agora o CMS usa o proxy e permite o processo completo de revisão.
 

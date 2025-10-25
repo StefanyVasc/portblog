@@ -1,3 +1,14 @@
+---
+slug: 2025-03-10-add_code_highlighting
+title: 'Adding Syntax Highlighting to Markdown Posts'
+description: 'A step-by-step on enabling syntax highlight: installing dependencies, configuring the renderer, styling and testing the result.'
+date: 'March 10, 2025'
+tags:
+  - blog
+  - webdev
+  - syntax-highlighting
+---
+
 # 🎨 Adding Syntax Highlighting to Markdown Posts
 
 If you are writing technical content, plain code blocks are not enough. Highlighted syntax helps readers scan faster and keeps examples aligned with the look and feel of the blog. In this post I describe how I enabled **syntax highlighting** end-to-end.

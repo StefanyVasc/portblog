@@ -1,3 +1,15 @@
+---
+slug: 2025-03-08-starting_my_portfolio
+title: 'Criando Meu Portfólio - Parte 1: A Jornada Começa'
+description: 'A ideia de ter um portfólio profissional sempre esteve na minha mente, mas eu queria algo mais do que um simples site estático...'
+date: 'Março 8, 2025'
+tags:
+  - portfolio
+  - webdev
+  - career
+  - projects
+---
+
 # 🚀 Criando Meu Portfólio - Parte 1: A Jornada Começa
 
 A ideia de ter um **portfólio profissional** sempre esteve na minha mente, mas eu queria algo que fosse **mais do que um simples site estático**. Queria que ele **representasse minha evolução como desenvolvedora**, refletisse minhas habilidades e, ao mesmo tempo, fosse um espaço para compartilhar conhecimento.

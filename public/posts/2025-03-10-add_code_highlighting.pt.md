@@ -1,3 +1,14 @@
+---
+slug: 2025-03-10-add_code_highlighting
+title: 'Adicionando Code sintaxe ao Blog'
+description: 'Como adicionei destaque de sintaxe ao blog, incluindo instalação, configuração e personalização.'
+date: 'Março 10, 2025'
+tags:
+  - blog
+  - webdev
+  - syntax-highlighting
+---
+
 # 🎨 Adicionando Code Highlight ao Blog em Markdown
 
 Ao criar um blog técnico, é essencial exibir código com **destaque de sintaxe** para facilitar a leitura e a compreensão. Neste post, vou mostrar como adicionei **Code Highlight** ao meu blog Markdown.

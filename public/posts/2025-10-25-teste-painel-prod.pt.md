@@ -1,12 +1,17 @@
 ---
-slug: TESTE - PAINEL - PROD
-title: teste de tradução automatica
-description: AQUI VAI UMA DESCRIPTIONS
-date: October 25, 2025
+slug: 2025-10-25-teste-painel-prod
+title: 'Teste do painel em produção'
+description: 'Primeiro post criado pelo painel do Decap em produção.'
+date: '25 de outubro de 2025'
 tags:
   - teste
 ---
-texto em portugues, quando eu clicar no botão a tradução deve ocorrer. 
+
+hellow world
+
+ooieoieoie
+
+\# teste markdown
 
 ```
 teste teste

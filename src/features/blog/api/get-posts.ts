@@ -9,7 +9,9 @@ type GetPostsArgs = {
 }
 
 export async function getPosts({ localeSuffix, signal }: GetPostsArgs) {
-  const primaryPath = `/posts/posts${localeSuffix}.json`
+  const normalizedSuffix =
+    localeSuffix === '.pt' || localeSuffix === '' ? '' : localeSuffix
+  const primaryPath = `/posts/posts${normalizedSuffix}.json`
   const fallbackPath = '/posts/posts.json'
   const baseURL =
     typeof window !== 'undefined' ? window.location.origin : undefined

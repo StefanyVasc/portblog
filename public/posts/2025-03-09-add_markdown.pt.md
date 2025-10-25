@@ -1,3 +1,14 @@
+---
+slug: 2025-03-09-add_markdown
+title: 'Adicionando Markdown ao Blog'
+description: 'Como adicionei suporte a Markdown no blog do meu portfólio, incluindo instalação, configuração, formatação e listagem de posts.'
+date: 'Março 9, 2025'
+tags:
+  - blog
+  - webdev
+  - markdown
+---
+
 # 📝 **Adicionando Suporte a Markdown no Blog do Meu Portfólio**
 
 Ter um **blog dentro do portfólio** sempre foi um dos meus objetivos. Eu queria algo simples, prático e fácil de gerenciar sem precisar de um CMS robusto.

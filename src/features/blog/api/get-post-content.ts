@@ -1,6 +1,7 @@
 // import { axiosGetWithFallback } from '@/shared/api/axios-helpers'
 
-import { getAsyncWithFallback } from '@/shared/api/get-async-with-fallback'
+import { getAsync } from '@/shared/api/get-async'
+import { isNotFoundError } from '@/shared/api/helpers/is-not-found-error'
 
 type GetPostContentArgs = {
   slug: string
@@ -14,24 +15,41 @@ export async function getPostContent({
   signal
 }: GetPostContentArgs) {
   const encodedSlug = encodeURIComponent(slug)
-  const primaryPath = `/posts/${encodedSlug}${localeSuffix}.md`
-  const fallbackPath = `/posts/${encodedSlug}.md`
+  const candidatePaths = [
+    `/posts/${encodedSlug}${localeSuffix}.md`,
+    `/posts/${encodedSlug}.pt.md`,
+    `/posts/${encodedSlug}.md`
+  ].filter((path, index, self) => self.indexOf(path) === index)
   const baseURL =
     typeof window !== 'undefined' ? window.location.origin : undefined
 
-  return getAsyncWithFallback<string>(
-    primaryPath,
-    fallbackPath,
-    {
-      baseURL,
-      signal,
-      headers: {
-        Accept: 'text/markdown, text/plain, */*'
-      }
-    },
-    {
-      responseType: 'text',
-      accept: 'text/markdown, text/plain, */*'
+  const requestConfig = {
+    baseURL,
+    signal,
+    headers: {
+      Accept: 'text/markdown, text/plain, */*'
     }
-  )
+  } as const
+
+  const requestOptions = {
+    responseType: 'text',
+    accept: 'text/markdown, text/plain, */*'
+  } as const
+
+  let lastError: unknown
+
+  for (const path of candidatePaths) {
+    try {
+      return await getAsync<string>(path, requestConfig, requestOptions)
+    } catch (error) {
+      lastError = error
+      if (!isNotFoundError(error)) {
+        throw error
+      }
+    }
+  }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error(`Post "${slug}" not found`)
 }

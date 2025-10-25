@@ -1,3 +1,15 @@
+---
+slug: 2025-03-08-starting_my_portfolio
+title: 'Building My Portfolio – Part 1: The Journey Begins'
+description: 'Why I chose to build a living portfolio, the goals I set for it, and the stack that will power the journey.'
+date: 'March 8, 2025'
+tags:
+  - portfolio
+  - webdev
+  - career
+  - projects
+---
+
 # 🚀 Building My Portfolio – Part 1: The Journey Begins
 
 The idea of having a **professional portfolio** had been in my mind for a while, but I wanted something that went **beyond a static résumé site**. I wanted a space that could **grow with me**, showcase my craft, and host the articles and experiments I enjoy writing.
