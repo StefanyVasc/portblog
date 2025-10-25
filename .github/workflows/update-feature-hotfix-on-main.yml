@@ -2,7 +2,7 @@ name: Update feature & hotfix when main changes
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
 permissions:
   contents: write
@@ -11,17 +11,17 @@ jobs:
   update-branches:
     runs-on: ubuntu-latest
     env:
-      FEATURE_BRANCH: "feature"
-      HOTFIX_BRANCH:  "hotfix"
+      FEATURE_BRANCH: 'feature'
+      HOTFIX_BRANCH: 'hotfix'
 
       # "rebase" (exige force-push) ou "merge" (sem reescrever histórico)
-      FEATURE_MODE: "rebase"
-      HOTFIX_MODE:  "rebase"
+      FEATURE_MODE: 'rebase'
+      HOTFIX_MODE: 'rebase'
 
-      GIT_AUTHOR_NAME:  "workflow-bot"
-      GIT_AUTHOR_EMAIL: "workflow-bot@users.noreply.github.com"
-      GIT_COMMITTER_NAME:  "workflow-bot"
-      GIT_COMMITTER_EMAIL: "workflow-bot@users.noreply.github.com"
+      GIT_AUTHOR_NAME: 'workflow-bot'
+      GIT_AUTHOR_EMAIL: 'workflow-bot@users.noreply.github.com'
+      GIT_COMMITTER_NAME: 'workflow-bot'
+      GIT_COMMITTER_EMAIL: 'workflow-bot@users.noreply.github.com'
 
     steps:
       - uses: actions/checkout@v4

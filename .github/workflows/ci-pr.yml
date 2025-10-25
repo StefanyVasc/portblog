@@ -2,11 +2,11 @@ name: CI - PR checks
 
 on:
   pull_request:
-    branches: [ "release", "main" ]   # roda em PRs pra release e pra main
+    branches: ['release', 'main'] # roda em PRs pra release e pra main
     paths-ignore:
-      - "**/*.md"
-      - ".vscode/**"
-      - ".husky/**"
+      - '**/*.md'
+      - '.vscode/**'
+      - '.husky/**'
 
 permissions:
   contents: read

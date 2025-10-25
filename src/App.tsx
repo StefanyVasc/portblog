@@ -1,4 +1,4 @@
-import { PageLayout } from './components'
+import { PageLayout } from './shared/components'
 
 const App = () => {
   return (

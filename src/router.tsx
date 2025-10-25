@@ -1,10 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { About, Blog, ChallengesPage, Home, Projects, Socials } from '@/pages'
-import { BoraCodar, FrontendMentor } from '@/pages/challenges/paths'
-import { CustomTabContent } from '@/pages/challenges/paths/components'
-
 import App from './App'
+import { AboutView } from './features/about/view/about.view'
+import { BlogView } from './features/blog/view/blog.view'
+import { ChallengesView } from './features/challenges/view/challenges.view'
+import { CustomTabContent } from './features/challenges/view/components/custom-tab-content.component'
+import { BoraCodarView } from './features/challenges/view/paths/bora-code.view'
+import { FrontendMentorView } from './features/challenges/view/paths/frontend-mentor.view'
+import { HomeView } from './features/home/view/home.view'
+import { ProjectsView } from './features/projects/view/projects.view'
 
 const router = createBrowserRouter([
   {
@@ -14,27 +18,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <HomeView />
       },
       {
         path: 'challenges',
-        element: <ChallengesPage />
+        element: <ChallengesView />
       },
       {
         path: 'blog',
-        element: <Blog />
+        element: <BlogView />
       },
       {
         path: 'blog/:slug',
-        element: <Blog />
+        element: <BlogView />
       },
       {
         path: 'projects',
-        element: <Projects />
+        element: <ProjectsView />
       },
       {
         path: 'challenges/frontend-mentor',
-        element: <FrontendMentor />,
+        element: <FrontendMentorView />,
         children: [
           {
             path: ':tabValue',
@@ -44,15 +48,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'challenges/bora-codar',
-        element: <BoraCodar />
+        element: <BoraCodarView />
       },
       {
         path: 'about',
-        element: <About />
-      },
-      {
-        path: 'socials',
-        element: <Socials />
+        element: <AboutView />
       }
     ]
   }
