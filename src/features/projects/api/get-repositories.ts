@@ -23,7 +23,7 @@ export async function getRepositories({ limit, signal }: getRepositoriesArgs) {
     'GitHub repositories'
   )
 
-  return repositories
+  const mapped = repositories
     .filter(repo => !repo.fork && !repo.archived)
     .map(mapRepositoryToProject)
     .sort((a, b) => {
@@ -32,4 +32,6 @@ export async function getRepositories({ limit, signal }: getRepositoriesArgs) {
 
       return bDate - aDate
     })
+
+  return typeof limit === 'number' ? mapped.slice(0, limit) : mapped
 }

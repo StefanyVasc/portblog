@@ -28,7 +28,7 @@ export function HomeView() {
 
   return (
     <div>
-      <Header /* headerName={t('home.header')} */ />
+      <Header />
 
       {/* Articles section */}
       <section className="py-5">

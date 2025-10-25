@@ -1,4 +1,4 @@
-import { keepPreviousData, type UseQueryResult } from '@tanstack/react-query'
+import { type UseQueryResult } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -23,16 +23,14 @@ export function usePost(): UsePostResult {
 
   const postsQuery = useLocaleQuery<Post[], Error>({
     key: ['blog', 'posts'],
-    queryFn: ({ localeSuffix, signal }) => getPosts({ localeSuffix, signal }),
-    placeholderData: keepPreviousData
+    queryFn: ({ localeSuffix, signal }) => getPosts({ localeSuffix, signal })
   })
 
   const contentQuery = useLocaleQuery<string, Error>({
     key: ['blog', 'post-content', slug ?? ''],
     queryFn: ({ localeSuffix, signal }) =>
       getPostContent({ slug: slug!, localeSuffix, signal }),
-    enabled: Boolean(slug),
-    placeholderData: keepPreviousData
+    enabled: Boolean(slug)
   })
 
   const posts = postsQuery.data ?? []

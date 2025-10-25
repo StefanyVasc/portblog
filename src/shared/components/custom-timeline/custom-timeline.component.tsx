@@ -23,7 +23,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
   const sortedItems = useMemo(
     () =>
-      items.sort(
+      [...items].sort(
         (a, b) => dayjs(b.yearStart).year() - dayjs(a.yearStart).year()
       ),
     [items]

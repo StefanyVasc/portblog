@@ -1,5 +1,4 @@
 import {
-  keepPreviousData,
   type QueryKey,
   useQuery,
   type UseQueryOptions,
@@ -23,9 +22,9 @@ export function useAppQuery<
 >(
   options: UseAppQueryOptions<TQueryFnData, TError, TData, TQueryKey>
 ): UseQueryResult<TData, TError> {
-  const { key, placeholderData = keepPreviousData, ...rest } = options
+  const { key, placeholderData, ...rest } = options
 
-  // Wrapper central para `useQuery`, aplicando convenções globais (ex.: `keepPreviousData`).
+  // Wrapper central para `useQuery`, aplicando convenções globais (ex.: key padronizada).
   // Use sempre que a query não depende do idioma atual.
   return useQuery<TQueryFnData, TError, TData, TQueryKey>({
     ...rest,

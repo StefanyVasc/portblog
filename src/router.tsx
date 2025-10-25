@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <div>Page not found!</div>,
     children: [
       {
-        path: '/',
+        index: true,
         element: <HomeView />
       },
       {
@@ -25,11 +25,7 @@ const router = createBrowserRouter([
         element: <ChallengesView />
       },
       {
-        path: 'blog',
-        element: <BlogView />
-      },
-      {
-        path: 'blog/:slug',
+        path: 'blog/:slug?',
         element: <BlogView />
       },
       {

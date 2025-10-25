@@ -12,7 +12,7 @@ export function useRepositories(options: UseProjectsOptions = {}) {
   const { limit, enabled = true } = options
 
   const query = useAppQuery<Repository[], Error>({
-    key: ['projects', 'github', limit ?? 'all'],
+    key: ['projects', 'github', { limit: limit ?? null }] as const,
     queryFn: ({ signal }) => getRepositories({ limit, signal }),
     enabled
   })
