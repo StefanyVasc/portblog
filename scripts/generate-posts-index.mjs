@@ -3,6 +3,17 @@ import path from 'path'
 
 const POSTS_DIR = path.resolve('public/posts')
 const INDEX_FILE = path.join(POSTS_DIR, 'posts.json')
+const SITEMAP_FILE = path.resolve('public', 'sitemap.xml')
+const SITE_URL = process.env.SITE_URL ?? 'https://stefany.dev'
+const STATIC_ROUTES = [
+  '/',
+  '/about',
+  '/blog',
+  '/projects',
+  '/challenges',
+  '/challenges/frontend-mentor',
+  '/challenges/bora-codar'
+]
 const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
   day: '2-digit',
   month: 'long',
@@ -32,6 +43,7 @@ async function main() {
         title: frontmatter.title ?? slug,
         description: frontmatter.description ?? '',
         date: formattedDate,
+        dateIso: isoDate,
         tags: Array.isArray(frontmatter.tags)
           ? frontmatter.tags.map(tag => String(tag))
           : [],
@@ -51,6 +63,9 @@ async function main() {
 
   const payload = JSON.stringify({ posts: ordered }, null, 2).concat('\n')
   await fs.writeFile(INDEX_FILE, payload, 'utf8')
+
+  const sitemap = buildSitemap(ordered)
+  await fs.writeFile(SITEMAP_FILE, sitemap, 'utf8')
 }
 
 function parseFrontmatter(source) {
@@ -143,6 +158,30 @@ function formatDate(isoDate) {
 function capitalize(text) {
   if (!text) return text
   return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
+function buildSitemap(posts) {
+  const today = new Date().toISOString().slice(0, 10)
+
+  const urls = [
+    ...STATIC_ROUTES.map(path => ({
+      loc: new URL(path, SITE_URL).toString(),
+      lastmod: today
+    })),
+    ...posts.map(post => ({
+      loc: new URL(`/blog/${post.slug}`, SITE_URL).toString(),
+      lastmod: post.dateIso || today
+    }))
+  ]
+
+  const nodes = urls
+    .map(
+      ({ loc, lastmod }) =>
+        `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`
+    )
+    .join('\n')
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${nodes}\n</urlset>\n`
 }
 
 main().catch(error => {

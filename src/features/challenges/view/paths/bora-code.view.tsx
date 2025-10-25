@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { CustomBreadcrumb, Header } from '@/shared/components'
 import { texts } from '@/shared/content/texts'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 export function BoraCodarView() {
   const location = useLocation()
@@ -11,7 +11,13 @@ export function BoraCodarView() {
   const title = texts.challenges.boraCodar.title
 
   useEffect(() => {
-    updateDocumentTitle(title)
+    updateSeo({
+      title,
+      description:
+        'Coleção dos desafios Bora Codar que estou resolvendo e documentando.',
+      canonicalPath: '/challenges/bora-codar',
+      type: 'website'
+    })
   }, [title])
 
   return (

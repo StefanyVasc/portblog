@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { Header, Pagination } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 import { useRepositories } from '../hooks/use-repositories'
 import { ProjectCard } from './components/project-card.component'
@@ -10,7 +11,12 @@ import { ProjectCard } from './components/project-card.component'
 export function ProjectsView() {
   const projectTexts = texts.projects
   useEffect(() => {
-    updateDocumentTitle('Projetos')
+    updateSeo({
+      title: SITE_META.projects.title,
+      description: SITE_META.projects.description,
+      canonicalPath: '/projects',
+      type: 'website'
+    })
   }, [])
   const {
     projects = [],

@@ -5,9 +5,10 @@ import { usePost } from '@/features/blog/hooks/use-post'
 import { useRepositories } from '@/features/projects/hooks/use-repositories'
 import { ProjectCard } from '@/features/projects/view/components/project-card.component'
 import { Header } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { learningNow, technologiesILike } from '@/shared/static'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 import { Card as CardHome } from './components/card.component'
 import { ReadingSection } from './components/reading-section.component'
@@ -27,7 +28,12 @@ export function HomeView() {
   const commonTexts = texts.common
 
   useEffect(() => {
-    updateDocumentTitle()
+    updateSeo({
+      title: SITE_META.home.title,
+      description: SITE_META.home.description,
+      canonicalPath: '/',
+      type: 'website'
+    })
   }, [])
 
   // Get the 3 most recent posts (assuming the hook already sorts them)

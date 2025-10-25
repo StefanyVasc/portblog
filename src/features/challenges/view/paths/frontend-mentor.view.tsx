@@ -11,7 +11,7 @@ import {
   TabsTrigger
 } from '@/shared/components'
 import { texts } from '@/shared/content/texts'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 export function FrontendMentorView() {
   const { tabValue } = useParams()
@@ -19,9 +19,6 @@ export function FrontendMentorView() {
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
   const title = texts.challenges.frontendMentor.title
-  useEffect(() => {
-    updateDocumentTitle(title)
-  }, [title])
 
   const tabsInfos = [
     { value: 'newbie', label: 'Newbie' },
@@ -31,6 +28,16 @@ export function FrontendMentorView() {
   ]
 
   const currentTab = tabValue || 'newbie'
+
+  useEffect(() => {
+    updateSeo({
+      title,
+      description:
+        'Acompanhamento dos desafios do Frontend Mentor por nível de dificuldade.',
+      canonicalPath: `/challenges/frontend-mentor/${currentTab}`,
+      type: 'website'
+    })
+  }, [title, currentTab])
 
   const handleTabChange = (value: string) => {
     if (value !== currentTab) {

@@ -9,9 +9,10 @@ import {
   Pagination,
   SearchBar
 } from '@/shared/components'
+import { SITE_AUTHOR, SITE_META, SITE_URL } from '@/shared/config/site'
 import { blogSearchResults, texts } from '@/shared/content/texts'
 import { formatBreadcrumb } from '@/shared/utils/format-breadcrumb'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 import { ErrorMessage } from './components/error-message.component'
 import { Loading } from './components/loading.component'
@@ -41,10 +42,12 @@ export function BlogView() {
 
   const { slug: routeSlug } = useParams()
   const blogTexts = texts.blog
+  const blogMeta = SITE_META.blog
 
-  const currentPostTitle = routeSlug
-    ? posts.find(post => post.slug === routeSlug)?.title
+  const currentPost = routeSlug
+    ? (posts.find(post => post.slug === routeSlug) ?? null)
     : null
+  // const currentPostTitle = currentPost?.title ?? null
 
   const showLoading = slug
     ? contentQuery.isLoading && !content
@@ -63,11 +66,39 @@ export function BlogView() {
   const showError = Boolean(errorMessage)
 
   useEffect(() => {
-    const titleToUse = routeSlug
-      ? (currentPostTitle ?? `blog/${routeSlug}`)
-      : blogTexts.header
+    if (routeSlug && currentPost) {
+      const description = currentPost.description || blogMeta.description
 
-    updateDocumentTitle(titleToUse)
+      updateSeo({
+        title: currentPost.title,
+        description,
+        canonicalPath: `/blog/${routeSlug}`,
+        type: 'article',
+        structuredData: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: currentPost.title,
+          description,
+          datePublished: currentPost.dateIso ?? currentPost.date,
+          dateModified: currentPost.dateIso ?? currentPost.date,
+          url: new URL(`/blog/${currentPost.slug}`, SITE_URL).toString(),
+          author: {
+            '@type': 'Person',
+            name: SITE_AUTHOR.name,
+            url: SITE_AUTHOR.url
+          },
+          keywords: currentPost.tags.join(', ')
+        }
+      })
+      return
+    }
+
+    updateSeo({
+      title: blogMeta.title,
+      description: blogMeta.description,
+      canonicalPath: '/blog',
+      type: 'website'
+    })
 
     if (!routeSlug) {
       const savedScroll =
@@ -81,7 +112,7 @@ export function BlogView() {
         window.scrollTo({ top: savedScroll, behavior: 'auto' })
       })
     }
-  }, [routeSlug, currentPostTitle, blogTexts.header])
+  }, [routeSlug, currentPost, blogMeta.description, blogMeta.title])
 
   return (
     <div>

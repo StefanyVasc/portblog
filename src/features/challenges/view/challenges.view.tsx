@@ -13,14 +13,20 @@ import {
   Header,
   UnderConstruction
 } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 export function ChallengesView() {
   const challengeTexts = texts.challenges
 
   useEffect(() => {
-    updateDocumentTitle('Desafios')
+    updateSeo({
+      title: SITE_META.challenges.title,
+      description: SITE_META.challenges.description,
+      canonicalPath: '/challenges',
+      type: 'website'
+    })
   }, [])
 
   return (

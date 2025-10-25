@@ -5,6 +5,7 @@
       "title": "Adicionando Code sintaxe ao Blog",
       "description": "Como adicionei destaque de sintaxe ao blog, incluindo instalação, configuração e personalização.",
       "date": "10 de março de 2025",
+      "dateIso": "2025-03-10",
       "tags": ["blog", "webdev", "syntax-highlighting"]
     },
     {
@@ -12,6 +13,7 @@
       "title": "Adicionando Markdown ao Blog",
       "description": "Como adicionei suporte a Markdown no blog do meu portfólio, incluindo instalação, configuração, formatação e listagem de posts.",
       "date": "09 de março de 2025",
+      "dateIso": "2025-03-09",
       "tags": ["blog", "webdev", "markdown"]
     },
     {
@@ -19,6 +21,7 @@
       "title": "Criando Meu Portfólio - Parte 1: A Jornada Começa",
       "description": "A ideia de ter um portfólio profissional sempre esteve na minha mente, mas eu queria algo mais do que um simples site estático...",
       "date": "08 de março de 2025",
+      "dateIso": "2025-03-08",
       "tags": ["portfolio", "webdev", "career", "projects"]
     }
   ]

@@ -9,15 +9,21 @@ import {
   Header,
   Paragraph
 } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { aboutILike, careerItems } from '@/shared/static'
-import { updateDocumentTitle } from '@/shared/utils/update-document-title'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 export function AboutView() {
   const aboutTexts = texts.about
 
   useEffect(() => {
-    updateDocumentTitle('Sobre')
+    updateSeo({
+      title: SITE_META.about.title,
+      description: SITE_META.about.description,
+      canonicalPath: '/about',
+      type: 'website'
+    })
   }, [])
 
   return (
