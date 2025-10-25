@@ -5,21 +5,43 @@
       "title": "Criando Meu Portfólio - Parte 1: A Jornada Começa",
       "date": "Março 8, 2025",
       "description": "A ideia de ter um portfólio profissional sempre esteve na minha mente, mas eu queria algo mais do que um simples site estático...",
-      "tags": ["portfolio", "webdev", "career", "projects"]
+      "tags": [
+        "portfolio",
+        "webdev",
+        "career",
+        "projects"
+      ]
     },
     {
       "slug": "2025-03-09-add_markdown",
       "title": "Adicionando Markdown ao Blog",
       "date": "Março 9, 2025",
       "description": "Como adicionei suporte a Markdown no blog do meu portfólio, incluindo instalação, configuração, formatação e listagem de posts.",
-      "tags": ["blog", "webdev", "markdown"]
+      "tags": [
+        "blog",
+        "webdev",
+        "markdown"
+      ]
     },
     {
       "slug": "2025-03-10-add_code_highlighting",
       "title": "Adicionando Code sintaxe ao Blog",
       "date": "Março 10, 2025",
       "description": "Como adicionei destaque de sintaxe ao blog, incluindo instalação, configuração e personalização.",
-      "tags": ["blog", "webdev", "syntax-highlighting"]
+      "tags": [
+        "blog",
+        "webdev",
+        "syntax-highlighting"
+      ]
+    },
+    {
+      "slug": "teste",
+      "title": "teste",
+      "date": "25/10/2025",
+      "description": "asdasdasdads",
+      "tags": [
+        "teste"
+      ]
     }
   ]
 }
