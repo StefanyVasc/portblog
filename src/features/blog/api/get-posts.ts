@@ -25,9 +25,11 @@ export async function getPosts({ localeSuffix, signal }: GetPostsArgs) {
     }
   )
 
-  return parseWithSchema(
+  const parsed = parseWithSchema(
     postListSchema,
     data,
     `Posts (${localeSuffix || 'default'})`
   )
+
+  return Array.isArray(parsed) ? parsed : parsed.posts
 }

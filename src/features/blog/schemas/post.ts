@@ -10,4 +10,9 @@ export const postSchema: z.ZodType<Post> = z.object({
   tags: z.array(z.string())
 })
 
-export const postListSchema = z.array(postSchema)
+const postArraySchema = z.array(postSchema)
+
+export const postListSchema = z.union([
+  postArraySchema,
+  z.object({ posts: postArraySchema })
+])
