@@ -1,6 +1,6 @@
 import { ChevronDown, Filter, Search, X } from 'lucide-react'
 
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 
 interface SearchBarProps {
   search: string
@@ -17,7 +17,7 @@ export function SearchBar({
   setSearchType,
   allTags
 }: SearchBarProps) {
-  const { t } = useI18n()
+  const searchTexts = texts.blog.search
 
   return (
     <div className="mb-4 flex items-center gap-4">
@@ -29,8 +29,8 @@ export function SearchBar({
           className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 text-transparent shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
         >
           <option value="" className="hidden" />
-          <option value="text">{t('blog.search.filter.text')}</option>
-          <option value="tag">{t('blog.search.filter.tag')}</option>
+          <option value="text">{searchTexts.filter.text}</option>
+          <option value="tag">{searchTexts.filter.tag}</option>
         </select>
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-gray-400">
           <Filter size={18} />
@@ -47,7 +47,7 @@ export function SearchBar({
             />
             <input
               type="text"
-              placeholder={t('blog.search.placeholder')}
+              placeholder={searchTexts.placeholder}
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="w-full rounded-md border border-gray-300 bg-white p-2 pl-10 pr-10 text-gray-900 shadow-sm outline-none transition-all duration-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
@@ -68,7 +68,7 @@ export function SearchBar({
               onChange={e => setSearch(e.target.value)}
               className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 pl-3 text-gray-900 shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
             >
-              <option value="">{t('blog.search.selectTag')}</option>
+              <option value="">{searchTexts.selectTag}</option>
               {allTags.map(tag => (
                 <option key={tag} value={tag}>
                   {tag}

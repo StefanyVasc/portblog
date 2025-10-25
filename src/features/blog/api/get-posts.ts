@@ -1,37 +1,24 @@
-import { getAsyncWithFallback } from '@/shared/api/get-async-with-fallback'
+import { getAsync } from '@/shared/api/get-async'
 import { parseWithSchema } from '@/shared/utils/parse-with-schema'
 
 import { postListSchema } from '../schemas/post'
 
 type GetPostsArgs = {
-  localeSuffix: string
   signal?: AbortSignal
 }
 
-export async function getPosts({ localeSuffix, signal }: GetPostsArgs) {
-  const normalizedSuffix =
-    localeSuffix === '.pt' || localeSuffix === '' ? '' : localeSuffix
-  const primaryPath = `/posts/posts${normalizedSuffix}.json`
-  const fallbackPath = '/posts/posts.json'
+export async function getPosts({ signal }: GetPostsArgs = {}) {
+  const path = '/posts/posts.json'
   const baseURL =
     typeof window !== 'undefined' ? window.location.origin : undefined
-  const config = { baseURL, signal }
+  const config = { baseURL, signal } as const
 
-  const data = await getAsyncWithFallback<unknown>(
-    primaryPath,
-    fallbackPath,
-    config,
-    {
-      responseType: 'json',
-      accept: 'application/json, */*'
-    }
-  )
+  const data = await getAsync<unknown>(path, config, {
+    responseType: 'json',
+    accept: 'application/json, */*'
+  })
 
-  const parsed = parseWithSchema(
-    postListSchema,
-    data,
-    `Posts (${localeSuffix || 'default'})`
-  )
+  const parsed = parseWithSchema(postListSchema, data, 'Posts')
 
   return Array.isArray(parsed) ? parsed : parsed.posts
 }

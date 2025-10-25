@@ -14,7 +14,7 @@ export type CompetenciesType = {
       | 'zustand'
       | 'context-api'
     >
-    frameworks?: Array<'angular' | 'nextjs' | 'single-spa' | 'emberjs'>
+    frameworks?: Array<'angular' | 'nextjs' | 'single-spa' | 'emberjs' | 'vite'>
   }
 
   styling?: {
@@ -42,15 +42,36 @@ export type CompetenciesType = {
   }
 
   architecture?: {
-    patterns?: Array<'microfrontends' | 'monorepo'>
+    // Mantive os existentes e incluí os que você usou no item de Tech Lead
+    patterns?: Array<
+      | 'microfrontends'
+      | 'monorepo'
+      | 'feature sliced architecture'
+      | 'clean architecture'
+      | 'clean architecture (adaptada)'
+      | 'MVVM'
+      | 'onion architecture'
+      | 'SOLID'
+      | 'defensive programming'
+    >
   }
 
   designPatterns?: {
-    patterns?: Array<'clean architecture' | 'MVVM' | 'DRY' | 'KISS' | 'SOLID'>
+    patterns?: Array<
+      | 'clean architecture'
+      | 'MVVM'
+      | 'DRY'
+      | 'KISS'
+      | 'SOLID'
+      | 'feature sliced'
+    >
   }
 
   designSystem?: {
+    // Antes só "libraries"; agora inclui "tools" e "practices" usados no Tech Lead
     libraries?: Array<'storybook'>
+    tools?: Array<'storybook'>
+    practices?: Array<'tokens' | 'variants' | 'component libraries'>
   }
 
   cloud?: {
@@ -67,10 +88,12 @@ export type CompetenciesType = {
         'github-actions' | 'circle-ci' | 'travis-ci' | 'jenkins' | 'gitlab-ci'
       >
     }
-
+    // Mantive os já previstos e permiti 'rancher' aqui também,
+    // pois você usou em cd.tools no objeto de Tech Lead
     cd?: {
-      tools?: Array<'spinnaker' | 'argo-cd' | 'flux' | 'gitops'>
+      tools?: Array<'spinnaker' | 'argo-cd' | 'flux' | 'gitops' | 'rancher'>
     }
+    governance?: Array<'GMUD'>
   }
 
   monitoring?: {
@@ -89,6 +112,19 @@ export type CompetenciesType = {
 
   orchestration?: {
     tools?: Array<'rancher' | 'kubernetes'>
+  }
+
+  // Novas seções usadas no item de Tech Lead
+  integrations?: {
+    projects?: string[] // livre para descrever integrações como "Catálogo ↔ Seller via proxy reverso"
+  }
+
+  leadership?: {
+    responsibilities?: string[] // ex.: code review, capacity planning, etc.
+  }
+
+  communication?: {
+    tools?: Array<'notion' | 'jira' | 'slack'>
   }
 }
 

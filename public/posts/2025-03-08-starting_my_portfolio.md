@@ -2,7 +2,7 @@
 slug: 2025-03-08-starting_my_portfolio
 title: 'Criando Meu Portfólio - Parte 1: A Jornada Começa'
 description: 'A ideia de ter um portfólio profissional sempre esteve na minha mente, mas eu queria algo mais do que um simples site estático...'
-date: 'Março 8, 2025'
+date: '2025-03-08'
 tags:
   - portfolio
   - webdev

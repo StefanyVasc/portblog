@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Milestone } from 'lucide-react'
-import { useMemo } from 'react'
+import { useEffect } from 'react'
 
 import {
   Avatar,
@@ -9,25 +9,29 @@ import {
   Header,
   Paragraph
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
-import { aboutILike, getCareerItems } from '@/shared/static'
+import { texts } from '@/shared/content/texts'
+import { aboutILike, careerItems } from '@/shared/static'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 export function AboutView() {
-  const { t, i18n } = useI18n()
-  const items = useMemo(() => getCareerItems(t), [t, i18n.language])
+  const aboutTexts = texts.about
+
+  useEffect(() => {
+    updateDocumentTitle('Sobre')
+  }, [])
 
   return (
     <div>
-      <Header headerName={t('about.header')} />
+      <Header headerName={aboutTexts.header} />
       <section className="py-5">
         <GlobalScrollAnimation>
           <div className="my-10">
-            <h5>{t('about.me.title')}</h5>
+            <h5>{aboutTexts.me.title}</h5>
             <div className="flex items-center justify-center">
               <Avatar />
               <Paragraph>
-                {t('about.me.introPart1')} <br />
-                {t('about.me.introPart2')}{' '}
+                {aboutTexts.me.introPart1} <br />
+                {aboutTexts.me.introPart2}{' '}
                 <span className="relative mr-1 inline-block px-2">
                   <motion.span
                     initial={{ width: '0%' }}
@@ -44,7 +48,7 @@ export function AboutView() {
                     Stefany Sá
                   </motion.span>
                 </span>
-                {t('about.me.introPart3')}
+                {aboutTexts.me.introPart3}
               </Paragraph>
             </div>
             {/* Características em Grid */}
@@ -91,15 +95,15 @@ export function AboutView() {
 
         <GlobalScrollAnimation>
           <div className="mb-5">
-            <h5>{t('about.career.title')}</h5>
-            <Paragraph>{t('about.career.description')}</Paragraph>
+            <h5>{aboutTexts.career.title}</h5>
+            <Paragraph>{aboutTexts.career.description}</Paragraph>
 
             <div className="py-10">
               <h5 className="flex items-center gap-2">
-                {t('about.career.timelineTitle')}
+                {aboutTexts.career.timelineTitle}
                 <Milestone size={18} />
               </h5>
-              <CustomTimeline items={items} />
+              <CustomTimeline items={careerItems} />
             </div>
           </div>
         </GlobalScrollAnimation>

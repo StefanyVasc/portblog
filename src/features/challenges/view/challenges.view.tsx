@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { cn } from '@/lib/utils'
@@ -12,20 +13,25 @@ import {
   Header,
   UnderConstruction
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 export function ChallengesView() {
-  const { t } = useI18n()
+  const challengeTexts = texts.challenges
+
+  useEffect(() => {
+    updateDocumentTitle('Desafios')
+  }, [])
 
   return (
     <div>
-      <Header headerName={t('challenges.header')} />
-      <section className="py-5 font-300">{t('challenges.intro')}</section>
+      <Header headerName={challengeTexts.header} />
+      <section className="py-5 font-300">{challengeTexts.intro}</section>
 
       <section>
         <Card className={cn('mt-5 w-[380px]')}>
           <CardHeader>
-            <CardTitle>{t('challenges.frontendMentor.title')}</CardTitle>
+            <CardTitle>{challengeTexts.frontendMentor.title}</CardTitle>
             <CardDescription> </CardDescription>
           </CardHeader>
           <CardContent>
@@ -38,7 +44,7 @@ export function ChallengesView() {
           <CardFooter>
             <Button variant={'link'} asChild>
               <Link to="frontend-mentor">
-                {t('challenges.frontendMentor.link')}
+                {challengeTexts.frontendMentor.link}
               </Link>
             </Button>
           </CardFooter>

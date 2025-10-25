@@ -14,11 +14,6 @@ local_backend: true
 media_folder: public/posts/media
 public_folder: /posts/media
 
-i18n:
-  structure: multiple_files
-  locales: [pt, en]
-  default_locale: pt
-
 collections:
   - name: posts
     label: Blog Posts
@@ -34,37 +29,28 @@ collections:
     sortable_fields: [date, title]
     media_folder: ''
     public_folder: ''
-    i18n: true
     fields:
       - label: Slug
         name: slug
         widget: string
-        hint: 'Usado para gerar a URL do post.'
-        i18n: duplicate
+        hint: 'Use o formato yyyy-mm-dd-titulo-do-post.'
         pattern:
-          - '^[a-z0-9]+[a-z0-9-_]*$'
-          - 'Use apenas letras minúsculas, números, hífen e underscore.'
+          - '^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$'
+          - 'Comece com a data (yyyy-mm-dd) seguida por um slug em minúsculas.'
       - label: Title
         name: title
         widget: string
-        i18n: translate
       - label: Description
         name: description
         widget: text
-        i18n: translate
       - label: Publish Date
         name: date
-        widget: datetime
-        format: 'MMMM D, YYYY'
-        date_format: 'MMMM D, YYYY'
-        time_format: false
-        i18n: duplicate
+        widget: date
+        format: 'YYYY-MM-DD'
       - label: Tags
         name: tags
         widget: list
         allow_add: true
-        i18n: true
       - label: Body
         name: body
         widget: markdown
-        i18n: translate

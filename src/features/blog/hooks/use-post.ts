@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { getPostContent } from '@/features/blog/api/get-post-content'
 import { getPosts } from '@/features/blog/api/get-posts'
 import { Post } from '@/features/blog/types/post'
-import { useLocaleQuery } from '@/shared/hooks/use-locale-query'
+import { useAppQuery } from '@/shared/hooks/use-app-query'
 
 type UsePostResult = {
   slug: string | null
@@ -21,15 +21,14 @@ type UsePostResult = {
 export function usePost(): UsePostResult {
   const { slug } = useParams<{ slug?: string }>()
 
-  const postsQuery = useLocaleQuery<Post[], Error>({
+  const postsQuery = useAppQuery<Post[], Error>({
     key: ['blog', 'posts'],
-    queryFn: ({ localeSuffix, signal }) => getPosts({ localeSuffix, signal })
+    queryFn: ({ signal }) => getPosts({ signal })
   })
 
-  const contentQuery = useLocaleQuery<string, Error>({
+  const contentQuery = useAppQuery<string, Error>({
     key: ['blog', 'post-content', slug ?? ''],
-    queryFn: ({ localeSuffix, signal }) =>
-      getPostContent({ slug: slug!, localeSuffix, signal }),
+    queryFn: ({ signal }) => getPostContent({ slug: slug!, signal }),
     enabled: Boolean(slug)
   })
 

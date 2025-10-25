@@ -2,7 +2,7 @@
 slug: 2025-03-10-add_code_highlighting
 title: 'Adicionando Code sintaxe ao Blog'
 description: 'Como adicionei destaque de sintaxe ao blog, incluindo instalação, configuração e personalização.'
-date: 'Março 10, 2025'
+date: '2025-03-10'
 tags:
   - blog
   - webdev

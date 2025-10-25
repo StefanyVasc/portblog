@@ -2,7 +2,7 @@ import { Tag } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 import { Badge, MarkdownRenderer } from '@/shared/components'
-import { useLocaleSuffix } from '@/shared/hooks/use-locale-suffix'
+import { texts } from '@/shared/content/texts'
 
 import { CommentsWidget } from './comments-widget.component'
 
@@ -14,7 +14,8 @@ export const PostContent = ({
   tags: string[]
 }) => {
   const { slug } = useParams()
-  const { t, languageCode } = useLocaleSuffix()
+  const blogTexts = texts.blog
+  const postTexts = texts.postContent
 
   const title = `blog/${slug}`
 
@@ -25,7 +26,7 @@ export const PostContent = ({
       {tags && tags.length > 0 && (
         <div className="mt-6">
           <h3 className="mb-2 flex items-center gap-2 text-lg font-semibold">
-            <Tag size={20} /> {t('blog.tagsHeading')}
+            <Tag size={20} /> {blogTexts.tagsHeading}
           </h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, index) => (
@@ -40,12 +41,9 @@ export const PostContent = ({
         </div>
       )}
 
-      <CommentsWidget
-        key={`${languageCode}-${title}`}
-        title={title ?? 'default-title'}
-      />
+      <CommentsWidget key={`pt-${title}`} title={title ?? 'default-title'} />
     </div>
   ) : (
-    <p className="mt-10 text-center">{t('postContent.notFound')}</p>
+    <p className="mt-10 text-center">{postTexts.notFound}</p>
   )
 }

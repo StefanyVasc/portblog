@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 import { type Reading, type ReadingTag } from '@/shared/static'
 
 type TagConfig = {
@@ -42,7 +42,7 @@ type ReadingListProps = {
 }
 
 export function ReadingList({ title, items }: ReadingListProps) {
-  const { t } = useI18n()
+  const tagLabels = texts.home.reading.tags
 
   return (
     <TooltipProvider delayDuration={150}>
@@ -78,16 +78,14 @@ export function ReadingList({ title, items }: ReadingListProps) {
                             <TooltipTrigger asChild>
                               <span
                                 className="flex h-6 w-6 items-center justify-center rounded-full bg-muted"
-                                aria-label={t(`home.reading.tags.${tag}`)}
+                                aria-label={tagLabels[tag]}
                               >
                                 <Icon
                                   className={`h-3.5 w-3.5 ${config.className}`}
                                 />
                               </span>
                             </TooltipTrigger>
-                            <TooltipContent>
-                              {t(`home.reading.tags.${tag}`)}
-                            </TooltipContent>
+                            <TooltipContent>{tagLabels[tag]}</TooltipContent>
                           </Tooltip>
                         )
                       })}

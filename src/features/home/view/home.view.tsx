@@ -1,11 +1,13 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { usePost } from '@/features/blog/hooks/use-post'
 import { useRepositories } from '@/features/projects/hooks/use-repositories'
 import { ProjectCard } from '@/features/projects/view/components/project-card.component'
 import { Header } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 import { learningNow, technologiesILike } from '@/shared/static'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 import { Card as CardHome } from './components/card.component'
 import { ReadingSection } from './components/reading-section.component'
@@ -21,7 +23,12 @@ export function HomeView() {
   } = useRepositories({
     limit: 3
   })
-  const { t } = useI18n()
+  const homeTexts = texts.home
+  const commonTexts = texts.common
+
+  useEffect(() => {
+    updateDocumentTitle()
+  }, [])
 
   // Get the 3 most recent posts (assuming the hook already sorts them)
   const latestPosts = posts.slice(-3).reverse()
@@ -33,7 +40,7 @@ export function HomeView() {
       {/* Articles section */}
       <section className="py-5">
         <h4 className="mb-3 text-lg font-medium md:text-xl">
-          {t('home.latestArticles')}
+          {homeTexts.latestArticles}
         </h4>
 
         {latestPosts.length > 0 ? (
@@ -63,14 +70,14 @@ export function HomeView() {
                     to={`/blog/${post.slug}`}
                     className="text-rose-600 hover:underline dark:text-rose-400"
                   >
-                    {t('common.readMore')}
+                    {commonTexts.readMore}
                   </Link>
                 </div>
               </CardHome>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">{t('home.noArticles')}</p>
+          <p className="text-gray-500">{homeTexts.noArticles}</p>
         )}
       </section>
 
@@ -78,28 +85,28 @@ export function HomeView() {
       <section className="py-5">
         <div className="mb-4 flex items-center justify-between">
           <h4 className="text-lg font-medium md:text-xl">
-            {t('home.projects.title')}
+            {homeTexts.projects.title}
           </h4>
           <Link
             to="/projects"
             className="text-sm font-semibold text-rose-600 hover:underline dark:text-rose-400"
           >
-            {t('home.projects.viewAll')}
+            {homeTexts.projects.viewAll}
           </Link>
         </div>
 
         {projectsLoading ? (
           <p className="text-sm text-muted-foreground">
-            {t('home.projects.loading')}
+            {homeTexts.projects.loading}
           </p>
         ) : projectsHasError ? (
           <p className="text-sm text-rose-500">
-            {t('home.projects.error')}
+            {homeTexts.projects.error}
             {projectsError ? ` (${projectsError.message})` : ''}
           </p>
         ) : featuredProjects.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            {t('home.projects.empty')}
+            {homeTexts.projects.empty}
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -124,16 +131,16 @@ export function HomeView() {
         <div className="grid gap-6 md:grid-cols-2 md:items-start">
           <div className="flex h-full flex-col">
             <h4 className="mb-4 text-lg font-medium">
-              {t('home.doing.title')}
+              {homeTexts.doing.title}
             </h4>
             <CardHome className="flex-1">
               <div className="grid gap-6 md:grid-cols-2">
                 <TechBadgeList
-                  title={t('home.doing.workingWith')}
+                  title={homeTexts.doing.workingWith}
                   items={technologiesILike}
                 />
                 <TechBadgeList
-                  title={t('home.doing.learningAbout')}
+                  title={homeTexts.doing.learningAbout}
                   items={learningNow}
                 />
               </div>

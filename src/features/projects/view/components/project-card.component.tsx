@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { projectsLastUpdated, texts } from '@/shared/content/texts'
 
 type ProjectCardProps = {
   name: string
@@ -28,7 +28,7 @@ function formatDate(dateIso?: string) {
     const date = new Date(dateIso)
     if (Number.isNaN(date.getTime())) return null
 
-    return new Intl.DateTimeFormat(undefined, {
+    return new Intl.DateTimeFormat('pt-BR', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
@@ -47,15 +47,15 @@ export function ProjectCard({
   tags,
   updatedAt
 }: ProjectCardProps) {
-  const { t } = useI18n()
   const formattedDate = formatDate(updatedAt)
+  const projectTexts = texts.projects
 
   return (
     <Card className="flex h-full flex-col justify-between">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">{name}</CardTitle>
         <p className="text-sm text-muted-foreground">
-          {description || t('projects.card.noDescription')}
+          {description || projectTexts.card.noDescription}
         </p>
       </CardHeader>
 
@@ -82,13 +82,7 @@ export function ProjectCard({
               {stars}
             </span>
           )}
-          {formattedDate && (
-            <span>
-              {t('projects.card.lastUpdated', {
-                date: formattedDate
-              })}
-            </span>
-          )}
+          {formattedDate && <span>{projectsLastUpdated(formattedDate)}</span>}
         </div>
       </CardContent>
 
@@ -97,7 +91,7 @@ export function ProjectCard({
           <Button asChild variant="outline">
             <a href={repository} target="_blank" rel="noreferrer">
               <Github className="size-4" aria-hidden />
-              {t('projects.card.repository')}
+              {projectTexts.card.repository}
             </a>
           </Button>
         )}
@@ -106,7 +100,7 @@ export function ProjectCard({
           <Button asChild variant="default">
             <a href={homepage} target="_blank" rel="noreferrer">
               <ExternalLink className="size-4" aria-hidden />
-              {t('projects.card.visit')}
+              {projectTexts.card.visit}
             </a>
           </Button>
         )}

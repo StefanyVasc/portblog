@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { Header, Pagination } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 import { useRepositories } from '../hooks/use-repositories'
 import { ProjectCard } from './components/project-card.component'
 
 export function ProjectsView() {
-  const { t } = useI18n()
-
+  const projectTexts = texts.projects
+  useEffect(() => {
+    updateDocumentTitle('Projetos')
+  }, [])
   const {
     projects = [],
     isLoading: projectsLoading,
@@ -72,18 +75,18 @@ export function ProjectsView() {
 
   return (
     <div>
-      <Header headerName={t('projects.header')} />
+      <Header headerName={projectTexts.header} />
 
       <section className="py-5 font-300">
         <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <label className="flex w-full flex-col gap-2 md:w-1/2">
             <span className="text-sm font-medium text-muted-foreground">
-              {t('projects.filters.search')}
+              {projectTexts.filters.search}
             </span>
             <input
               type="text"
               className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:bg-background"
-              placeholder={t('projects.filters.searchPlaceholder')}
+              placeholder={projectTexts.filters.searchPlaceholder}
               value={search}
               onChange={event => setSearch(event.target.value)}
             />
@@ -91,14 +94,14 @@ export function ProjectsView() {
 
           <label className="flex flex-col gap-2 md:w-1/4">
             <span className="text-sm font-medium text-muted-foreground">
-              {t('projects.filters.tag')}
+              {projectTexts.filters.tag}
             </span>
             <select
               className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:bg-background"
               value={selectedTag}
               onChange={event => setSelectedTag(event.target.value)}
             >
-              <option value="all">{t('projects.filters.tagAll')}</option>
+              <option value="all">{projectTexts.filters.tagAll}</option>
               {availableTags.map(tag => (
                 <option key={tag} value={tag}>
                   {tag}
@@ -109,21 +112,19 @@ export function ProjectsView() {
         </div>
 
         {projectsLoading ? (
-          <p className="text-muted-foreground">
-            {t('projects.states.loading')}
-          </p>
+          <p className="text-muted-foreground">{projectTexts.states.loading}</p>
         ) : (
           <>
             {projectsHasError ? (
               <p className="mb-4 text-sm text-rose-500">
-                {t('projects.states.error')}
+                {projectTexts.states.error}
                 {projectsError ? ` (${projectsError.message})` : ''}
               </p>
             ) : null}
 
             {paginatedProjects.length === 0 ? (
               <p className="text-muted-foreground">
-                {t('projects.states.empty')}
+                {projectTexts.states.empty}
               </p>
             ) : (
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -147,7 +148,7 @@ export function ProjectsView() {
               totalPages={totalPages}
               totalItems={filteredProjects.length}
               pageSize={pageSize}
-              label={t('projects.pagination.total')}
+              label={projectTexts.pagination.total}
               onPageChange={setCurrentPage}
               onPageSizeChange={size => setPageSize(size)}
             />

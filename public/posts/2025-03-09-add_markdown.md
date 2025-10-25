@@ -2,7 +2,7 @@
 slug: 2025-03-09-add_markdown
 title: 'Adicionando Markdown ao Blog'
 description: 'Como adicionei suporte a Markdown no blog do meu portfólio, incluindo instalação, configuração, formatação e listagem de posts.'
-date: 'Março 9, 2025'
+date: '2025-03-09'
 tags:
   - blog
   - webdev

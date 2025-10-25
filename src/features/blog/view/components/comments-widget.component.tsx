@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { env } from '@/env'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 
 const REPO = env.VITE_UTTERANCES_REPO
 const ISSUE_LABEL = env.VITE_UTTERANCES_LABEL
@@ -14,7 +14,7 @@ type CommentsWidgetProps = {
 
 export function CommentsWidget({ title }: CommentsWidgetProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const { t } = useI18n()
+  const messageTexts = texts.blog.comments
 
   useEffect(() => {
     const container = containerRef.current
@@ -65,7 +65,7 @@ export function CommentsWidget({ title }: CommentsWidgetProps) {
   if (!REPO) {
     return (
       <p className="mt-8 text-sm text-gray-500 dark:text-gray-400">
-        {t('blog.comments.setupMissing')}
+        {messageTexts.setupMissing}
       </p>
     )
   }

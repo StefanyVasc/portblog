@@ -5,11 +5,11 @@ import {
   TwitterLogoIcon
 } from '@radix-ui/react-icons'
 
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { copyrightText, texts } from '@/shared/content/texts'
 
 export function PageFooter() {
-  const { t } = useI18n()
   const year = new Date().getFullYear()
+  const footerTexts = texts.footer
 
   return (
     <footer className="flex h-20 w-full shrink-0 items-center justify-between px-4 font-rubik font-normal md:px-6">
@@ -53,9 +53,9 @@ export function PageFooter() {
         </li>
       </ul>
       <div className="mt-4 text-xs text-gray-400">
-        {t('footer.copyright', { year })}
+        {copyrightText(year)}
         <br />
-        {t('footer.rights')}
+        {footerTexts.rights}
       </div>
     </footer>
   )

@@ -9,8 +9,9 @@ import {
   Pagination,
   SearchBar
 } from '@/shared/components'
-import { useLocaleSuffix } from '@/shared/hooks/use-locale-suffix'
+import { blogSearchResults, texts } from '@/shared/content/texts'
 import { formatBreadcrumb } from '@/shared/utils/format-breadcrumb'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 import { ErrorMessage } from './components/error-message.component'
 import { Loading } from './components/loading.component'
@@ -39,7 +40,7 @@ export function BlogView() {
   const pathnames = formatBreadcrumb(slug)
 
   const { slug: routeSlug } = useParams()
-  const { t, i18n } = useLocaleSuffix()
+  const blogTexts = texts.blog
 
   const currentPostTitle = routeSlug
     ? posts.find(post => post.slug === routeSlug)?.title
@@ -64,19 +65,9 @@ export function BlogView() {
   useEffect(() => {
     const titleToUse = routeSlug
       ? (currentPostTitle ?? `blog/${routeSlug}`)
-      : t('blog.header')
+      : blogTexts.header
 
-    document.title = titleToUse
-
-    let metaTag = document.querySelector('meta[property="og:title"]')
-
-    if (!metaTag) {
-      metaTag = document.createElement('meta')
-      metaTag.setAttribute('property', 'og:title')
-      document.head.appendChild(metaTag)
-    }
-
-    metaTag.setAttribute('content', titleToUse)
+    updateDocumentTitle(titleToUse)
 
     if (!routeSlug) {
       const savedScroll =
@@ -90,11 +81,11 @@ export function BlogView() {
         window.scrollTo({ top: savedScroll, behavior: 'auto' })
       })
     }
-  }, [routeSlug, currentPostTitle, t, i18n.language])
+  }, [routeSlug, currentPostTitle, blogTexts.header])
 
   return (
     <div>
-      <Header headerName={t('blog.header')} />
+      <Header headerName={blogTexts.header} />
       {slug && <CustomBreadcrumb pathnames={pathnames} />}
 
       {showLoading && <Loading />}
@@ -114,14 +105,13 @@ export function BlogView() {
               allTags={allTags}
             />
           </div>
+
           {search && (
             <p className="mt-2 text-right text-sm text-gray-700 dark:text-gray-300">
-              {t('blog.searchResults', {
-                count: currentPosts.length,
-                query: search
-              })}
+              {blogSearchResults(currentPosts.length, search)}
             </p>
           )}
+
           <PostList posts={currentPosts} searched={search} />
 
           {totalPages > 1 && (

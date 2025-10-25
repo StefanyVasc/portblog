@@ -1,7 +1,5 @@
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 
 export const Loading = () => {
-  const { t } = useI18n()
-
-  return <p className="mt-10 text-center">{t('common.loading')}</p>
+  return <p className="mt-10 text-center">{texts.common.loading}</p>
 }

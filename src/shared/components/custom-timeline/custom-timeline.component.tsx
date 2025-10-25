@@ -11,7 +11,7 @@ import {
   HoverCardTrigger,
   Section
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 
 import { CustomTimelineProps } from './types'
 
@@ -19,7 +19,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
   const [showArrow, setShowArrow] = useState(true)
   const scrollRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const { t } = useI18n()
+  const presentLabel = texts.common.present
 
   const sortedItems = useMemo(
     () =>
@@ -128,8 +128,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                           <span className="my-2 flex items-center gap-2 whitespace-nowrap">
                             <CalendarIcon />
                             <span>
-                              {yearStart} -{' '}
-                              {!current ? yearEnd : t('common.present')}
+                              {yearStart} - {current ? presentLabel : yearEnd}
                             </span>
                           </span>
 

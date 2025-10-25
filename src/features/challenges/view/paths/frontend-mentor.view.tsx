@@ -10,14 +10,18 @@ import {
   TabsList,
   TabsTrigger
 } from '@/shared/components'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
+import { updateDocumentTitle } from '@/shared/utils/update-document-title'
 
 export function FrontendMentorView() {
   const { tabValue } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
-  const { t } = useI18n()
+  const title = texts.challenges.frontendMentor.title
+  useEffect(() => {
+    updateDocumentTitle(title)
+  }, [title])
 
   const tabsInfos = [
     { value: 'newbie', label: 'Newbie' },
@@ -42,7 +46,7 @@ export function FrontendMentorView() {
 
   return (
     <div>
-      <Header headerName={t('challenges.frontendMentor.title')}>
+      <Header headerName={title}>
         <CustomBreadcrumb pathnames={pathnames} />
       </Header>
       <main>

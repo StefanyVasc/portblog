@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { useI18n } from '@/shared/hooks/use-i18n'
+import { texts } from '@/shared/content/texts'
 import { casualReadings, technicalReadings } from '@/shared/static'
 
 import { Card } from './card.component'
@@ -14,7 +14,7 @@ export function ReadingSection({
   embedded = false,
   className = ''
 }: ReadingSectionProps) {
-  const { t } = useI18n()
+  const readingTexts = texts.home.reading
   const MAX_ITEMS_PER_LIST = 3
   const limitedTechnical = technicalReadings.slice(0, MAX_ITEMS_PER_LIST)
   const limitedCasual = casualReadings.slice(0, MAX_ITEMS_PER_LIST)
@@ -22,15 +22,15 @@ export function ReadingSection({
   const body = (
     <>
       <h4 className="mb-3 text-lg font-medium md:text-xl">
-        {t('home.reading.title')}
+        {readingTexts.title}
       </h4>
       <Card className="flex-1">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <ReadingList
-            title={t('home.reading.technical')}
+            title={readingTexts.technical}
             items={limitedTechnical}
           />
-          <ReadingList title={t('home.reading.casual')} items={limitedCasual} />
+          <ReadingList title={readingTexts.casual} items={limitedCasual} />
         </div>
       </Card>
     </>

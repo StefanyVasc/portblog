@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { getPostContent } from '@/features/blog/api/get-post-content'
 import { Post } from '@/features/blog/types/post'
 import { Badge } from '@/shared/components'
-import { useLocaleSuffix } from '@/shared/hooks/use-locale-suffix'
+import { texts } from '@/shared/content/texts'
 
 type PostListProps = {
   posts: Post[]
@@ -13,19 +13,19 @@ type PostListProps = {
 
 export const PostList = ({ posts, searched }: PostListProps) => {
   const queryClient = useQueryClient()
-  const { t, localeSuffix } = useLocaleSuffix()
+  const blogTexts = texts.blog
 
   function prefetchPostContent(slug: string) {
     queryClient.prefetchQuery({
-      queryKey: ['blog', 'post-content', slug, localeSuffix],
-      queryFn: ({ signal }) => getPostContent({ slug, localeSuffix, signal })
+      queryKey: ['blog', 'post-content', slug],
+      queryFn: ({ signal }) => getPostContent({ slug, signal })
     })
   }
 
   return (
     <div className="mx-auto min-h-[60vh] w-full max-w-4xl px-4 py-6 sm:px-6 lg:px-10">
       {!searched && (
-        <h4 className="mb-4 text-xl font-semibold">{t('blog.latestPosts')}</h4>
+        <h4 className="mb-4 text-xl font-semibold">{blogTexts.latestPosts}</h4>
       )}
 
       {posts.length > 0 ? (
@@ -76,7 +76,7 @@ export const PostList = ({ posts, searched }: PostListProps) => {
           ))}
         </ul>
       ) : (
-        <p className="text-gray-500">{t('blog.noPosts')}</p>
+        <p className="text-gray-500">{blogTexts.noPosts}</p>
       )}
     </div>
   )

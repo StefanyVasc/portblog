@@ -6,7 +6,6 @@ export * from './custom-timeline/custom-timeline.component'
 
 export * from './global-scroll-animation.component'
 export * from './header.component'
-export * from './language-switch.component'
 export * from './logo.component'
 export * from './md-renderer.component'
 export * from './pagination.component'
