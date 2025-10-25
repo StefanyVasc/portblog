@@ -124,12 +124,12 @@ export const texts = {
       title: '...mim',
       introPart1: 'Oi, eu sou o Goku!... Só que não 😅...',
       introPart2: '...Olá, meu nome é',
-      introPart3: 'e sou Desenvolvedora Front End.'
+      introPart3: 'e atuo como Senior Frontend Software Engineer.'
     },
     career: {
       title: '...Carreira',
       description:
-        'Como entusiasta de interfaces e Desenvolvedora Front End dedicada, tenho uma paixão inabalável por JavaScript. Com mais de seis anos de experiência, possuo um conhecimento profundo de tecnologias essenciais, incluindo HTML, CSS, JavaScript, TypeScript, ReactJS, Tailwind CSS e D3.js para criação de gráficos interativos, além de Angular, Git e Github. Ao longo da minha trajetória profissional, mantenho um compromisso constante com o aprendizado contínuo, explorando regularmente novas tecnologias e conduzindo Provas de Conceito (POCs).',
+        'Como Senior Frontend Software Engineer, tenho uma paixão inabalável por JavaScript. Com mais de oito anos de experiência na bagagem, possuo um conhecimento profundo de tecnologias essenciais, incluindo HTML, CSS, JavaScript, TypeScript, ReactJS, Tailwind CSS e D3.js para criação de gráficos interativos, além de Angular, Git e Github. Ao longo da minha trajetória profissional, mantenho um compromisso constante com o aprendizado contínuo, explorando regularmente novas tecnologias e conduzindo Provas de Conceito (POCs).',
       timelineTitle: 'A jornada até aqui...'
     }
   }
