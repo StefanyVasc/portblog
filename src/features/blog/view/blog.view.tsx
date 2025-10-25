@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useBlogSearch } from '@/features/blog/hooks/use-blog-search'
@@ -14,8 +14,12 @@ import { formatBreadcrumb } from '@/shared/utils/format-breadcrumb'
 
 import { ErrorMessage } from './components/error-message.component'
 import { Loading } from './components/loading.component'
-import { PostContent } from './components/post-content.component'
 import { PostList } from './components/post-list.component'
+
+const PostContent = lazy(async () => {
+  const module = await import('./components/post-content.component')
+  return { default: module.PostContent }
+})
 
 export function BlogView() {
   const { slug, content, tags, posts, postsQuery, contentQuery } = usePost()

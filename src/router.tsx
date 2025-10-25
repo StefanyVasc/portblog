@@ -1,14 +1,61 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import App from './App'
-import { AboutView } from './features/about/view/about.view'
-import { BlogView } from './features/blog/view/blog.view'
-import { ChallengesView } from './features/challenges/view/challenges.view'
-import { CustomTabContent } from './features/challenges/view/components/custom-tab-content.component'
-import { BoraCodarView } from './features/challenges/view/paths/bora-code.view'
-import { FrontendMentorView } from './features/challenges/view/paths/frontend-mentor.view'
-import { HomeView } from './features/home/view/home.view'
-import { ProjectsView } from './features/projects/view/projects.view'
+
+const HomeView = lazy(async () => {
+  const module = await import('./features/home/view/home.view')
+  return { default: module.HomeView }
+})
+
+const ChallengesView = lazy(async () => {
+  const module = await import('./features/challenges/view/challenges.view')
+  return { default: module.ChallengesView }
+})
+
+const BlogView = lazy(async () => {
+  const module = await import('./features/blog/view/blog.view')
+  return { default: module.BlogView }
+})
+
+const ProjectsView = lazy(async () => {
+  const module = await import('./features/projects/view/projects.view')
+  return { default: module.ProjectsView }
+})
+
+const AboutView = lazy(async () => {
+  const module = await import('./features/about/view/about.view')
+  return { default: module.AboutView }
+})
+
+const FrontendMentorView = lazy(async () => {
+  const module = await import(
+    './features/challenges/view/paths/frontend-mentor.view'
+  )
+  return { default: module.FrontendMentorView }
+})
+
+const BoraCodarView = lazy(async () => {
+  const module = await import('./features/challenges/view/paths/bora-code.view')
+  return { default: module.BoraCodarView }
+})
+
+const CustomTabContent = lazy(async () => {
+  const module = await import(
+    './features/challenges/view/components/custom-tab-content.component'
+  )
+  return { default: module.CustomTabContent }
+})
+
+const suspenseFallback = (
+  <div className="flex items-center justify-center p-6 text-sm text-muted-foreground">
+    Carregando...
+  </div>
+)
+
+function withSuspense(element: JSX.Element) {
+  return <Suspense fallback={suspenseFallback}>{element}</Suspense>
+}
 
 const router = createBrowserRouter([
   {
@@ -18,37 +65,37 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomeView />
+        element: withSuspense(<HomeView />)
       },
       {
         path: 'challenges',
-        element: <ChallengesView />
+        element: withSuspense(<ChallengesView />)
       },
       {
         path: 'blog/:slug?',
-        element: <BlogView />
+        element: withSuspense(<BlogView />)
       },
       {
         path: 'projects',
-        element: <ProjectsView />
+        element: withSuspense(<ProjectsView />)
       },
       {
         path: 'challenges/frontend-mentor',
-        element: <FrontendMentorView />,
+        element: withSuspense(<FrontendMentorView />),
         children: [
           {
             path: ':tabValue',
-            element: <CustomTabContent />
+            element: withSuspense(<CustomTabContent />)
           }
         ]
       },
       {
         path: 'challenges/bora-codar',
-        element: <BoraCodarView />
+        element: withSuspense(<BoraCodarView />)
       },
       {
         path: 'about',
-        element: <AboutView />
+        element: withSuspense(<AboutView />)
       }
     ]
   }
