@@ -1,5 +1,5 @@
-import { HttpError } from '@/services/http/http'
-import { getJsonWithSchema } from '@/shared/api/get-json-with-schema'
+import { getAsyncWithFallback } from '@/shared/api/get-async-with-fallback'
+import { parseWithSchema } from '@/shared/utils/parse-with-schema'
 
 import { postListSchema } from '../schemas/post'
 
@@ -11,28 +11,23 @@ type GetPostsArgs = {
 export async function getPosts({ localeSuffix, signal }: GetPostsArgs) {
   const primaryPath = `/posts/posts${localeSuffix}.json`
   const fallbackPath = '/posts/posts.json'
+  const baseURL =
+    typeof window !== 'undefined' ? window.location.origin : undefined
+  const config = { baseURL, signal }
 
-  try {
-    return await getJsonWithSchema(
-      postListSchema,
-      primaryPath,
-      { signal },
-      `Posts (${localeSuffix || 'default'})`
-    )
-  } catch (error) {
-    if (
-      error instanceof HttpError &&
-      error.status === 404 &&
-      primaryPath !== fallbackPath
-    ) {
-      return getJsonWithSchema(
-        postListSchema,
-        fallbackPath,
-        { signal },
-        'Posts (fallback)'
-      )
+  const data = await getAsyncWithFallback<unknown>(
+    primaryPath,
+    fallbackPath,
+    config,
+    {
+      responseType: 'json',
+      accept: 'application/json, */*'
     }
+  )
 
-    throw error
-  }
+  return parseWithSchema(
+    postListSchema,
+    data,
+    `Posts (${localeSuffix || 'default'})`
+  )
 }

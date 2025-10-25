@@ -1,4 +1,6 @@
-import { fetchTextWithFallback } from '@/shared/api/get-text-with-fallback'
+// import { axiosGetWithFallback } from '@/shared/api/axios-helpers'
+
+import { getAsyncWithFallback } from '@/shared/api/get-async-with-fallback'
 
 type GetPostContentArgs = {
   slug: string
@@ -14,6 +16,22 @@ export async function getPostContent({
   const encodedSlug = encodeURIComponent(slug)
   const primaryPath = `/posts/${encodedSlug}${localeSuffix}.md`
   const fallbackPath = `/posts/${encodedSlug}.md`
+  const baseURL =
+    typeof window !== 'undefined' ? window.location.origin : undefined
 
-  return fetchTextWithFallback(primaryPath, fallbackPath, { signal })
+  return getAsyncWithFallback<string>(
+    primaryPath,
+    fallbackPath,
+    {
+      baseURL,
+      signal,
+      headers: {
+        Accept: 'text/markdown, text/plain, */*'
+      }
+    },
+    {
+      responseType: 'text',
+      accept: 'text/markdown, text/plain, */*'
+    }
+  )
 }

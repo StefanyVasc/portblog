@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
 
+import { env } from '@/env'
 import { useI18n } from '@/shared/hooks/use-i18n'
 
-const REPO = import.meta.env.VITE_UTTERANCES_REPO
-const ISSUE_LABEL = import.meta.env.VITE_UTTERANCES_LABEL ?? 'blog-comments'
-const THEME = import.meta.env.VITE_UTTERANCES_THEME ?? 'github-light'
+const REPO = env.VITE_UTTERANCES_REPO
+const ISSUE_LABEL = env.VITE_UTTERANCES_LABEL
+const THEME = env.VITE_UTTERANCES_THEME
 const UTTERANCES_ORIGIN = 'https://utteranc.es'
 
 type CommentsWidgetProps = {

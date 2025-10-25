@@ -1,4 +1,5 @@
-import { getJsonWithSchema } from '@/shared/api/get-json-with-schema'
+import { api } from '@/lib/axios'
+import { parseWithSchema } from '@/shared/utils/parse-with-schema'
 
 import { GITHUB_USERNAME, repositoryListSchema } from '../schemas/repository'
 import { mapRepositoryToProject } from '../utils/map-repository-to-project'
@@ -11,15 +12,17 @@ type getRepositoriesArgs = {
 export async function getRepositories({ limit, signal }: getRepositoriesArgs) {
   const perPage = Math.min(limit ?? 100, 100)
 
-  const repositories = await getJsonWithSchema(
-    repositoryListSchema,
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=${perPage}&sort=updated`,
-    {
-      headers: {
-        Accept: 'application/vnd.github+json'
-      },
-      signal
+  const { data } = await api.get<unknown>(`/users/${GITHUB_USERNAME}/repos`, {
+    params: {
+      per_page: perPage,
+      sort: 'updated'
     },
+    signal
+  })
+
+  const repositories = parseWithSchema(
+    repositoryListSchema,
+    data,
     'GitHub repositories'
   )
 
