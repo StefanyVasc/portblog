@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { usePost } from '@/features/blog/hooks/use-post'
-import { useRepositories } from '@/features/projects/hooks/use-repositories'
 import { ProjectCard } from '@/features/projects/view/components/project-card.component'
 import { Header } from '@/shared/components'
 import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
+import { useRepositories } from '@/shared/hooks/use-repositories'
 import { learningNow, technologiesILike } from '@/shared/static'
 import { updateSeo } from '@/shared/utils/update-seo'
 

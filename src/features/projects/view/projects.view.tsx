@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { Header, Pagination } from '@/shared/components'
 import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
+import { useRepositories } from '@/shared/hooks/use-repositories'
 import { updateSeo } from '@/shared/utils/update-seo'
 
-import { useRepositories } from '../hooks/use-repositories'
 import { ProjectCard } from './components/project-card.component'
 
 export function ProjectsView() {
