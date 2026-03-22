@@ -11,6 +11,15 @@ backend:
 publish_mode: editorial_workflow
 local_backend: true
 
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: stevasc
+    api_key: 288497637314434
+    default_transformations:
+      - - fetch_format: auto
+          quality: auto
+
 media_folder: public/posts/media
 public_folder: /posts/media
 
