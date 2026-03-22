@@ -1,0 +1,5 @@
+# .trivyignore
+# CVEs ignorados intencionalmente — apenas CRITICAL bloqueia o CI
+#
+# Formato:
+# CVE-XXXX-XXXXX  # motivo: ex. dev-only, sem fix disponível, não aplicável
