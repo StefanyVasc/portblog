@@ -2,13 +2,71 @@ import { CustomTimelineProps } from '../components/custom-timeline/types'
 
 export const careerItems: CustomTimelineProps['items'] = [
   {
-    yearStart: '2025',
+    yearStart: '2026',
     yearEnd: 'Presente',
+    title: 'Staff Software Engineer',
+    company: 'iFood',
+    description: 'Em início de jornada no iFood como Staff Software Engineer.',
+    current: true
+  },
+
+  {
+    yearStart: '2025',
+    yearEnd: '2026',
+    title: 'Senior Software Engineer',
+    company: 'Stone',
+    description:
+      'Desenvolvimento e manutenção de aplicações administrativas críticas para as operações financeiras da Stone, dentro de um monorepo de grande escala com 130+ projetos Nx em 13 domínios de negócio.',
+    current: false,
+    duration: '4 meses',
+    about:
+      'Desenvolvimento e manutenção de aplicações administrativas críticas para as operações financeiras da Stone, em um monorepo com 130+ projetos Nx distribuídos em 13 domínios de negócio, estruturados em camadas independentes para cache granular, builds isoladas e ownership escalável por times.',
+    competencies: {
+      frontend: {
+        libs: [
+          'react-admin',
+          'tanstack-query',
+          'redux-toolkit',
+          'material-ui',
+          'keycloak',
+          'msal'
+        ],
+        frameworks: ['react', 'vite']
+      },
+      styling: {
+        libraries: ['mui']
+      },
+      architecture: {
+        patterns: ['domain-driven', 'monorepo', 'Nx', 'RBAC', 'SSO']
+      },
+      testing: {
+        tools: ['cypress']
+      },
+      observability: {
+        tools: ['datadog-rum', 'amplitude']
+      },
+      deploy: {
+        ci: {
+          tools: ['github-actions']
+        },
+        cd: {
+          tools: ['s3', 'cloudfront']
+        }
+      },
+      auth: {
+        tools: ['keycloak', 'oauth2', 'msal', 'azure-ad']
+      }
+    }
+  },
+
+  {
+    yearStart: '2025',
+    yearEnd: '2025',
     title: 'Tech Lead Frontend',
     company: 'FCx Labs',
     description:
       'Lidero as decisões técnicas do projeto Catálogo, organizando o capacity do time, promovendo integrações entre módulos e conduzindo a evolução arquitetural da aplicação.',
-    current: true,
+    current: false,
     about:
       'Como Tech Lead Frontend, lidero o time técnico e defino padrões de arquitetura para garantir escalabilidade e qualidade. Conduzi a integração entre os módulos de Catálogo e Seller via proxy reverso e implementei uma nova arquitetura baseada em Feature Sliced e Clean Architecture adaptada ao projeto. Atuo de forma prática no desenvolvimento, mentorando o time e conduzindo decisões técnicas para fortalecer a robustez da aplicação.',
     competencies: {

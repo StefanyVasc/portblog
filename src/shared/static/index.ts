@@ -1,4 +1,5 @@
 export * from './career'
+export * from './education'
 export * from './challenges'
 export * from './learning'
 export * from './techs-like'

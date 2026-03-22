@@ -83,7 +83,7 @@ export function ProjectsView() {
     <div>
       <Header headerName={projectTexts.header} />
 
-      <section className="py-5 font-300">
+      <section className="pt-3 font-300">
         <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <label className="flex w-full flex-col gap-2 md:w-1/2">
             <span className="text-sm font-medium text-muted-foreground">
@@ -120,7 +120,7 @@ export function ProjectsView() {
         {projectsLoading ? (
           <p className="text-muted-foreground">{projectTexts.states.loading}</p>
         ) : (
-          <>
+          <div>
             {projectsHasError ? (
               <p className="mb-4 text-sm text-rose-500">
                 {projectTexts.states.error}
@@ -128,26 +128,38 @@ export function ProjectsView() {
               </p>
             ) : null}
 
-            {paginatedProjects.length === 0 ? (
-              <p className="text-muted-foreground">
-                {projectTexts.states.empty}
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {paginatedProjects.map(project => (
-                  <ProjectCard
-                    key={project.id}
-                    description={project.description}
-                    homepage={project.homepage}
-                    name={project.name}
-                    repository={project.repository}
-                    stars={project.stars}
-                    tags={project.tags}
-                    updatedAt={project.updatedAt}
-                  />
-                ))}
-              </div>
-            )}
+            <div className="flex-1">
+              {paginatedProjects.length === 0 ? (
+                <p className="text-muted-foreground">
+                  {projectTexts.states.empty}
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {paginatedProjects.map(project => (
+                    <ProjectCard
+                      key={project.id}
+                      description={project.description}
+                      homepage={project.homepage}
+                      name={project.name}
+                      repository={project.repository}
+                      stars={project.stars}
+                      tags={project.tags}
+                      updatedAt={project.updatedAt}
+                      buttonClassName="bg-white"
+                    />
+                  ))}
+                  {Array.from({
+                    length: pageSize - paginatedProjects.length
+                  }).map((_, i) => (
+                    <div
+                      key={`placeholder-${i}`}
+                      className="h-[320px]"
+                      aria-hidden
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
 
             <Pagination
               currentPage={safeCurrentPage}
@@ -158,7 +170,7 @@ export function ProjectsView() {
               onPageChange={setCurrentPage}
               onPageSizeChange={size => setPageSize(size)}
             />
-          </>
+          </div>
         )}
       </section>
     </div>

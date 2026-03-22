@@ -115,7 +115,7 @@ export function HomeView() {
             {homeTexts.projects.empty}
           </p>
         ) : (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featuredProjects.map(project => (
               <ProjectCard
                 key={project.id}
@@ -126,6 +126,8 @@ export function HomeView() {
                 homepage={project.homepage}
                 stars={project.stars}
                 updatedAt={project.updatedAt}
+                className="bg-background"
+                buttonClassName="bg-white"
               />
             ))}
           </div>

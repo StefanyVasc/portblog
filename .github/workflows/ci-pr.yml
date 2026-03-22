@@ -2,7 +2,7 @@ name: CI - PR checks
 
 on:
   pull_request:
-    branches: ['release', 'main'] # roda em PRs pra release e pra main
+    branches: ['main']
     paths-ignore:
       - '**/*.md'
       - '.vscode/**'

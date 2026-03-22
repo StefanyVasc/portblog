@@ -13,8 +13,16 @@ export type CompetenciesType = {
       | 'zod'
       | 'zustand'
       | 'context-api'
+      | 'react-admin'
+      | 'tanstack-query'
+      | 'redux-toolkit'
+      | 'material-ui'
+      | 'keycloak'
+      | 'msal'
     >
-    frameworks?: Array<'angular' | 'nextjs' | 'single-spa' | 'emberjs' | 'vite'>
+    frameworks?: Array<
+      'react' | 'angular' | 'nextjs' | 'single-spa' | 'emberjs' | 'vite'
+    >
   }
 
   styling?: {
@@ -26,6 +34,7 @@ export type CompetenciesType = {
       | 'bootstrap'
       | 'shadcnui'
       | 'radix'
+      | 'mui'
     >
   }
 
@@ -53,6 +62,10 @@ export type CompetenciesType = {
       | 'onion architecture'
       | 'SOLID'
       | 'defensive programming'
+      | 'domain-driven'
+      | 'Nx'
+      | 'RBAC'
+      | 'SSO'
     >
   }
 
@@ -91,7 +104,15 @@ export type CompetenciesType = {
     // Mantive os já previstos e permiti 'rancher' aqui também,
     // pois você usou em cd.tools no objeto de Tech Lead
     cd?: {
-      tools?: Array<'spinnaker' | 'argo-cd' | 'flux' | 'gitops' | 'rancher'>
+      tools?: Array<
+        | 'spinnaker'
+        | 'argo-cd'
+        | 'flux'
+        | 'gitops'
+        | 'rancher'
+        | 's3'
+        | 'cloudfront'
+      >
     }
     governance?: Array<'GMUD'>
   }
@@ -102,7 +123,13 @@ export type CompetenciesType = {
 
   observability?: {
     tools?: Array<
-      'opentelemetry' | 'jaeger' | 'zipkin' | 'prometheus' | 'grafana'
+      | 'opentelemetry'
+      | 'jaeger'
+      | 'zipkin'
+      | 'prometheus'
+      | 'grafana'
+      | 'datadog-rum'
+      | 'amplitude'
     >
   }
 
@@ -125,6 +152,10 @@ export type CompetenciesType = {
 
   communication?: {
     tools?: Array<'notion' | 'jira' | 'slack'>
+  }
+
+  auth?: {
+    tools?: Array<'keycloak' | 'oauth2' | 'msal' | 'azure-ad' | 'okta'>
   }
 }
 

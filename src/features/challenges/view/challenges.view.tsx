@@ -41,10 +41,6 @@ export function ChallengesView() {
             <CardDescription> </CardDescription>
           </CardHeader>
           <CardContent>
-            {/* <p>to do: </p>
-            <p>doing: </p>
-            <p>done: </p>
-            <p>drop it: </p> */}
             <UnderConstruction />
           </CardContent>
           <CardFooter>

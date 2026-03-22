@@ -29,7 +29,7 @@ export function PageHeader() {
   ]
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <header className="sticky top-0 z-50 flex h-20 w-full shrink-0 items-center bg-background px-4 md:px-6">
       <Link to="/">
         <Logo className="h-6 w-6 transition-all duration-300 hover:fill-rose-500" />
         <span className="sr-only">SVS</span>
@@ -39,13 +39,13 @@ export function PageHeader() {
         <div className="flex gap-2">
           <Link
             to="/"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
           >
             {headerTexts.nav.home}
           </Link>
           <Link
             to="/about"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
           >
             {headerTexts.nav.about}
           </Link>
@@ -53,7 +53,7 @@ export function PageHeader() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hover:border-b-2 hover:border-dashed hover:border-rose-500 hover:bg-transparent">
                   {headerTexts.explore}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>

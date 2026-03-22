@@ -47,8 +47,6 @@ export function BlogView() {
   const currentPost = routeSlug
     ? (posts.find(post => post.slug === routeSlug) ?? null)
     : null
-  // const currentPostTitle = currentPost?.title ?? null
-
   const showLoading = slug
     ? contentQuery.isLoading && !content
     : postsQuery.isLoading && posts.length === 0
