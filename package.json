@@ -13,7 +13,8 @@
     "prepare": "husky",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "generate:posts": "node scripts/generate-posts-index.mjs"
+    "generate:posts": "node scripts/generate-posts-index.mjs",
+    "delete:post": "node scripts/delete-post.mjs"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
