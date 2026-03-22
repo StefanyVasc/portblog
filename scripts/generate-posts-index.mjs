@@ -4,7 +4,7 @@ import path from 'path'
 const POSTS_DIR = path.resolve('public/posts')
 const INDEX_FILE = path.join(POSTS_DIR, 'posts.json')
 const SITEMAP_FILE = path.resolve('public', 'sitemap.xml')
-const SITE_URL = process.env.SITE_URL ?? 'https://stefany.dev'
+const SITE_URL = process.env.SITE_URL ?? 'https://stefany-sa.com.br'
 const STATIC_ROUTES = [
   '/',
   '/about',
