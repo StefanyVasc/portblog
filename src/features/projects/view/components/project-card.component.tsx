@@ -19,6 +19,8 @@ type ProjectCardProps = {
   homepage?: string | null
   stars?: number
   updatedAt?: string
+  className?: string
+  buttonClassName?: string
 }
 
 function formatDate(dateIso?: string) {
@@ -45,13 +47,17 @@ export function ProjectCard({
   repository,
   stars,
   tags,
-  updatedAt
+  updatedAt,
+  className,
+  buttonClassName
 }: ProjectCardProps) {
   const formattedDate = formatDate(updatedAt)
   const projectTexts = texts.projects
 
   return (
-    <Card className="flex h-full flex-col justify-between">
+    <Card
+      className={`flex h-[320px] flex-col justify-between ${className ?? ''}`}
+    >
       <CardHeader>
         <CardTitle className="text-lg font-semibold">{name}</CardTitle>
         <p className="text-sm text-muted-foreground">
@@ -61,7 +67,7 @@ export function ProjectCard({
 
       <CardContent className="flex flex-1 flex-col gap-4">
         {tags.length > 0 && (
-          <ul className="flex flex-wrap gap-2">
+          <ul className="flex max-h-16 flex-wrap gap-2 overflow-hidden">
             {tags.map(tag => (
               <li key={`${name}-${tag}`}>
                 <Badge
@@ -88,7 +94,7 @@ export function ProjectCard({
 
       <CardFooter className="flex flex-wrap gap-2">
         {repository && (
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" className={buttonClassName}>
             <a href={repository} target="_blank" rel="noreferrer">
               <Github className="size-4" aria-hidden />
               {projectTexts.card.repository}

@@ -32,10 +32,8 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
   const handleScroll = () => {
     setShowArrow(true)
 
-    // Limpa o timeout anterior para evitar esconder prematuramente
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
 
-    // Inicia um novo timeout para esconder a seta após 0.5s sem scroll
     timeoutRef.current = setTimeout(() => {
       setShowArrow(false)
     }, 500)
@@ -57,7 +55,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
   return (
     <motion.div
-      className="relative h-60 p-6"
+      className="relative h-72 p-6"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -69,7 +67,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
       {/* Scroll horizontal da timeline */}
       <motion.div
         ref={scrollRef}
-        className="custom-scrollbar relative h-full overflow-x-auto pl-6"
+        className="custom-scrollbar relative h-full overflow-x-auto overflow-y-hidden pl-6"
       >
         <motion.div className="flex min-w-max gap-10">
           {sortedItems.map((item, index) => {
@@ -154,7 +152,6 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                               )
                                 return null
 
-                              // Filtra apenas os arrays dentro de cada seção
                               const allValues = Object.values(sectionData)
                                 .filter(Array.isArray)
                                 .flat()
@@ -194,7 +191,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
           })}
         </motion.div>
 
-        {/* Indicador de arraste (some apenas quando o usuário fizer scroll) */}
+        {/* Indicador de arraste */}
         {showArrow && (
           <motion.div
             className="absolute bottom-20 left-1/2 flex -translate-x-1/2 transform items-center rounded-md bg-gray-200 px-3 py-1 text-gray-500 shadow-lg dark:bg-gray-700 dark:text-gray-400"

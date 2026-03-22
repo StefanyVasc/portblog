@@ -13,7 +13,8 @@ export const technicalReadings: Reading[] = [
     tags: ['recommendation']
   },
   {
-    title: 'Fundamentals of Software Architecture',
+    title:
+      'Fundamentos da arquitetura de software: uma abordagem de engenharia',
     author: 'Mark Richards & Neal Ford',
     tags: ['reading']
   },
@@ -25,6 +26,16 @@ export const technicalReadings: Reading[] = [
 ]
 
 export const casualReadings: Reading[] = [
+  {
+    title: 'O mapeador de ausências',
+    author: 'Mia Couto',
+    tags: ['reading']
+  },
+  {
+    title: '10 minutos e 38 segundos neste mundo estranho',
+    author: 'Elif Shafak',
+    tags: ['last read']
+  },
   {
     title: 'Torto Arado',
     author: 'Itamar Vieira Junior',

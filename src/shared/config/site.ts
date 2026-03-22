@@ -1,5 +1,5 @@
 export const SITE_NAME = 'Stefany Sá'
-export const SITE_URL = 'https://stefany.dev'
+export const SITE_URL = 'https://stefany-sa.com.br'
 export const SITE_DEFAULT_IMAGE = `${SITE_URL}/svs.svg`
 export const SITE_AUTHOR = {
   name: 'Stefany Sá',
