@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stefany.dev/</loc>
+    <loc>https://stefany-sa.com.br/</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/about</loc>
+    <loc>https://stefany-sa.com.br/about</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/blog</loc>
+    <loc>https://stefany-sa.com.br/blog</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/projects</loc>
+    <loc>https://stefany-sa.com.br/projects</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/challenges</loc>
+    <loc>https://stefany-sa.com.br/challenges</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/challenges/frontend-mentor</loc>
+    <loc>https://stefany-sa.com.br/challenges/frontend-mentor</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/challenges/bora-codar</loc>
+    <loc>https://stefany-sa.com.br/challenges/bora-codar</loc>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/blog/2025-03-10-add_code_highlighting</loc>
+    <loc>https://stefany-sa.com.br/blog/2026-03-22-teste-cloudinary</loc>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://stefany-sa.com.br/blog/2025-03-10-add_code_highlighting</loc>
     <lastmod>2025-03-10</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/blog/2025-03-09-add_markdown</loc>
+    <loc>https://stefany-sa.com.br/blog/2025-03-09-add_markdown</loc>
     <lastmod>2025-03-09</lastmod>
   </url>
   <url>
-    <loc>https://stefany.dev/blog/2025-03-08-starting_my_portfolio</loc>
+    <loc>https://stefany-sa.com.br/blog/2025-03-08-starting_my_portfolio</loc>
     <lastmod>2025-03-08</lastmod>
   </url>
 </urlset>

@@ -36,8 +36,7 @@ export function HomeView() {
     })
   }, [])
 
-  // Get the 3 most recent posts (assuming the hook already sorts them)
-  const latestPosts = posts.slice(-3).reverse()
+  const latestPosts = posts.slice(0, 3)
 
   return (
     <div>
