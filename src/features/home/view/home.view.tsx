@@ -44,9 +44,17 @@ export function HomeView() {
 
       {/* Articles section */}
       <section className="py-5">
-        <h4 className="mb-3 text-lg font-medium md:text-xl">
-          {homeTexts.latestArticles}
-        </h4>
+        <div className="mb-3 flex items-center justify-between">
+          <h4 className="text-lg font-medium md:text-xl">
+            {homeTexts.latestArticles}
+          </h4>
+          <Link
+            to="/blog"
+            className="text-sm font-semibold text-rose-600 hover:underline dark:text-rose-400"
+          >
+            {homeTexts.viewAllPosts}
+          </Link>
+        </div>
 
         {latestPosts.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

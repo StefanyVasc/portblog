@@ -125,7 +125,7 @@ export function BlogView() {
         <PostContent content={content} tags={tags} />
       ) : (
         <>
-          <div className="mx-auto mt-6 w-full max-w-5xl">
+          <div className="mt-6 w-full">
             <SearchBar
               search={search}
               setSearch={setSearch}

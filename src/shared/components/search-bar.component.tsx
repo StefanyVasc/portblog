@@ -26,7 +26,7 @@ export function SearchBar({
         <select
           value={searchType}
           onChange={e => setSearchType(e.target.value as 'text' | 'tag')}
-          className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 text-transparent shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+          className="w-full appearance-none rounded-md border border-border bg-background p-2 text-transparent outline-none transition-all hover:bg-muted focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
         >
           <option value="" className="hidden" />
           <option value="text">{searchTexts.filter.text}</option>
@@ -50,7 +50,7 @@ export function SearchBar({
               placeholder={searchTexts.placeholder}
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white p-2 pl-10 pr-10 text-gray-900 shadow-sm outline-none transition-all duration-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full rounded-md border border-border bg-background p-2 pl-10 pr-10 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
             />
             {search && (
               <button
@@ -66,7 +66,7 @@ export function SearchBar({
             <select
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full appearance-none rounded-md border border-gray-300 bg-white p-2 pl-3 text-gray-900 shadow-sm outline-none transition-all duration-200 hover:bg-gray-100 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800"
+              className="w-full appearance-none rounded-md border border-border bg-background p-2 pl-3 text-sm outline-none transition-all hover:bg-muted focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
             >
               <option value="">{searchTexts.selectTag}</option>
               {allTags.map(tag => (

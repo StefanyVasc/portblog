@@ -23,7 +23,7 @@ export const PostList = ({ posts, searched }: PostListProps) => {
   }
 
   return (
-    <div className="mx-auto min-h-[60vh] w-full max-w-4xl px-4 py-6 sm:px-6 lg:px-10">
+    <div className="min-h-[60vh] w-full py-6">
       {!searched && (
         <h4 className="mb-4 text-xl font-semibold">{blogTexts.latestPosts}</h4>
       )}
