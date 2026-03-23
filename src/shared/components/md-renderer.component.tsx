@@ -18,7 +18,7 @@ interface MarkdownRendererProps {
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
-    <article className="markdown-content prose dark:prose-invert">
+    <article className="markdown-content prose">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[

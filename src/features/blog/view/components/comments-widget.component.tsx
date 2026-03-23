@@ -64,9 +64,7 @@ export function CommentsWidget({ title }: CommentsWidgetProps) {
 
   if (!REPO) {
     return (
-      <p className="mt-8 text-sm text-gray-500 dark:text-gray-400">
-        {messageTexts.setupMissing}
-      </p>
+      <p className="mt-8 text-sm text-gray-500">{messageTexts.setupMissing}</p>
     )
   }
 

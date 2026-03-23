@@ -1,5 +1,6 @@
-import { texts } from '@/shared/content/texts'
+import { PostContentSkeleton, PostListSkeleton } from '@/shared/components'
 
-export const Loading = () => {
-  return <p className="mt-10 text-center">{texts.common.loading}</p>
+export const Loading = ({ type }: { type?: 'list' | 'content' }) => {
+  if (type === 'content') return <PostContentSkeleton />
+  return <PostListSkeleton />
 }

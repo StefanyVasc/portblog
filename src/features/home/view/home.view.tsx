@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { usePost } from '@/features/blog/hooks/use-post'
 import { useRepositories } from '@/features/projects/hooks/use-repositories'
 import { ProjectCard } from '@/features/projects/view/components/project-card.component'
-import { Header } from '@/shared/components'
+import { Header, ProjectCardSkeleton } from '@/shared/components'
 import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { learningNow, technologiesILike } from '@/shared/static'
@@ -50,7 +50,7 @@ export function HomeView() {
           </h4>
           <Link
             to="/blog"
-            className="text-sm font-semibold text-rose-600 hover:underline dark:text-rose-400"
+            className="text-sm font-semibold text-rose-600 hover:underline"
           >
             {homeTexts.viewAllPosts}
           </Link>
@@ -81,7 +81,7 @@ export function HomeView() {
 
                   <Link
                     to={`/blog/${post.slug}`}
-                    className="text-rose-600 hover:underline dark:text-rose-400"
+                    className="text-rose-600 hover:underline"
                   >
                     {commonTexts.readMore}
                   </Link>
@@ -102,16 +102,18 @@ export function HomeView() {
           </h4>
           <Link
             to="/projects"
-            className="text-sm font-semibold text-rose-600 hover:underline dark:text-rose-400"
+            className="text-sm font-semibold text-rose-600 hover:underline"
           >
             {homeTexts.projects.viewAll}
           </Link>
         </div>
 
         {projectsLoading ? (
-          <p className="text-sm text-muted-foreground">
-            {homeTexts.projects.loading}
-          </p>
+          <div className="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <ProjectCardSkeleton key={i} />
+            ))}
+          </div>
         ) : projectsHasError ? (
           <p className="text-sm text-rose-500">
             {homeTexts.projects.error}

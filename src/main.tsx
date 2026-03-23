@@ -16,6 +16,8 @@ const ReactQueryDevtoolsLazy = import.meta.env.DEV
     })
   : null
 
+document.getElementById('app-loader')?.remove()
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

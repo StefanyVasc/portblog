@@ -22,11 +22,11 @@ export function SearchBar({
   return (
     <div className="mb-4 flex items-center gap-4">
       {/* Select de Filtro Apenas com Ícone */}
-      <div className="relative w-10">
+      <div className="relative h-11 w-11">
         <select
           value={searchType}
           onChange={e => setSearchType(e.target.value as 'text' | 'tag')}
-          className="w-full appearance-none rounded-md border border-border bg-background p-2 text-transparent outline-none transition-all hover:bg-muted focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
+          className="h-full w-full appearance-none rounded-md border border-border bg-background text-transparent outline-none transition-all hover:bg-muted focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
         >
           <option value="" className="hidden" />
           <option value="text">{searchTexts.filter.text}</option>
@@ -55,7 +55,7 @@ export function SearchBar({
             {search && (
               <button
                 onClick={() => setSearch('')}
-                className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
               >
                 <X size={18} />
               </button>

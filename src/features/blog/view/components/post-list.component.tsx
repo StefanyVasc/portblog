@@ -35,7 +35,7 @@ export const PostList = ({ posts, searched }: PostListProps) => {
               key={post.slug}
               className="flex min-h-[150px] flex-col justify-between gap-2 border-y py-4"
             >
-              <div className="flex flex-wrap items-center gap-2 text-gray-800 dark:text-gray-200">
+              <div className="flex flex-wrap items-center gap-2 text-gray-800">
                 <span className="text-gray-500">{post.date} -</span>
                 <Link
                   to={`/blog/${post.slug}`}
@@ -50,14 +50,12 @@ export const PostList = ({ posts, searched }: PostListProps) => {
                       )
                     }
                   }}
-                  className="font-semibold text-rose-600 hover:underline dark:text-rose-400"
+                  className="font-semibold text-rose-600 hover:underline"
                 >
                   {post.title}
                 </Link>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {post.description}
-              </p>
+              <p className="text-sm text-gray-500">{post.description}</p>
 
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-2">

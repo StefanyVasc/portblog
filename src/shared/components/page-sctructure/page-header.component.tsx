@@ -62,7 +62,7 @@ export function PageHeader() {
                       <NavigationMenuLink
                         asChild
                         key={component.title}
-                        className="block px-2 py-1 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                        className="block px-2 py-1 text-sm font-medium transition-colors hover:bg-gray-100"
                       >
                         <Link to={component.to}>{component.title}</Link>
                       </NavigationMenuLink>

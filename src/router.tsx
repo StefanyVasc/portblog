@@ -2,6 +2,8 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import App from './App'
+import { NotFoundView } from './features/not-found/not-found.view'
+import { ErrorBoundary } from './shared/components'
 
 const HomeView = lazy(async () => {
   const module = await import('./features/home/view/home.view')
@@ -47,21 +49,19 @@ const CustomTabContent = lazy(async () => {
   return { default: module.CustomTabContent }
 })
 
-const suspenseFallback = (
-  <div className="flex items-center justify-center p-6 text-sm text-muted-foreground">
-    Carregando...
-  </div>
-)
-
 function withSuspense(element: JSX.Element) {
-  return <Suspense fallback={suspenseFallback}>{element}</Suspense>
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={null}>{element}</Suspense>
+    </ErrorBoundary>
+  )
 }
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <div>Page not found!</div>,
+    errorElement: <NotFoundView />,
     children: [
       {
         index: true,
