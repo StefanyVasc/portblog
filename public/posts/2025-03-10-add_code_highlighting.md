@@ -111,7 +111,6 @@ Agora, os blocos de código têm um **fundo escuro, bordas arredondadas e uma fo
 
 Agora posso escrever **código no Markdown** e ele será destacado corretamente! 🚀
 
-````md
 # Exemplo de Código
 
 ```tsx
@@ -128,9 +127,6 @@ export function MarkdownRenderer({ content }: { content: string }) {
     </article>
   )
 }
-```
-````
-
 ```
 
 ✅ Agora, ao renderizar este Markdown, **o código terá destaque de sintaxe automaticamente**!
@@ -157,3 +153,4 @@ Se você também está criando um blog técnico, espero que este post tenha ajud
 - **✅ Code Highlight funcional**
 - **✅ CSS aplicado ao código**
 - **✅ Pronto para ser publicado no blog!**
+```

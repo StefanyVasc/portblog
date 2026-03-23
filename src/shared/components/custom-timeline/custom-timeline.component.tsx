@@ -62,7 +62,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       {/* Linha horizontal da timeline */}
-      <div className="absolute left-6 right-6 top-10 h-px bg-gray-500/20 dark:bg-gray-400/20" />
+      <div className="absolute left-6 right-6 top-10 h-px bg-gray-500/20" />
 
       {/* Scroll horizontal da timeline */}
       <motion.div
@@ -99,14 +99,12 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                 {/* Ponto na Timeline */}
                 <div
                   className={`absolute left-0 top-4 h-3 w-3 -translate-y-1/2 rounded-full ${
-                    current
-                      ? 'animate-glow bg-rose-500'
-                      : 'bg-gray-900 dark:bg-gray-50'
+                    current ? 'animate-glow bg-rose-500' : 'bg-gray-900'
                   }`}
                 />
 
                 <div className="mt-8 flex flex-col items-start font-rubik">
-                  <div className="text-xs font-500 text-gray-500 dark:text-gray-400">
+                  <div className="text-xs font-500 text-gray-500">
                     {yearStart}
                   </div>
 
@@ -120,7 +118,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 10 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="max-h-[500px] max-w-xs overflow-y-auto rounded-lg bg-white p-3 shadow-lg dark:bg-gray-800"
+                        className="max-h-[500px] max-w-xs overflow-y-auto rounded-lg bg-white p-3 shadow-lg"
                       >
                         <div className="flex items-start gap-3">
                           <span className="my-2 flex items-center gap-2 whitespace-nowrap">
@@ -182,7 +180,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                     <span> {company}</span>
                   </div>
 
-                  <div className="text-xs font-300 text-gray-500 dark:text-gray-400">
+                  <div className="text-xs font-300 text-gray-500">
                     {description}
                   </div>
                 </div>
@@ -194,7 +192,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
         {/* Indicador de arraste */}
         {showArrow && (
           <motion.div
-            className="absolute bottom-20 left-1/2 flex -translate-x-1/2 transform items-center rounded-md bg-gray-200 px-3 py-1 text-gray-500 shadow-lg dark:bg-gray-700 dark:text-gray-400"
+            className="absolute bottom-20 left-1/2 flex -translate-x-1/2 transform items-center rounded-md bg-gray-200 px-3 py-1 text-gray-500 shadow-lg"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

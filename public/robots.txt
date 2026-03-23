@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://stefany.dev/sitemap.xml
+Sitemap: https://stefany-sa.com.br/sitemap.xml

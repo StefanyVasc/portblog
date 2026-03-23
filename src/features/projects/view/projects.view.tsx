@@ -91,7 +91,7 @@ export function ProjectsView() {
             </span>
             <input
               type="text"
-              className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:bg-background"
+              className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
               placeholder={projectTexts.filters.searchPlaceholder}
               value={search}
               onChange={event => setSearch(event.target.value)}
@@ -103,7 +103,7 @@ export function ProjectsView() {
               {projectTexts.filters.tag}
             </span>
             <select
-              className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500 dark:bg-background"
+              className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
               value={selectedTag}
               onChange={event => setSelectedTag(event.target.value)}
             >

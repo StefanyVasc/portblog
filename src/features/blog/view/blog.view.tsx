@@ -117,15 +117,20 @@ export function BlogView() {
       <Header headerName={blogTexts.header} />
       {slug && <CustomBreadcrumb pathnames={pathnames} />}
 
-      {showLoading && <Loading />}
-      {showError && errorMessage && <ErrorMessage message={errorMessage} />}
+      {showLoading && <Loading type={slug ? 'content' : 'list'} />}
+      {showError && errorMessage && (
+        <ErrorMessage
+          message={errorMessage}
+          onRetry={() => (slug ? contentQuery.refetch() : postsQuery.refetch())}
+        />
+      )}
 
       {/* ✅ Se tem slug, só mostra o conteúdo do post */}
       {slug ? (
         <PostContent content={content} tags={tags} />
       ) : (
         <>
-          <div className="mx-auto mt-6 w-full max-w-5xl">
+          <div className="mt-6 w-full">
             <SearchBar
               search={search}
               setSearch={setSearch}
@@ -136,7 +141,7 @@ export function BlogView() {
           </div>
 
           {search && (
-            <p className="mt-2 text-right text-sm text-gray-700 dark:text-gray-300">
+            <p className="mt-2 text-right text-sm text-gray-700">
               {blogSearchResults(currentPosts.length, search)}
             </p>
           )}

@@ -90,11 +90,11 @@ export function AboutView() {
                     >
                       <div className="flex items-center gap-2">
                         <div>{item.icon}</div>
-                        <span className="font-400 text-gray-700 dark:text-gray-300">
+                        <span className="font-400 text-gray-700">
                           {item.label}
                         </span>
                       </div>
-                      <span className="font-300 text-gray-500 dark:text-gray-50">
+                      <span className="font-300 text-gray-500">
                         {item.value}
                       </span>
                     </motion.div>
@@ -110,7 +110,7 @@ export function AboutView() {
                 </h5>
                 <ul className="relative mt-4 flex max-h-52 flex-col overflow-y-auto pr-1">
                   {/* linha vertical contínua */}
-                  <div className="absolute bottom-0 left-[104px] top-1.5 w-px bg-gray-300 dark:bg-gray-600" />
+                  <div className="absolute bottom-0 left-[104px] top-1.5 w-px bg-gray-300" />
                   {educationItems.map((item, index) => (
                     <motion.li
                       key={index}
@@ -121,7 +121,7 @@ export function AboutView() {
                       transition={{ duration: 0.4, delay: index * 0.1 }}
                     >
                       {/* data */}
-                      <span className="pt-0.5 text-right text-xs text-gray-500 dark:text-gray-400">
+                      <span className="pt-0.5 text-right text-xs text-gray-500">
                         {item.current ? 'Pres.' : item.yearEnd} –{' '}
                         {item.yearStart}
                       </span>
@@ -132,7 +132,7 @@ export function AboutView() {
                           className={`h-3 w-3 shrink-0 rounded-full ${
                             item.current
                               ? 'animate-glow bg-rose-500'
-                              : 'bg-gray-900 dark:bg-gray-50'
+                              : 'bg-gray-900'
                           }`}
                         />
                       </div>
@@ -141,11 +141,11 @@ export function AboutView() {
                       <div className="flex flex-col gap-1">
                         <span className="text-sm font-500">{item.title}</span>
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-gray-500">
                             {item.company}
                           </span>
                           {item.enade && (
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                            <span className="text-xs text-gray-500">
                               · ENADE {item.enade}
                             </span>
                           )}
@@ -160,7 +160,7 @@ export function AboutView() {
                             </a>
                           )}
                         </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-gray-500">
                           {item.description}
                         </span>
                       </div>

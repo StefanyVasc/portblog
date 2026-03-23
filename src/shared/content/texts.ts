@@ -30,6 +30,7 @@ export const texts = {
   },
   home: {
     latestArticles: 'Últimos artigos',
+    viewAllPosts: 'Ver todos os posts',
     noArticles: 'Nenhum artigo encontrado.',
     doing: {
       title: 'O que estou fazendo agora:',
