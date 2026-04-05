@@ -56,6 +56,7 @@ export function CommentsWidget({ title }: CommentsWidgetProps) {
     return () => {
       cancelled = true
       cancelAnimationFrame(rafId)
+      script.src = ''
       if (container.contains(script)) {
         script.remove()
       }
