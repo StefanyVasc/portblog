@@ -1,10 +1,18 @@
+import { Sparkles } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { usePost } from '@/features/blog/hooks/use-post'
 import { useRepositories } from '@/features/projects/hooks/use-repositories'
 import { ProjectCard } from '@/features/projects/view/components/project-card.component'
-import { Header, ProjectCardSkeleton } from '@/shared/components'
+import {
+  Header,
+  ProjectCardSkeleton,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/shared/components'
 import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { learningNow, technologiesILike } from '@/shared/static'
@@ -57,38 +65,60 @@ export function HomeView() {
         </div>
 
         {latestPosts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {latestPosts.map(post => (
-              <CardHome key={post.slug} className="flex h-[190px] flex-col p-4">
-                <div className="flex-1">
-                  <h5 className="text-sm font-semibold lowercase md:text-base">
-                    {post.title}
-                  </h5>
-                  <p
-                    className="mt-1 max-h-[60px] overflow-hidden text-xs text-gray-500 md:text-sm"
-                    style={{
-                      display: '-webkit-box',
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: 'vertical'
-                    }}
-                  >
-                    {post.description}
-                  </p>
-                </div>
+          <TooltipProvider delayDuration={150}>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {latestPosts.map((post, index) => (
+                <CardHome
+                  key={post.slug}
+                  className="relative flex h-[190px] flex-col p-4"
+                >
+                  <div className={index === 0 ? 'flex-1 pr-8' : 'flex-1'}>
+                    {index === 0 && (
+                      <>
+                        <span className="sr-only">New post.</span>
+                        <Tooltip delayDuration={100}>
+                          <TooltipTrigger
+                            className="absolute right-1 top-1 z-10 inline-flex animate-badge-float items-center justify-center rounded-full text-amber-500 outline-none transition-transform hover:scale-110 focus-visible:scale-110 focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2 motion-reduce:animate-none"
+                            aria-label="New post"
+                          >
+                            <Sparkles
+                              aria-hidden="true"
+                              className="size-5 animate-twinkle fill-current drop-shadow-[0_0_10px_rgba(245,158,11,0.55)] motion-reduce:animate-none"
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>New post</TooltipContent>
+                        </Tooltip>
+                      </>
+                    )}
+                    <h5 className="text-sm font-semibold lowercase md:text-base">
+                      {post.title}
+                    </h5>
+                    <p
+                      className="mt-1 max-h-[60px] overflow-hidden text-xs text-gray-500 md:text-sm"
+                      style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 4,
+                        WebkitBoxOrient: 'vertical'
+                      }}
+                    >
+                      {post.description}
+                    </p>
+                  </div>
 
-                <div className="mt-3 flex items-center justify-between text-xs md:text-sm">
-                  <p className="text-gray-400">{post.date}</p>
+                  <div className="mt-3 flex items-center justify-between text-xs md:text-sm">
+                    <p className="text-gray-400">{post.date}</p>
 
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="text-rose-600 hover:underline"
-                  >
-                    {commonTexts.readMore}
-                  </Link>
-                </div>
-              </CardHome>
-            ))}
-          </div>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="text-rose-600 hover:underline"
+                    >
+                      {commonTexts.readMore}
+                    </Link>
+                  </div>
+                </CardHome>
+              ))}
+            </div>
+          </TooltipProvider>
         ) : (
           <p className="text-gray-500">{homeTexts.noArticles}</p>
         )}
