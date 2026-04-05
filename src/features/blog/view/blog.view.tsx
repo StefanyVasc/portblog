@@ -71,6 +71,8 @@ export function BlogView() {
         currentPost.description ||
         blogMeta.description
       const image = currentPost.coverImage
+      const publishedTime =
+        currentPost.dateTimeIso ?? currentPost.dateIso ?? currentPost.date
 
       updateSeo({
         title,
@@ -80,16 +82,16 @@ export function BlogView() {
         image,
         imageAlt: currentPost.title,
         author: SITE_AUTHOR.name,
-        publishedTime: currentPost.dateIso ?? currentPost.date,
-        modifiedTime: currentPost.dateIso ?? currentPost.date,
+        publishedTime,
+        modifiedTime: publishedTime,
         keywords: currentPost.tags,
         structuredData: {
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
           headline: title,
           description,
-          datePublished: currentPost.dateIso ?? currentPost.date,
-          dateModified: currentPost.dateIso ?? currentPost.date,
+          datePublished: publishedTime,
+          dateModified: publishedTime,
           url: new URL(`/blog/${currentPost.slug}`, SITE_URL).toString(),
           image,
           author: {

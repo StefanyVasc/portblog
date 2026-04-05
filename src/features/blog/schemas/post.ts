@@ -8,6 +8,7 @@ export const postSchema: z.ZodType<Post> = z.object({
   seoTitle: z.string().optional(),
   date: z.string(),
   dateIso: z.string().optional(),
+  dateTimeIso: z.string().optional(),
   description: z.string(),
   seoDescription: z.string().optional(),
   coverImage: z.string().optional(),
