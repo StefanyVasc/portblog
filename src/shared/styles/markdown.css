@@ -9,11 +9,6 @@
   padding: 0;
 }
 
-/* Dark mode */
-.dark .markdown-content {
-  color: #ddd;
-}
-
 /* Títulos */
 .markdown-content h1 {
   font-size: 2rem;
@@ -31,10 +26,6 @@
   color: #1f2937;
 }
 
-.dark .markdown-content h2 {
-  color: #f3f4f6;
-}
-
 .markdown-content h3 {
   font-size: 1.25rem;
   font-weight: 600;
@@ -46,10 +37,6 @@
   font-size: 1rem;
   color: #4b5563;
   margin-bottom: 1rem;
-}
-
-.dark .markdown-content p {
-  color: #d1d5db;
 }
 
 /* Listas */
@@ -72,21 +59,11 @@
   margin: 1rem 0;
 }
 
-.dark .markdown-content blockquote {
-  color: #d1d5db;
-  border-left-color: #818cf8;
-}
-
 /* Código inline */
 .markdown-content code {
   background-color: #f3f4f6;
   padding: 2px 4px;
   border-radius: 4px;
-  font-family: 'Fira Code', monospace;
-}
-
-.dark .markdown-content code {
-  background-color: #1f2937;
   font-family: 'Fira Code', monospace;
 }
 
@@ -117,7 +94,10 @@
 
 /* Tabela */
 .markdown-content table {
+  display: block;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   margin: 1rem 0;
 }
@@ -127,11 +107,6 @@
   border: 1px solid #e5e7eb;
   padding: 8px;
   text-align: left;
-}
-
-.dark .markdown-content th,
-.dark .markdown-content td {
-  border-color: #374151;
 }
 
 /* Imagens */

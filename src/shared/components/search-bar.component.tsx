@@ -22,8 +22,9 @@ export function SearchBar({
   return (
     <div className="mb-4 flex items-center gap-4">
       {/* Select de Filtro Apenas com Ícone */}
-      <div className="relative h-11 w-11">
+      <div className="relative h-12 w-12">
         <select
+          aria-label="Tipo de busca"
           value={searchType}
           onChange={e => setSearchType(e.target.value as 'text' | 'tag')}
           className="h-full w-full appearance-none rounded-md border border-border bg-background text-transparent outline-none transition-all hover:bg-muted focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
@@ -55,6 +56,7 @@ export function SearchBar({
             {search && (
               <button
                 onClick={() => setSearch('')}
+                aria-label="Limpar busca"
                 className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
               >
                 <X size={18} />

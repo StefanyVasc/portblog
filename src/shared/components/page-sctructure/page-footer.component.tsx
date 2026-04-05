@@ -19,8 +19,12 @@ export function PageFooter() {
             href="https://github.com/StefanyVasc"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
           >
-            <GitHubLogoIcon className="text-2xl hover:text-rose-500" />
+            <GitHubLogoIcon
+              aria-hidden="true"
+              className="text-2xl hover:text-rose-500"
+            />
           </a>
         </li>
 
@@ -29,8 +33,12 @@ export function PageFooter() {
             href="https://www.linkedin.com/in/stefanyvasconcelos/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
           >
-            <LinkedInLogoIcon className="text-2xl hover:text-rose-500" />
+            <LinkedInLogoIcon
+              aria-hidden="true"
+              className="text-2xl hover:text-rose-500"
+            />
           </a>
         </li>
         <li>
@@ -38,8 +46,12 @@ export function PageFooter() {
             href="https://x.com/stefany_vasc"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Twitter / X"
           >
-            <TwitterLogoIcon className="text-2xl hover:text-rose-500" />
+            <TwitterLogoIcon
+              aria-hidden="true"
+              className="text-2xl hover:text-rose-500"
+            />
           </a>
         </li>
         <li>
@@ -47,8 +59,12 @@ export function PageFooter() {
             href="https://unsplash.com/pt-br/@stevasc"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Unsplash"
           >
-            <CameraIcon className="text-2xl hover:text-rose-500" />
+            <CameraIcon
+              aria-hidden="true"
+              className="text-2xl hover:text-rose-500"
+            />
           </a>
         </li>
       </ul>

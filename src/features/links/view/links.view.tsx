@@ -79,7 +79,7 @@ export function LinksView() {
             <li key={label}>
               {internal ? (
                 <Link to={href} className={linkClass}>
-                  {icon}
+                  <span aria-hidden="true">{icon}</span>
                   {label}
                 </Link>
               ) : (
@@ -89,7 +89,7 @@ export function LinksView() {
                   rel="noopener noreferrer"
                   className={linkClass}
                 >
-                  {icon}
+                  <span aria-hidden="true">{icon}</span>
                   {label}
                 </a>
               )}
