@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { CustomBreadcrumb, Header } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { updateSeo } from '@/shared/utils/update-seo'
 
@@ -12,13 +13,12 @@ export function BoraCodarView() {
 
   useEffect(() => {
     updateSeo({
-      title,
-      description:
-        'Coleção dos desafios Bora Codar que estou resolvendo e documentando.',
+      title: SITE_META.boraCodar.title,
+      description: SITE_META.boraCodar.description,
       canonicalPath: '/challenges/bora-codar',
       type: 'website'
     })
-  }, [title])
+  }, [])
 
   return (
     <div>

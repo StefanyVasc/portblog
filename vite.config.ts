@@ -5,6 +5,11 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig, type PluginOption } from 'vite'
 
 const plugins: PluginOption[] = [react()]
+const siteUrl =
+  process.env.SITE_URL ??
+  process.env.DEPLOY_PRIME_URL ??
+  process.env.URL ??
+  'https://stefany-sa.com.br'
 
 if (process.env.ANALYZE === 'true') {
   plugins.push(
@@ -23,6 +28,9 @@ if (process.env.ANALYZE === 'true') {
 
 export default defineConfig({
   plugins,
+  define: {
+    __SITE_URL__: JSON.stringify(siteUrl)
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

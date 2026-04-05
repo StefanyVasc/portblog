@@ -2,17 +2,23 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { resolveSiteUrl } from '../seo/site-url.mjs'
+
 const POSTS_DIR = path.resolve('public/posts')
 const INDEX_FILE = path.join(POSTS_DIR, 'posts.json')
 const SITEMAP_FILE = path.resolve('public', 'sitemap.xml')
-const SITE_URL = process.env.SITE_URL ?? 'https://stefany-sa.com.br'
+const SITE_URL = resolveSiteUrl()
 const STATIC_ROUTES = [
   '/',
   '/about',
   '/blog',
+  '/links',
   '/projects',
   '/challenges',
-  '/challenges/frontend-mentor',
+  '/challenges/frontend-mentor/newbie',
+  '/challenges/frontend-mentor/junior',
+  '/challenges/frontend-mentor/intermediate',
+  '/challenges/frontend-mentor/advanced',
   '/challenges/bora-codar'
 ]
 const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
@@ -42,7 +48,10 @@ export async function generatePostsIndex() {
       return {
         slug,
         title: frontmatter.title ?? slug,
+        seoTitle: sanitizeText(frontmatter.seoTitle),
         description: frontmatter.description ?? '',
+        seoDescription: sanitizeText(frontmatter.seoDescription),
+        coverImage: sanitizeAssetUrl(frontmatter.coverImage),
         date: formattedDate,
         dateIso: isoDate,
         tags: Array.isArray(frontmatter.tags)
@@ -234,6 +243,20 @@ function parseFrontmatterValue(value) {
 function sanitizeSlug(value) {
   if (!value || typeof value !== 'string') return ''
   return value.trim().toLowerCase()
+}
+
+function sanitizeText(value) {
+  if (!value || typeof value !== 'string') return undefined
+
+  const normalized = value.trim()
+  return normalized.length > 0 ? normalized : undefined
+}
+
+function sanitizeAssetUrl(value) {
+  if (!value || typeof value !== 'string') return undefined
+
+  const normalized = value.trim()
+  return normalized.length > 0 ? normalized : undefined
 }
 
 function normalizeDate(rawDate, slug) {

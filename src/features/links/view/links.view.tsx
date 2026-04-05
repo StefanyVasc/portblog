@@ -5,9 +5,12 @@ import {
   TwitterLogoIcon
 } from '@radix-ui/react-icons'
 import { BookMarked, BookOpen, Instagram, Youtube } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Avatar } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
+import { updateSeo } from '@/shared/utils/update-seo'
 
 const links = [
   {
@@ -57,6 +60,15 @@ const linkClass =
   'flex w-full items-center gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:border-rose-500 hover:text-rose-500'
 
 export function LinksView() {
+  useEffect(() => {
+    updateSeo({
+      title: SITE_META.links.title,
+      description: SITE_META.links.description,
+      canonicalPath: '/links',
+      type: 'website'
+    })
+  }, [])
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[hsl(0,0%,95%)] px-4 py-10 font-rubik">
       <div className="flex w-full max-w-sm flex-col items-center gap-6">

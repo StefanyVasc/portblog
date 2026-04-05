@@ -1,4 +1,11 @@
-import { SITE_DEFAULT_IMAGE, SITE_NAME, SITE_URL } from '@/shared/config/site'
+import {
+  SITE_AUTHOR,
+  SITE_DEFAULT_IMAGE,
+  SITE_DEFAULT_LOCALE,
+  SITE_DEFAULT_ROBOTS,
+  SITE_NAME,
+  SITE_URL
+} from '@/shared/config/site'
 
 type StructuredData = Record<string, unknown>
 
@@ -8,6 +15,12 @@ type UpdateSeoOptions = {
   canonicalPath?: string
   type?: 'website' | 'article' | string
   image?: string
+  imageAlt?: string
+  author?: string
+  publishedTime?: string
+  modifiedTime?: string
+  keywords?: string[]
+  robots?: string
   structuredData?: StructuredData | StructuredData[]
 }
 
@@ -22,6 +35,12 @@ export function updateSeo(options: UpdateSeoOptions) {
     canonicalPath,
     type = 'website',
     image,
+    imageAlt,
+    author = SITE_AUTHOR.name,
+    publishedTime,
+    modifiedTime,
+    keywords = [],
+    robots = SITE_DEFAULT_ROBOTS,
     structuredData
   } = options
 
@@ -32,19 +51,44 @@ export function updateSeo(options: UpdateSeoOptions) {
   const canonicalUrl = canonicalPath
     ? new URL(canonicalPath, origin).toString()
     : origin
+  const resolvedImage = resolveUrl(image ?? SITE_DEFAULT_IMAGE, origin)
+  const resolvedDescription = description ?? ''
+  const keywordContent = keywords.join(', ')
 
-  setMeta({ name: 'description', content: description })
+  setMeta({ name: 'description', content: resolvedDescription })
+  setMeta({ name: 'author', content: author })
+  setMeta({ name: 'keywords', content: keywordContent })
+  setMeta({ name: 'robots', content: robots })
 
   setMeta({ property: 'og:title', content: fullTitle })
-  setMeta({ property: 'og:description', content: description })
+  setMeta({ property: 'og:description', content: resolvedDescription })
   setMeta({ property: 'og:type', content: type })
   setMeta({ property: 'og:url', content: canonicalUrl })
-  setMeta({ property: 'og:image', content: image ?? SITE_DEFAULT_IMAGE })
+  setMeta({ property: 'og:image', content: resolvedImage })
+  setMeta({ property: 'og:image:alt', content: imageAlt ?? title })
+  setMeta({ property: 'og:image:width', content: '1200' })
+  setMeta({ property: 'og:image:height', content: '630' })
+  setMeta({ property: 'og:site_name', content: SITE_NAME })
+  setMeta({ property: 'og:locale', content: SITE_DEFAULT_LOCALE })
+  setMeta({
+    property: 'article:published_time',
+    content: type === 'article' ? publishedTime : undefined
+  })
+  setMeta({
+    property: 'article:modified_time',
+    content: type === 'article' ? modifiedTime : undefined
+  })
+  setMeta({
+    property: 'article:author',
+    content: type === 'article' ? author : undefined
+  })
 
   setMeta({ name: 'twitter:card', content: 'summary_large_image' })
   setMeta({ name: 'twitter:title', content: fullTitle })
-  setMeta({ name: 'twitter:description', content: description })
-  setMeta({ name: 'twitter:image', content: image ?? SITE_DEFAULT_IMAGE })
+  setMeta({ name: 'twitter:description', content: resolvedDescription })
+  setMeta({ name: 'twitter:image', content: resolvedImage })
+  setMeta({ name: 'twitter:image:alt', content: imageAlt ?? title })
+  setMeta({ name: 'twitter:url', content: canonicalUrl })
 
   setCanonicalLink(canonicalUrl)
   updateStructuredData(structuredData)
@@ -59,12 +103,15 @@ function setMeta({
   property?: string
   content?: string
 }) {
-  if (!content) return
-
   const selector = name
     ? `meta[name="${name}"]`
     : `meta[property="${property}"]`
   let element = document.head.querySelector<HTMLMetaElement>(selector)
+
+  if (!content) {
+    if (element) element.remove()
+    return
+  }
 
   if (!element) {
     element = document.createElement('meta')
@@ -121,4 +168,8 @@ function getSiteOrigin() {
   }
 
   return SITE_URL
+}
+
+function resolveUrl(value: string, origin: string) {
+  return new URL(value, origin).toString()
 }

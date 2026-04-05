@@ -65,21 +65,33 @@ export function BlogView() {
 
   useEffect(() => {
     if (routeSlug && currentPost) {
-      const description = currentPost.description || blogMeta.description
+      const title = currentPost.seoTitle || currentPost.title
+      const description =
+        currentPost.seoDescription ||
+        currentPost.description ||
+        blogMeta.description
+      const image = currentPost.coverImage
 
       updateSeo({
-        title: currentPost.title,
+        title,
         description,
         canonicalPath: `/blog/${routeSlug}`,
         type: 'article',
+        image,
+        imageAlt: currentPost.title,
+        author: SITE_AUTHOR.name,
+        publishedTime: currentPost.dateIso ?? currentPost.date,
+        modifiedTime: currentPost.dateIso ?? currentPost.date,
+        keywords: currentPost.tags,
         structuredData: {
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
-          headline: currentPost.title,
+          headline: title,
           description,
           datePublished: currentPost.dateIso ?? currentPost.date,
           dateModified: currentPost.dateIso ?? currentPost.date,
           url: new URL(`/blog/${currentPost.slug}`, SITE_URL).toString(),
+          image,
           author: {
             '@type': 'Person',
             name: SITE_AUTHOR.name,

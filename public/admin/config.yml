@@ -52,6 +52,21 @@ collections:
       - label: Description
         name: description
         widget: text
+      - label: SEO Title
+        name: seoTitle
+        widget: string
+        required: false
+        hint: 'Opcional. Se vazio, o título principal do post será usado no SEO.'
+      - label: SEO Description
+        name: seoDescription
+        widget: text
+        required: false
+        hint: 'Opcional. Se vazio, a descrição principal do post será usada no SEO.'
+      - label: Cover Image
+        name: coverImage
+        widget: image
+        required: false
+        hint: 'Imagem para preview social e Open Graph. Se vazio, será usada a imagem padrão do site.'
       - label: Publish Date
         name: date
         widget: datetime
