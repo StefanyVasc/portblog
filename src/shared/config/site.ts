@@ -1,6 +1,6 @@
 export const SITE_NAME = 'stefany sá'
-export const SITE_URL = 'https://stefany-sa.com.br'
-export const SITE_DEFAULT_IMAGE = `${SITE_URL}/og-default.svg`
+export const SITE_URL = __SITE_URL__
+export const SITE_DEFAULT_IMAGE = `${SITE_URL}/og-default.png`
 export const SITE_AUTHOR = {
   name: 'stefany sá',
   url: SITE_URL

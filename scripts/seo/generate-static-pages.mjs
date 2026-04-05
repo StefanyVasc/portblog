@@ -1,13 +1,15 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 
+import { resolveSiteUrl } from './site-url.mjs'
+
 const DIST_DIR = path.resolve('dist')
 const DIST_INDEX_FILE = path.join(DIST_DIR, 'index.html')
 const DIST_POSTS_FILE = path.join(DIST_DIR, 'posts', 'posts.json')
-const SITE_URL = process.env.SITE_URL ?? 'https://stefany-sa.com.br'
+const SITE_URL = resolveSiteUrl()
 const SITE_NAME = 'stefany sá'
 const SITE_AUTHOR = 'stefany sá'
-const DEFAULT_IMAGE = new URL('/og-default.svg', SITE_URL).toString()
+const DEFAULT_IMAGE = new URL('/og-default.png', SITE_URL).toString()
 const BLOG_TITLE = 'blog'
 const BLOG_DESCRIPTION =
   'Artigos sobre desenvolvimento front-end, arquitetura, boas práticas e estudos que estou registrando ao longo da jornada.'
@@ -198,14 +200,25 @@ function renderPage(template, options) {
   html = setMetaTag(html, { property: 'og:image', content: image })
   html = setMetaTag(html, { property: 'og:image:alt', content: imageAlt })
   html = setMetaTag(html, {
+    property: 'og:image:width',
+    content: '1200'
+  })
+  html = setMetaTag(html, {
+    property: 'og:image:height',
+    content: '1200'
+  })
+  html = setMetaTag(html, {
     property: 'article:published_time',
-    content: options.publishedTime
+    content: options.type === 'article' ? options.publishedTime : undefined
   })
   html = setMetaTag(html, {
     property: 'article:modified_time',
-    content: options.modifiedTime
+    content: options.type === 'article' ? options.modifiedTime : undefined
   })
-  html = setMetaTag(html, { property: 'article:author', content: SITE_AUTHOR })
+  html = setMetaTag(html, {
+    property: 'article:author',
+    content: options.type === 'article' ? SITE_AUTHOR : undefined
+  })
   html = setMetaTag(html, {
     name: 'twitter:card',
     content: 'summary_large_image'
