@@ -56,7 +56,7 @@ export function AboutView() {
                       transition={{ duration: 2, ease: 'easeInOut' }}
                       className="relative"
                     >
-                      Stefany Sá
+                      stefany sá
                     </motion.span>
                   </span>
                   {aboutTexts.me.introPart3}

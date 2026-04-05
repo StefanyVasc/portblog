@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import App from './App'
+import { LinksView } from './features/links/view/links.view'
 import { NotFoundView } from './features/not-found/not-found.view'
 import { ErrorBoundary } from './shared/components'
 
@@ -58,6 +59,10 @@ function withSuspense(element: JSX.Element) {
 }
 
 const router = createBrowserRouter([
+  {
+    path: '/links',
+    element: <LinksView />
+  },
   {
     path: '/',
     element: <App />,

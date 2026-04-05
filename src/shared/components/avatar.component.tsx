@@ -3,10 +3,10 @@ import { SVGProps } from 'react'
 export function Avatar(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      {...props}
       width="260"
       height="260"
       viewBox="0 0 1400 1400"
+      {...props}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
