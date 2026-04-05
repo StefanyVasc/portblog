@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 
 const POSTS_DIR = path.resolve('public/posts')
 const INDEX_FILE = path.join(POSTS_DIR, 'posts.json')
@@ -21,7 +22,7 @@ const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
   timeZone: 'UTC'
 })
 
-async function main() {
+export async function generatePostsIndex() {
   const files = (await fs.readdir(POSTS_DIR)).filter(file =>
     file.endsWith('.md')
   )
@@ -66,6 +67,113 @@ async function main() {
 
   const sitemap = buildSitemap(ordered)
   await fs.writeFile(SITEMAP_FILE, sitemap, 'utf8')
+
+  return {
+    count: ordered.length,
+    indexFile: INDEX_FILE,
+    sitemapFile: SITEMAP_FILE
+  }
+}
+
+export async function deletePostBySlug(slug) {
+  const normalizedSlug = slug?.trim()
+
+  if (!normalizedSlug) {
+    throw new Error('Slug não pode ser vazio.')
+  }
+
+  let fileDeleted = false
+  let indexUpdated = false
+
+  const mdFile = path.join(POSTS_DIR, `${normalizedSlug}.md`)
+  try {
+    await fs.unlink(mdFile)
+    fileDeleted = true
+  } catch {
+    fileDeleted = false
+  }
+
+  try {
+    const raw = await fs.readFile(INDEX_FILE, 'utf8')
+    const { posts } = JSON.parse(raw)
+    const filtered = posts.filter(post => post.slug !== normalizedSlug)
+
+    if (filtered.length < posts.length) {
+      const payload = JSON.stringify({ posts: filtered }, null, 2).concat('\n')
+      await fs.writeFile(INDEX_FILE, payload, 'utf8')
+      indexUpdated = true
+    }
+  } catch {
+    indexUpdated = false
+  }
+
+  if (!fileDeleted && !indexUpdated) {
+    throw new Error(`Nenhum post encontrado com o slug "${normalizedSlug}".`)
+  }
+
+  return {
+    slug: normalizedSlug,
+    fileDeleted,
+    indexUpdated,
+    mdFile,
+    indexFile: INDEX_FILE
+  }
+}
+
+async function main() {
+  const command = process.argv[2]?.trim()
+
+  if (!command) {
+    printUsage()
+    process.exitCode = 1
+    return
+  }
+
+  if (command === 'generate') {
+    const result = await generatePostsIndex()
+    console.log(`Generated ${result.count} post(s).`)
+    console.log(`Updated: ${result.indexFile}`)
+    console.log(`Updated: ${result.sitemapFile}`)
+    return
+  }
+
+  if (command === 'delete') {
+    const slug = process.argv[3]?.trim()
+
+    if (!slug) {
+      console.error('Usage: node scripts/posts/index.mjs delete <slug>')
+      console.error(
+        'Example: node scripts/posts/index.mjs delete 2026-03-22-meu-post'
+      )
+      process.exitCode = 1
+      return
+    }
+
+    const result = await deletePostBySlug(slug)
+    if (result.fileDeleted) {
+      console.log(`Deleted: ${result.mdFile}`)
+    } else {
+      console.warn(`File not found: ${result.mdFile}`)
+    }
+
+    if (result.indexUpdated) {
+      console.log(`Removed "${slug}" from posts.json`)
+    } else {
+      console.warn(`Entry "${slug}" not found in posts.json`)
+    }
+
+    return
+  }
+
+  printUsage()
+  process.exitCode = 1
+}
+
+function printUsage() {
+  console.error('Usage: node scripts/posts/index.mjs <generate|delete> [slug]')
+  console.error('Examples:')
+  console.error('  node scripts/posts/index.mjs generate')
+  console.error('  node scripts/posts/index.mjs delete 2026-03-22-meu-post')
 }
 
 function parseFrontmatter(source) {
@@ -164,8 +272,8 @@ function buildSitemap(posts) {
   const today = new Date().toISOString().slice(0, 10)
 
   const urls = [
-    ...STATIC_ROUTES.map(path => ({
-      loc: new URL(path, SITE_URL).toString(),
+    ...STATIC_ROUTES.map(routePath => ({
+      loc: new URL(routePath, SITE_URL).toString(),
       lastmod: today
     })),
     ...posts.map(post => ({
@@ -184,7 +292,12 @@ function buildSitemap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${nodes}\n</urlset>\n`
 }
 
-main().catch(error => {
-  console.error('[generate-posts-index] Failed:', error)
-  process.exitCode = 1
-})
+const currentFile = fileURLToPath(import.meta.url)
+const executedFile = process.argv[1] ? path.resolve(process.argv[1]) : ''
+
+if (executedFile === currentFile) {
+  main().catch(error => {
+    console.error('[posts] Failed:', error)
+    process.exitCode = 1
+  })
+}

@@ -111,7 +111,7 @@ Posts são escritos via **Decap CMS** e as imagens ficam no **Cloudinary**.
            │
            ▼
   Netlify detecta o commit → roda build
-  generate-posts-index.mjs → gera posts.json
+  scripts/posts/index.mjs generate → gera posts.json
            │
            ▼
   Site em produção atualizado
@@ -161,35 +161,76 @@ O slug é usado como nome do arquivo `.md` e como rota do post:
 
 ---
 
-## Scripts utilitários
+## CLI
 
-### `generate:posts`
-
-Lê todos os arquivos `.md` de `public/posts/`, extrai o frontmatter e gera `public/posts/posts.json` com a lista ordenada por data (mais recente primeiro). Também gera o `public/sitemap.xml`.
-
-Roda automaticamente no `build` e no `dev`. Para rodar manualmente:
+CLI interativo para operações de git, blog, qualidade de código e execução da aplicação. Todas as telas têm as opções `Voltar` e `Sair`.
 
 ```bash
-npm run generate:posts
+npm run cli
 ```
 
----
+**Menu principal:**
 
-### `delete:post`
-
-Remove um post pelo slug: apaga o arquivo `.md` de `public/posts/` e remove a entrada correspondente do `posts.json`.
-
-```bash
-npm run delete:post -- <slug>
+```
+O que você quer fazer?
+  Git tools
+  Post blog
+  Qualidade de código
+  App (dev, build, preview)
 ```
 
-**Entrada esperada:** o slug exato do post, no formato `yyyy-mm-dd-titulo-do-post` — o mesmo valor preenchido no campo Slug do Decap CMS e usado na URL do post.
+| Seção               | O que faz                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------- |
+| Git tools           | Criar branch a partir da `main`, remover branches selecionadas ou limpar todas as branches locais |
+| Post blog           | Gerar `posts.json` + `sitemap.xml` e deletar post por slug                                        |
+| Qualidade de código | Rodar `lint`, `lint:fix`, `format`, `format:check`, `typecheck` ou uma checagem completa          |
+| App                 | Rodar `dev`, `build` e `preview` pelo mesmo fluxo do CLI                                          |
 
-**Exemplos:**
+**Git tools:**
 
-```bash
-# Remove o post com slug 2026-03-22-meu-post
-npm run delete:post -- 2026-03-22-meu-post
-```
+| Opção                              | O que faz                                                                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Criar nova branch a partir da main | Atualiza a `main` local, faz stash automático se houver mudanças pendentes, cria a branch pelo nome informado e restaura o stash |
+| Remover branches selecionadas      | Lista branches locais (exceto `main`) via multiselect e remove após confirmação                                                  |
+| Remover todas as branches locais   | Remove todas as branches locais (exceto `main`) após confirmação                                                                 |
 
-> Após deletar, faça commit das alterações e abra um PR para `main` para que o post saia do ar em produção.
+**Post blog:**
+
+| Opção                  | O que faz                                                                     |
+| ---------------------- | ----------------------------------------------------------------------------- |
+| Gerar índice de posts  | Roda `scripts/posts/index.mjs generate` — recria `posts.json` e `sitemap.xml` |
+| Deletar post pelo slug | Pede o slug, confirma e remove o `.md` + entrada do `posts.json`              |
+
+**Qualidade de código:**
+
+| Opção                        | O que faz                                                 |
+| ---------------------------- | --------------------------------------------------------- |
+| Rodar checagem completa      | Executa `lint`, `format:check` e `typecheck` em sequência |
+| Lint                         | Executa `eslint . --max-warnings=0`                       |
+| Lint com correção automática | Executa `eslint . --fix`                                  |
+| Formatar arquivos            | Executa `prettier --write .`                              |
+| Verificar formatação         | Executa `prettier --check .`                              |
+| Typecheck                    | Executa `tsc --noEmit`                                    |
+
+**App:**
+
+| Opção   | O que faz                 |
+| ------- | ------------------------- |
+| Dev     | Executa `npm run dev`     |
+| Build   | Executa `npm run build`   |
+| Preview | Executa `npm run preview` |
+
+## Scripts npm principais
+
+As rotinas de posts ficam centralizadas em `scripts/posts/index.mjs`, com subcomandos `generate` e `delete`. O CLI usa essas funções internamente, e `dev`/`build` também passam por esse entrypoint.
+
+| Script                 | O que faz                                                        |
+| ---------------------- | ---------------------------------------------------------------- |
+| `npm run dev`          | Gera o índice de posts e sobe o Vite em modo de desenvolvimento  |
+| `npm run build`        | Gera o índice de posts, roda `tsc -b` e cria o build de produção |
+| `npm run preview`      | Abre o preview do build                                          |
+| `npm run lint`         | Roda o ESLint                                                    |
+| `npm run lint:fix`     | Roda o ESLint com correção automática                            |
+| `npm run format`       | Formata os arquivos com Prettier                                 |
+| `npm run format:check` | Verifica a formatação com Prettier                               |
+| `npm run typecheck`    | Executa a checagem de tipos do TypeScript                        |
