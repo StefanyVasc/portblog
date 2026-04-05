@@ -4,6 +4,19 @@ Site pessoal da Stefany Sá: [stefany-sa.com.br](https://stefany-sa.com.br)
 
 ---
 
+## Ambiente
+
+- Node.js `20+`
+- npm `10+`
+
+Para alinhar o ambiente local com o projeto:
+
+```bash
+nvm use
+```
+
+---
+
 ## Fluxo de CI/CD
 
 ### Diagrama
