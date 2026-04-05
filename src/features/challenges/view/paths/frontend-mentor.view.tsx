@@ -10,6 +10,7 @@ import {
   TabsList,
   TabsTrigger
 } from '@/shared/components'
+import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import { updateSeo } from '@/shared/utils/update-seo'
 
@@ -28,16 +29,18 @@ export function FrontendMentorView() {
   ]
 
   const currentTab = tabValue || 'newbie'
+  const currentTabLabel =
+    tabsInfos.find(tab => tab.value === currentTab)?.label ?? 'Newbie'
+  const pageTitle = `${SITE_META.frontendMentor.title} · ${currentTabLabel.toLowerCase()}`
 
   useEffect(() => {
     updateSeo({
-      title,
-      description:
-        'Acompanhamento dos desafios do Frontend Mentor por nível de dificuldade.',
+      title: pageTitle,
+      description: SITE_META.frontendMentor.description,
       canonicalPath: `/challenges/frontend-mentor/${currentTab}`,
       type: 'website'
     })
-  }, [title, currentTab])
+  }, [currentTab, pageTitle])
 
   const handleTabChange = (value: string) => {
     if (value !== currentTab) {

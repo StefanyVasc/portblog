@@ -1,10 +1,12 @@
 export const SITE_NAME = 'stefany sá'
 export const SITE_URL = 'https://stefany-sa.com.br'
-export const SITE_DEFAULT_IMAGE = `${SITE_URL}/svs.svg`
+export const SITE_DEFAULT_IMAGE = `${SITE_URL}/og-default.svg`
 export const SITE_AUTHOR = {
   name: 'stefany sá',
   url: SITE_URL
 }
+export const SITE_DEFAULT_ROBOTS = 'index,follow'
+export const SITE_DEFAULT_LOCALE = 'pt_BR'
 
 export const SITE_META = {
   home: {
@@ -31,5 +33,20 @@ export const SITE_META = {
     title: 'desafios',
     description:
       'Coleção dos desafios que estou realizando em plataformas como Frontend Mentor e Bora Codar.'
+  },
+  links: {
+    title: 'links',
+    description:
+      'Página com os principais links da stefany sá: blog, GitHub, LinkedIn, Instagram, X, Medium, Unsplash e YouTube.'
+  },
+  frontendMentor: {
+    title: 'frontend mentor',
+    description:
+      'Acompanhamento dos desafios do Frontend Mentor por nível de dificuldade.'
+  },
+  boraCodar: {
+    title: 'bora codar',
+    description:
+      'Coleção dos desafios Bora Codar que estou resolvendo e documentando.'
   }
 }

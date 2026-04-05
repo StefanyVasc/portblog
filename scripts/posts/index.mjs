@@ -10,9 +10,13 @@ const STATIC_ROUTES = [
   '/',
   '/about',
   '/blog',
+  '/links',
   '/projects',
   '/challenges',
-  '/challenges/frontend-mentor',
+  '/challenges/frontend-mentor/newbie',
+  '/challenges/frontend-mentor/junior',
+  '/challenges/frontend-mentor/intermediate',
+  '/challenges/frontend-mentor/advanced',
   '/challenges/bora-codar'
 ]
 const DATE_FORMATTER = new Intl.DateTimeFormat('pt-BR', {
@@ -42,7 +46,10 @@ export async function generatePostsIndex() {
       return {
         slug,
         title: frontmatter.title ?? slug,
+        seoTitle: sanitizeText(frontmatter.seoTitle),
         description: frontmatter.description ?? '',
+        seoDescription: sanitizeText(frontmatter.seoDescription),
+        coverImage: sanitizeAssetUrl(frontmatter.coverImage),
         date: formattedDate,
         dateIso: isoDate,
         tags: Array.isArray(frontmatter.tags)
@@ -234,6 +241,20 @@ function parseFrontmatterValue(value) {
 function sanitizeSlug(value) {
   if (!value || typeof value !== 'string') return ''
   return value.trim().toLowerCase()
+}
+
+function sanitizeText(value) {
+  if (!value || typeof value !== 'string') return undefined
+
+  const normalized = value.trim()
+  return normalized.length > 0 ? normalized : undefined
+}
+
+function sanitizeAssetUrl(value) {
+  if (!value || typeof value !== 'string') return undefined
+
+  const normalized = value.trim()
+  return normalized.length > 0 ? normalized : undefined
 }
 
 function normalizeDate(rawDate, slug) {
