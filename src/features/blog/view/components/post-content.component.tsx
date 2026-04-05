@@ -1,7 +1,7 @@
 import { Tag } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
-import { Badge, MarkdownRenderer } from '@/shared/components'
+import { Badge, MarkdownRenderer, ScrollToTopButton } from '@/shared/components'
 import { texts } from '@/shared/content/texts'
 
 import { CommentsWidget } from './comments-widget.component'
@@ -22,6 +22,7 @@ export const PostContent = ({
   return content ? (
     <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6">
       <MarkdownRenderer content={content} />
+      <ScrollToTopButton />
 
       {tags && tags.length > 0 && (
         <div className="mt-6">
