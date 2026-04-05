@@ -9,7 +9,11 @@ const DIST_POSTS_FILE = path.join(DIST_DIR, 'posts', 'posts.json')
 const SITE_URL = resolveSiteUrl()
 const SITE_NAME = 'stefany sá'
 const SITE_AUTHOR = 'stefany sá'
-const DEFAULT_IMAGE = new URL('/og-default.png', SITE_URL).toString()
+const OG_IMAGE_VERSION = '2026-04-05-2'
+const DEFAULT_IMAGE = new URL(
+  `/og-default.png?v=${OG_IMAGE_VERSION}`,
+  SITE_URL
+).toString()
 const BLOG_TITLE = 'blog'
 const BLOG_DESCRIPTION =
   'Artigos sobre desenvolvimento front-end, arquitetura, boas práticas e estudos que estou registrando ao longo da jornada.'
