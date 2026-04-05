@@ -3,13 +3,13 @@ import { SVGProps } from 'react'
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      width="800px"
+      height="800px"
       {...props}
       fill={props.fill ? props.fill : '#000000'}
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
-      width="800px"
-      height="800px"
       viewBox="0 0 961.5 961.5"
       xmlSpace="preserve"
     >

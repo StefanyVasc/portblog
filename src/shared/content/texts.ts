@@ -127,7 +127,7 @@ export const texts = {
       introPart2: '...Olá, meu nome é',
       introPart3: 'e atuo como Staff Software Engineer.',
       description:
-        'Comecei no frontend por acidente e fiquei por escolha. O contato com tecnologia veio cedo — na graduação, ensinando programação para estudantes do ensino médio. Em mais de oito anos de carreira evoluí de UI Developer a Staff Software Engineer, passei por projetos internacionais, liderei times e construí sistemas de grande escala. O que mais me move agora é entender o porquê das decisões: arquitetura, system design e como a engenharia conecta negócio e produto.'
+        'O plano inicial era engenharia mecânica. A vida me jogou pra tecnologia e eu aceitei. Meu primeiro contato profissional foi ensinando programação para estudantes do ensino médio, paixão que ainda carrego. Comecei no frontend por acidente e fiquei por escolha. Atualmente, beirando os 10 anos de carreira dentro de TI já pude vivenciar muitas coisas: passei de UI Developer a Staff Software Engineer, trabalhei em projetos internacionais, liderei times e construí sistemas de grande escala. Mas o que ainda me faz levantar cedo é a parte difícil: as decisões de arquitetura, o system design e a intersecção entre engenharia, produto e negócio.'
     },
     education: {
       title: '...Formação',
@@ -141,7 +141,7 @@ export const texts = {
 }
 
 export function copyrightText(year: number) {
-  return `© ${year} Stefany Sá.`
+  return `© ${year} stefany sá.`
 }
 
 export function blogSearchResults(count: number, query: string) {

@@ -1,8 +1,8 @@
-export const SITE_NAME = 'Stefany Sá'
+export const SITE_NAME = 'stefany sá'
 export const SITE_URL = 'https://stefany-sa.com.br'
 export const SITE_DEFAULT_IMAGE = `${SITE_URL}/svs.svg`
 export const SITE_AUTHOR = {
-  name: 'Stefany Sá',
+  name: 'stefany sá',
   url: SITE_URL
 }
 
@@ -10,7 +10,7 @@ export const SITE_META = {
   home: {
     title: 'Início',
     description:
-      'Portfólio vivo da Stefany Sá: projetos, artigos e experimentos em frontend, UX e arquitetura de interfaces.'
+      'Portfólio vivo da stefany sá: projetos, artigos e experimentos em frontend, UX e arquitetura de interfaces.'
   },
   blog: {
     title: 'Blog',
