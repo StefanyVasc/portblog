@@ -39,13 +39,13 @@ export function PageHeader() {
         <div className="flex gap-2">
           <Link
             to="/"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:pointer-events-none disabled:opacity-50"
           >
             {headerTexts.nav.home}
           </Link>
           <Link
             to="/about"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:border-b-2 hover:border-dashed hover:border-rose-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:pointer-events-none disabled:opacity-50"
           >
             {headerTexts.nav.about}
           </Link>

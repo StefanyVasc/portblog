@@ -85,11 +85,15 @@ export function ProjectsView() {
 
       <section className="pt-3 font-300">
         <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <label className="flex w-full flex-col gap-2 md:w-1/2">
+          <label
+            htmlFor="projects-search"
+            className="flex w-full flex-col gap-2 md:w-1/2"
+          >
             <span className="text-sm font-medium text-muted-foreground">
               {projectTexts.filters.search}
             </span>
             <input
+              id="projects-search"
               type="text"
               className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
               placeholder={projectTexts.filters.searchPlaceholder}
@@ -98,11 +102,15 @@ export function ProjectsView() {
             />
           </label>
 
-          <label className="flex flex-col gap-2 md:w-1/4">
+          <label
+            htmlFor="projects-tag"
+            className="flex flex-col gap-2 md:w-1/4"
+          >
             <span className="text-sm font-medium text-muted-foreground">
               {projectTexts.filters.tag}
             </span>
             <select
+              id="projects-tag"
               className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-all focus:border-rose-500 focus:ring-2 focus:ring-rose-500"
               value={selectedTag}
               onChange={event => setSelectedTag(event.target.value)}

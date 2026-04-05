@@ -109,8 +109,10 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                   </div>
 
                   <HoverCard>
-                    <HoverCardTrigger>
-                      <div className="cursor-pointer text-base">{title}</div>
+                    <HoverCardTrigger asChild>
+                      <button className="cursor-pointer text-left text-base">
+                        {title}
+                      </button>
                     </HoverCardTrigger>
                     <HoverCardContent asChild>
                       <motion.div

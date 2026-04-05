@@ -61,7 +61,7 @@ export function HomeView() {
             {latestPosts.map(post => (
               <CardHome key={post.slug} className="flex h-[190px] flex-col p-4">
                 <div className="flex-1">
-                  <h5 className="text-sm font-semibold md:text-base">
+                  <h5 className="text-sm font-semibold lowercase md:text-base">
                     {post.title}
                   </h5>
                   <p
