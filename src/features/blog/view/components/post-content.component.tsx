@@ -41,7 +41,7 @@ export const PostContent = ({
         </div>
       )}
 
-      <CommentsWidget key={`pt-${title}`} title={title ?? 'default-title'} />
+      <CommentsWidget title={title ?? 'default-title'} />
     </div>
   ) : (
     <p className="mt-10 text-center">{postTexts.notFound}</p>
