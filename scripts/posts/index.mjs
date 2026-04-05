@@ -43,6 +43,7 @@ export async function generatePostsIndex() {
       const slug = sanitizeSlug(frontmatter.slug) || slugFromFile
 
       const isoDate = normalizeDate(frontmatter.date, slug)
+      const dateTimeIso = toMetadataDateTime(isoDate)
       const formattedDate = isoDate ? formatDate(isoDate) : ''
 
       return {
@@ -54,6 +55,7 @@ export async function generatePostsIndex() {
         coverImage: sanitizeAssetUrl(frontmatter.coverImage),
         date: formattedDate,
         dateIso: isoDate,
+        dateTimeIso,
         tags: Array.isArray(frontmatter.tags)
           ? frontmatter.tags.map(tag => String(tag))
           : [],
@@ -284,6 +286,11 @@ function formatDate(isoDate) {
   } catch {
     return ''
   }
+}
+
+function toMetadataDateTime(isoDate) {
+  if (!isoDate) return undefined
+  return `${isoDate}T12:00:00-03:00`
 }
 
 function capitalize(text) {

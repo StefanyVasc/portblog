@@ -150,8 +150,8 @@ async function main() {
           type: 'article',
           image: post.coverImage,
           imageAlt: post.title,
-          publishedTime: post.dateIso || undefined,
-          modifiedTime: post.dateIso || undefined,
+          publishedTime: post.dateTimeIso || post.dateIso || undefined,
+          modifiedTime: post.dateTimeIso || post.dateIso || undefined,
           keywords: Array.isArray(post.tags) ? post.tags : [],
           schemaType: 'BlogPosting'
         })

@@ -6,6 +6,7 @@
       "description": "Como estruturar um CLI com @clack/prompts, separar responsabilidades, melhorar a navegação e estilizar melhor a saída no terminal.",
       "date": "05 de abril de 2026",
       "dateIso": "2026-04-05",
+      "dateTimeIso": "2026-04-05T12:00:00-03:00",
       "tags": ["cli", "nodejs", "developer-experience", "tooling"]
     },
     {
@@ -14,6 +15,7 @@
       "description": "Como adicionei destaque de sintaxe ao blog, incluindo instalação, configuração e personalização.",
       "date": "10 de março de 2025",
       "dateIso": "2025-03-10",
+      "dateTimeIso": "2025-03-10T12:00:00-03:00",
       "tags": ["blog", "webdev", "syntax-highlighting"]
     },
     {
@@ -22,6 +24,7 @@
       "description": "Como adicionei suporte a Markdown no blog do meu portfólio, incluindo instalação, configuração, formatação e listagem de posts.",
       "date": "09 de março de 2025",
       "dateIso": "2025-03-09",
+      "dateTimeIso": "2025-03-09T12:00:00-03:00",
       "tags": ["blog", "webdev", "markdown"]
     },
     {
@@ -30,6 +33,7 @@
       "description": "A ideia de ter um portfólio profissional sempre esteve na minha mente, mas eu queria algo mais do que um simples site estático...",
       "date": "08 de março de 2025",
       "dateIso": "2025-03-08",
+      "dateTimeIso": "2025-03-08T12:00:00-03:00",
       "tags": ["portfolio", "webdev", "career", "projects"]
     }
   ]
