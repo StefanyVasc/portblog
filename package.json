@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "generate:posts": "node scripts/generate-posts-index.mjs",
-    "delete:post": "node scripts/delete-post.mjs"
+    "delete:post": "node scripts/delete-post.mjs",
+    "git:cleanup": "git branch | grep -v '^\\* main' | xargs git branch -D"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
