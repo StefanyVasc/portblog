@@ -67,7 +67,7 @@ export function updateSeo(options: UpdateSeoOptions) {
   setMeta({ property: 'og:image', content: resolvedImage })
   setMeta({ property: 'og:image:alt', content: imageAlt ?? title })
   setMeta({ property: 'og:image:width', content: '1200' })
-  setMeta({ property: 'og:image:height', content: '1200' })
+  setMeta({ property: 'og:image:height', content: '630' })
   setMeta({ property: 'og:site_name', content: SITE_NAME })
   setMeta({ property: 'og:locale', content: SITE_DEFAULT_LOCALE })
   setMeta({

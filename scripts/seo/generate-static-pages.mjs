@@ -205,7 +205,7 @@ function renderPage(template, options) {
   })
   html = setMetaTag(html, {
     property: 'og:image:height',
-    content: '1200'
+    content: '630'
   })
   html = setMetaTag(html, {
     property: 'article:published_time',
