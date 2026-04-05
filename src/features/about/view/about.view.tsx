@@ -108,64 +108,66 @@ export function AboutView() {
                   {aboutTexts.education.timelineTitle}
                   <Milestone size={18} />
                 </h5>
-                <ul className="relative mt-4 flex max-h-52 flex-col overflow-y-auto pr-1">
-                  {/* linha vertical contínua */}
-                  <div className="absolute bottom-0 left-[104px] top-1.5 w-px bg-gray-300" />
-                  {educationItems.map((item, index) => (
-                    <motion.li
-                      key={index}
-                      className="relative grid grid-cols-[80px_24px_1fr] items-start gap-x-3 pb-8"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                    >
-                      {/* data */}
-                      <span className="pt-0.5 text-right text-xs text-gray-500">
-                        {item.current ? 'Pres.' : item.yearEnd} –{' '}
-                        {item.yearStart}
-                      </span>
-
-                      {/* ponto */}
-                      <div className="flex justify-center pt-0.5">
-                        <div
-                          className={`h-3 w-3 shrink-0 rounded-full ${
-                            item.current
-                              ? 'animate-glow bg-rose-500'
-                              : 'bg-gray-900'
-                          }`}
-                        />
-                      </div>
-
-                      {/* conteúdo */}
-                      <div className="flex flex-col gap-1">
-                        <span className="text-sm font-500">{item.title}</span>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-xs text-gray-500">
-                            {item.company}
-                          </span>
-                          {item.enade && (
-                            <span className="text-xs text-gray-500">
-                              · ENADE {item.enade}
-                            </span>
-                          )}
-                          {item.tccUrl && (
-                            <a
-                              href={item.tccUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1 text-xs text-rose-500 hover:underline"
-                            >
-                              · TCC <ExternalLink size={10} />
-                            </a>
-                          )}
-                        </div>
-                        <span className="text-xs text-gray-500">
-                          {item.description}
+                <ul className="mt-4 max-h-52 overflow-y-auto pr-1">
+                  <div className="relative flex flex-col">
+                    {/* linha vertical contínua */}
+                    <div className="absolute bottom-0 left-[104px] top-1.5 w-px bg-gray-300" />
+                    {educationItems.map((item, index) => (
+                      <motion.li
+                        key={index}
+                        className="relative grid grid-cols-[80px_24px_1fr] items-start gap-x-3 pb-8"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                      >
+                        {/* data */}
+                        <span className="pt-0.5 text-right text-xs text-gray-500">
+                          {item.current ? 'Pres.' : item.yearEnd} –{' '}
+                          {item.yearStart}
                         </span>
-                      </div>
-                    </motion.li>
-                  ))}
+
+                        {/* ponto */}
+                        <div className="flex justify-center pt-0.5">
+                          <div
+                            className={`h-3 w-3 shrink-0 rounded-full ${
+                              item.current
+                                ? 'animate-glow bg-rose-500'
+                                : 'bg-gray-900'
+                            }`}
+                          />
+                        </div>
+
+                        {/* conteúdo */}
+                        <div className="flex flex-col gap-1">
+                          <span className="text-sm font-500">{item.title}</span>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs text-gray-500">
+                              {item.company}
+                            </span>
+                            {item.enade && (
+                              <span className="text-xs text-gray-500">
+                                · ENADE {item.enade}
+                              </span>
+                            )}
+                            {item.tccUrl && (
+                              <a
+                                href={item.tccUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-xs text-rose-500 hover:underline"
+                              >
+                                · TCC <ExternalLink size={10} />
+                              </a>
+                            )}
+                          </div>
+                          <span className="text-xs text-gray-500">
+                            {item.description}
+                          </span>
+                        </div>
+                      </motion.li>
+                    ))}
+                  </div>
                 </ul>
               </div>
             </div>

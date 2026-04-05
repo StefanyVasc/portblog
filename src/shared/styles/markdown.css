@@ -117,7 +117,10 @@
 
 /* Tabela */
 .markdown-content table {
+  display: block;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   margin: 1rem 0;
 }
