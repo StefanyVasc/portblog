@@ -31,6 +31,50 @@ export default defineConfig({
   define: {
     __SITE_URL__: JSON.stringify(siteUrl)
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined
+
+          if (
+            id.includes('/react/') ||
+            id.includes('/react-dom/') ||
+            id.includes('/react-router-dom/')
+          ) {
+            return 'react-vendor'
+          }
+
+          if (id.includes('/@tanstack/')) {
+            return 'query-vendor'
+          }
+
+          if (
+            id.includes('/react-markdown/') ||
+            id.includes('/remark-') ||
+            id.includes('/rehype-') ||
+            id.includes('/highlight.js/') ||
+            id.includes('/micromark/') ||
+            id.includes('/mdast-util-') ||
+            id.includes('/hast-util-') ||
+            id.includes('/unist-util-') ||
+            id.includes('/unified/') ||
+            id.includes('/vfile/')
+          ) {
+            return 'markdown-vendor'
+          }
+
+          if (id.includes('/framer-motion/')) {
+            return 'motion-vendor'
+          }
+
+          if (id.includes('/lucide-react/') || id.includes('/@radix-ui/')) {
+            return 'ui-vendor'
+          }
+        }
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
