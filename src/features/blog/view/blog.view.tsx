@@ -161,7 +161,11 @@ export function BlogView() {
               </p>
             )}
 
-            <PostList posts={currentPosts} searched={search} />
+            <PostList
+              posts={currentPosts}
+              searched={search}
+              highlightNewest={!search && currentPage === 1}
+            />
 
             {totalPages > 1 && (
               <footer className="w-full py-4">

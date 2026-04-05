@@ -61,12 +61,32 @@ export default {
         500: 500
       },
       animation: {
-        glow: 'glow 2s ease-in-out infinite'
+        glow: 'glow 2s ease-in-out infinite',
+        'badge-float': 'badge-float 2.8s ease-in-out infinite',
+        twinkle: 'twinkle 1.8s ease-in-out infinite'
       },
       keyframes: {
         glow: {
           '0%, 100%': { boxShadow: '0 0 4px rgba(255, 0, 0, 0.8)' },
           '50%': { boxShadow: '0 0 12px rgba(255, 0, 0, 1)' }
+        },
+        'badge-float': {
+          '0%, 100%': {
+            transform: 'translateY(0) scale(1)',
+            boxShadow: '0 6px 16px rgba(251, 191, 36, 0.15)'
+          },
+          '50%': {
+            transform: 'translateY(-2px) scale(1.02)',
+            boxShadow: '0 10px 22px rgba(251, 191, 36, 0.28)'
+          }
+        },
+        twinkle: {
+          '0%, 100%': {
+            transform: 'scale(1) rotate(0deg)'
+          },
+          '50%': {
+            transform: 'scale(1.18) rotate(12deg)'
+          }
         }
       }
     }
