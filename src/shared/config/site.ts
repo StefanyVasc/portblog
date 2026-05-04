@@ -20,6 +20,11 @@ export const SITE_META = {
     description:
       'Artigos sobre desenvolvimento front-end, arquitetura, boas práticas e estudos que estou registrando ao longo da jornada.'
   },
+  bookcase: {
+    title: 'estante',
+    description:
+      'Livros, quotes favoritos e notas de leitura que estou colecionando ao longo do tempo.'
+  },
   about: {
     title: 'sobre',
     description:

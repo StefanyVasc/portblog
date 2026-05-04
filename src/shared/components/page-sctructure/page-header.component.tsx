@@ -23,6 +23,10 @@ export function PageHeader() {
       to: '/projects'
     },
     {
+      title: headerTexts.menu.bookcase.title,
+      to: '/bookcase'
+    },
+    {
       title: headerTexts.menu.challenges.title,
       to: '/challenges'
     }
