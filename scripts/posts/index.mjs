@@ -14,6 +14,7 @@ const STATIC_ROUTES = [
   '/blog',
   '/links',
   '/projects',
+  '/bookcase',
   '/challenges',
   '/challenges/frontend-mentor/newbie',
   '/challenges/frontend-mentor/junior',

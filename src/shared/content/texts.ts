@@ -22,6 +22,10 @@ export const texts = {
       challenges: {
         title: 'desafios',
         description: 'todos os desafios'
+      },
+      bookcase: {
+        title: 'estante',
+        description: 'livros, quotes e notas'
       }
     }
   },
@@ -72,6 +76,29 @@ export const texts = {
       loading: 'carregando comentários...',
       setupMissing:
         'comentários indisponíveis por enquanto. Defina VITE_UTTERANCES_REPO no ambiente.'
+    }
+  },
+  bookcase: {
+    header: 'estante',
+    intro:
+      'um espaco para guardar livros, quotes e pequenas impressoes sobre o que ficou comigo depois da leitura.',
+    featured: 'destaques da estante',
+    monthlyReadings: 'mês a mês',
+    monthlyTechnical: 'técnicos',
+    monthlyNonTechnical: 'não técnicos',
+    noMonthlyReadings: 'nenhum livro lido registrado por mês ainda.',
+    emptyMonthlyCategory: 'nenhum livro nessa categoria neste mês.',
+    quotes: 'quotes favoritos',
+    emptyQuotes: 'quotes em breve',
+    status: {
+      reading: 'lendo agora',
+      read: 'lido',
+      'want to read': 'quero ler'
+    },
+    categories: {
+      ficcao: 'ficcao',
+      'nao-ficcao': 'nao ficcao',
+      tecnico: 'tecnico'
     }
   },
   postContent: {

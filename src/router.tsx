@@ -26,6 +26,11 @@ const ProjectsView = lazy(async () => {
   return { default: module.ProjectsView }
 })
 
+const BookcaseView = lazy(async () => {
+  const module = await import('./features/bookcase/view/bookcase.view')
+  return { default: module.BookcaseView }
+})
+
 const AboutView = lazy(async () => {
   const module = await import('./features/about/view/about.view')
   return { default: module.AboutView }
@@ -83,6 +88,10 @@ const router = createBrowserRouter([
       {
         path: 'projects',
         element: withSuspense(<ProjectsView />)
+      },
+      {
+        path: 'bookcase',
+        element: withSuspense(<BookcaseView />)
       },
       {
         path: 'challenges/frontend-mentor',
