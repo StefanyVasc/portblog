@@ -61,11 +61,21 @@ export default {
         500: 500
       },
       animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
         glow: 'glow 2s ease-in-out infinite',
         'badge-float': 'badge-float 2.8s ease-in-out infinite',
         twinkle: 'twinkle 1.8s ease-in-out infinite'
       },
       keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        },
         glow: {
           '0%, 100%': { boxShadow: '0 0 4px rgba(255, 0, 0, 0.8)' },
           '50%': { boxShadow: '0 0 12px rgba(255, 0, 0, 1)' }
