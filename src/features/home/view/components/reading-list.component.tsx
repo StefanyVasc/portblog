@@ -50,51 +50,57 @@ export function ReadingList({ title, items }: ReadingListProps) {
         <h5 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground md:text-sm">
           {title}
         </h5>
-        <ul className="mt-4 list-disc space-y-3 pl-5 marker:text-muted-foreground">
-          {items.map(reading => (
-            <li key={reading.title} className="text-sm md:text-base">
-              <div className="flex flex-col gap-1">
-                <span className="font-medium">{reading.title}</span>
+        {items.length > 0 ? (
+          <ul className="mt-4 list-disc space-y-3 pl-5 marker:text-muted-foreground">
+            {items.map(reading => (
+              <li key={reading.title} className="text-sm md:text-base">
+                <div className="flex flex-col gap-1">
+                  <span className="font-medium">{reading.title}</span>
 
-                <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground md:text-xs">
-                  {reading.author ? (
-                    <span className="text-[11px] md:text-xs">
-                      {reading.author}
-                    </span>
-                  ) : null}
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground md:text-xs">
+                    {reading.author ? (
+                      <span className="text-[11px] md:text-xs">
+                        {reading.author}
+                      </span>
+                    ) : null}
 
-                  <div className="flex items-center gap-2">
-                    {tagOrder
-                      .filter(tag => reading.tags.includes(tag))
-                      .map(tag => {
-                        const config = tagConfig[tag]
-                        const Icon = config.icon
+                    <div className="flex items-center gap-2">
+                      {tagOrder
+                        .filter(tag => reading.tags.includes(tag))
+                        .map(tag => {
+                          const config = tagConfig[tag]
+                          const Icon = config.icon
 
-                        return (
-                          <Tooltip
-                            key={`${reading.title}-${tag}`}
-                            delayDuration={100}
-                          >
-                            <TooltipTrigger asChild>
-                              <span
-                                className="flex h-6 w-6 items-center justify-center rounded-full bg-muted"
-                                aria-label={tagLabels[tag]}
-                              >
-                                <Icon
-                                  className={`h-3.5 w-3.5 ${config.className}`}
-                                />
-                              </span>
-                            </TooltipTrigger>
-                            <TooltipContent>{tagLabels[tag]}</TooltipContent>
-                          </Tooltip>
-                        )
-                      })}
+                          return (
+                            <Tooltip
+                              key={`${reading.title}-${tag}`}
+                              delayDuration={100}
+                            >
+                              <TooltipTrigger asChild>
+                                <span
+                                  className="flex h-6 w-6 items-center justify-center rounded-full bg-muted"
+                                  aria-label={tagLabels[tag]}
+                                >
+                                  <Icon
+                                    className={`h-3.5 w-3.5 ${config.className}`}
+                                  />
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent>{tagLabels[tag]}</TooltipContent>
+                            </Tooltip>
+                          )
+                        })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-sm text-muted-foreground">
+            {texts.home.reading.empty}
+          </p>
+        )}
       </div>
     </TooltipProvider>
   )

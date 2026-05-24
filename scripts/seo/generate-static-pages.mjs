@@ -58,8 +58,16 @@ const ROUTE_PAGES = [
     schemaType: 'CollectionPage'
   },
   {
-    path: '/bookscase',
+    path: '/bookcase',
     title: 'estante',
+    description:
+      'Livros, quotes favoritos e notas de leitura que estou colecionando ao longo do tempo.',
+    type: 'website',
+    schemaType: 'CollectionPage'
+  },
+  {
+    path: '/bookcase/history',
+    title: 'histórico da estante',
     description:
       'Livros, quotes favoritos e notas de leitura que estou colecionando ao longo do tempo.',
     type: 'website',

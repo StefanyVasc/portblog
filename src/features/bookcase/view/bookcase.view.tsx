@@ -1,8 +1,13 @@
 import { BookOpen, CalendarDays, Heart, Quote } from 'lucide-react'
 import { useEffect, useMemo } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { cn } from '@/lib/utils'
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   Header,
   Tabs,
   TabsContent,
@@ -16,74 +21,18 @@ import {
   BookcaseBooks,
   type BookcaseBookStatus
 } from '@/shared/static'
+import {
+  getBooksByCategory,
+  getMonthlyReadings,
+  getYearlyReadingHistory,
+  isValidMonthKey
+} from '@/shared/utils/bookcase'
 import { updateSeo } from '@/shared/utils/update-seo'
 
 const statusClassName: Record<BookcaseBookStatus, string> = {
   reading: 'border-emerald-200 bg-emerald-50 text-emerald-700',
   read: 'border-rose-200 bg-rose-50 text-rose-700',
   'want to read': 'border-amber-200 bg-amber-50 text-amber-700'
-}
-
-const monthNames = [
-  'janeiro',
-  'fevereiro',
-  'marco',
-  'abril',
-  'maio',
-  'junho',
-  'julho',
-  'agosto',
-  'setembro',
-  'outubro',
-  'novembro',
-  'dezembro'
-]
-
-type MonthlyReadingGroup = {
-  key: string
-  label: string
-  books: BookcaseBook[]
-}
-
-function getMonthlyReadings(books: BookcaseBook[]): MonthlyReadingGroup[] {
-  const groups = books.reduce<Record<string, MonthlyReadingGroup>>(
-    (acc, book) => {
-      const monthKeys = book.month
-        ? Array.isArray(book.month)
-          ? book.month
-          : [book.month]
-        : book.readAt?.slice(0, 7)
-          ? [book.readAt.slice(0, 7)]
-          : []
-
-      monthKeys.forEach(monthKey => {
-        const [year, month] = monthKey.split('-')
-        const monthIndex = Number(month) - 1
-        const key = `${year}-${month}`
-        const label = `${monthNames[monthIndex]} de ${year}`
-
-        acc[key] ??= {
-          key,
-          label,
-          books: []
-        }
-
-        acc[key].books.push(book)
-      })
-
-      return acc
-    },
-    {}
-  )
-
-  return Object.values(groups).sort((a, b) => b.key.localeCompare(a.key))
-}
-
-function getBooksByCategory(books: BookcaseBook[]) {
-  return {
-    technical: books.filter(book => book.category === 'tecnico'),
-    nonTechnical: books.filter(book => book.category !== 'tecnico')
-  }
 }
 
 function BookStatusBadge({ status }: { status: BookcaseBookStatus }) {
@@ -172,9 +121,6 @@ function FavoriteQuotes({ books }: { books: BookcaseBook[] }) {
 
   return (
     <div>
-      <h2 className="mb-4 text-lg font-medium md:text-xl">
-        {BookcaseTexts.quotes}
-      </h2>
       <div className="max-h-[430px] overflow-y-auto rounded-lg border bg-background p-3">
         <div className="space-y-3">
           {books.length > 0 ? (
@@ -253,19 +199,26 @@ function SummaryCard({
 
 function MonthlyBookColumn({
   title,
-  books
+  books,
+  stableHeight = true
 }: {
   title: string
   books: BookcaseBook[]
+  stableHeight?: boolean
 }) {
   return (
-    <div>
-      <h3 className="mb-3 text-sm font-semibold uppercase text-muted-foreground">
+    <div className={cn('flex min-h-0 flex-col', stableHeight && 'h-full')}>
+      <h3 className="mb-3 shrink-0 text-sm font-semibold uppercase text-muted-foreground">
         {title}
       </h3>
 
       {books.length > 0 ? (
-        <div className="max-h-[430px] space-y-3 overflow-y-auto pr-2">
+        <div
+          className={cn(
+            'space-y-3 pr-2',
+            stableHeight ? 'min-h-0 flex-1 overflow-y-auto' : 'overflow-visible'
+          )}
+        >
           {books.map(book => (
             <article
               key={`${title}-${book.title}`}
@@ -302,7 +255,12 @@ function MonthlyBookColumn({
           ))}
         </div>
       ) : (
-        <p className="rounded-lg border p-4 text-sm text-muted-foreground">
+        <p
+          className={cn(
+            'flex items-center rounded-lg border p-4 text-sm text-muted-foreground',
+            stableHeight && 'min-h-0 flex-1'
+          )}
+        >
           {texts.bookcase.emptyMonthlyCategory}
         </p>
       )}
@@ -312,6 +270,7 @@ function MonthlyBookColumn({
 
 export function BookcaseView() {
   const BookcaseTexts = texts.bookcase
+  const [searchParams, setSearchParams] = useSearchParams()
   const favoriteBooks = BookcaseBooks.filter(book => book.favorite)
   const booksWithQuotes = BookcaseBooks.filter(book => book.quotes.length > 0)
   const featuredBooks = BookcaseBooks.slice(0, 3)
@@ -320,24 +279,49 @@ export function BookcaseView() {
     0
   )
   const monthlyReadings = useMemo(() => getMonthlyReadings(BookcaseBooks), [])
+  const requestedMonth = searchParams.get('month')
+  const latestMonth = monthlyReadings[0]?.key
+  const selectedMonth =
+    monthlyReadings.some(group => group.key === requestedMonth) &&
+    isValidMonthKey(requestedMonth)
+      ? requestedMonth
+      : latestMonth
+
+  useEffect(() => {
+    if (
+      requestedMonth &&
+      latestMonth &&
+      (!isValidMonthKey(requestedMonth) ||
+        !monthlyReadings.some(group => group.key === requestedMonth))
+    ) {
+      const nextParams = new URLSearchParams(searchParams)
+      nextParams.set('month', latestMonth)
+      setSearchParams(nextParams, { replace: true })
+    }
+  }, [
+    latestMonth,
+    monthlyReadings,
+    requestedMonth,
+    searchParams,
+    setSearchParams
+  ])
 
   useEffect(() => {
     updateSeo({
       title: SITE_META.bookcase.title,
       description: SITE_META.bookcase.description,
-      canonicalPath: '/Bookcase',
+      canonicalPath: requestedMonth
+        ? `/bookcase?month=${selectedMonth}`
+        : '/bookcase',
       type: 'website'
     })
-  }, [])
+  }, [requestedMonth, selectedMonth])
 
-  /**
-   * TODO:
-   * 1. arrumar na home a parte de leituras
-   * 2. na home add um link pro bookcase
-   * 3. arrumar no mes a mes quando muda pra abril dá um shift no layout
-   * 4. add um historico
-   * 5. ver uma forma de add essas infos de uma forma mais facil do que ter que abrir o codigo
-   */
+  const handleMonthChange = (month: string) => {
+    const nextParams = new URLSearchParams(searchParams)
+    nextParams.set('month', month)
+    setSearchParams(nextParams)
+  }
 
   return (
     <div>
@@ -358,8 +342,10 @@ export function BookcaseView() {
             ))}
           </div>
         </div>
-        {/* todo: verificar como deixar responsivo esse padding */}
-        <div className="space-y-5 pt-[2.75rem] md:pt-9">
+        <div className="space-y-5">
+          <h2 className="text-lg font-medium md:text-xl">
+            {BookcaseTexts.quotes}
+          </h2>
           <BookcaseSummary
             booksCount={BookcaseBooks.length}
             favoritesCount={favoriteBooks.length}
@@ -370,12 +356,24 @@ export function BookcaseView() {
       </section>
 
       <section className="py-5">
-        <h2 className="mb-4 text-lg font-medium md:text-xl">
-          {BookcaseTexts.monthlyReadings}
-        </h2>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-lg font-medium md:text-xl">
+            {BookcaseTexts.monthlyReadings}
+          </h2>
+          <Link
+            to="/bookcase/history"
+            className="text-sm font-semibold text-rose-600 hover:underline"
+          >
+            {BookcaseTexts.viewHistory}
+          </Link>
+        </div>
 
-        {monthlyReadings.length > 0 ? (
-          <Tabs defaultValue={monthlyReadings[0].key} className="w-full">
+        {monthlyReadings.length > 0 && selectedMonth ? (
+          <Tabs
+            value={selectedMonth}
+            onValueChange={handleMonthChange}
+            className="w-full"
+          >
             <TabsList className="h-auto max-w-full flex-wrap justify-start gap-1 bg-transparent p-0">
               {monthlyReadings.map(group => (
                 <TabsTrigger
@@ -392,32 +390,33 @@ export function BookcaseView() {
             {monthlyReadings.map(group => {
               const booksByCategory = getBooksByCategory(group.books)
 
-              // Todo vericiar se nao conseguimos usar o CustomTabContent, pra deixar na url o mes tbm
               return (
                 <TabsContent
                   key={`${group.key}-content`}
                   value={group.key}
-                  className="mt-4 rounded-lg border bg-background p-4"
+                  className="mt-4 h-[min(620px,calc(100vh-12rem))] rounded-lg border bg-background p-4"
                 >
-                  <div className="mb-4">
-                    <h3 className="text-base font-semibold">{group.label}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {group.books.length}{' '}
-                      {group.books.length === 1
-                        ? 'livro registrado'
-                        : 'livros registrados'}
-                    </p>
-                  </div>
+                  <div className="flex h-full min-h-0 flex-col">
+                    <div className="mb-4 shrink-0">
+                      <h3 className="text-base font-semibold">{group.label}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {group.books.length}{' '}
+                        {group.books.length === 1
+                          ? 'livro registrado'
+                          : 'livros registrados'}
+                      </p>
+                    </div>
 
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    <MonthlyBookColumn
-                      title={BookcaseTexts.monthlyTechnical}
-                      books={booksByCategory.technical}
-                    />
-                    <MonthlyBookColumn
-                      title={BookcaseTexts.monthlyNonTechnical}
-                      books={booksByCategory.nonTechnical}
-                    />
+                    <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-2">
+                      <MonthlyBookColumn
+                        title={BookcaseTexts.monthlyTechnical}
+                        books={booksByCategory.technical}
+                      />
+                      <MonthlyBookColumn
+                        title={BookcaseTexts.monthlyNonTechnical}
+                        books={booksByCategory.nonTechnical}
+                      />
+                    </div>
                   </div>
                 </TabsContent>
               )
@@ -429,15 +428,100 @@ export function BookcaseView() {
           </p>
         )}
       </section>
+    </div>
+  )
+}
 
-      {/* TODO: add um historico pra nao ficar cheio de tabs, será uma pagina do bookcase
-      teremos divisao por ano e dentro dele por mês. 
+export function BookcaseHistoryView() {
+  const BookcaseTexts = texts.bookcase
+  const yearlyHistory = useMemo(
+    () => getYearlyReadingHistory(BookcaseBooks),
+    []
+  )
+  const showYearHeadings = yearlyHistory.length > 1
 
-      essa divisao de ano so vai aparecer quando um novo ano se formar
+  useEffect(() => {
+    updateSeo({
+      title: BookcaseTexts.history,
+      description: SITE_META.bookcase.description,
+      canonicalPath: '/bookcase/history',
+      type: 'website'
+    })
+  }, [BookcaseTexts.history])
 
-      a do mes a apartir de 3 meses de anotaçAo ja teremos
-      */}
-      {/* <div>wip: histórico</div> */}
+  return (
+    <div>
+      <Header headerName={BookcaseTexts.history}>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground md:text-base">
+          {BookcaseTexts.historyIntro}
+        </p>
+      </Header>
+
+      <div className="py-5">
+        <Link
+          to="/bookcase"
+          className="text-sm font-semibold text-rose-600 hover:underline"
+        >
+          {BookcaseTexts.backToBookcase}
+        </Link>
+      </div>
+
+      {yearlyHistory.length > 0 ? (
+        <div className="space-y-8 pb-5">
+          {yearlyHistory.map(yearGroup => (
+            <section key={yearGroup.year}>
+              {showYearHeadings ? (
+                <h2 className="mb-4 text-lg font-medium md:text-xl">
+                  {yearGroup.year}
+                </h2>
+              ) : null}
+
+              <Accordion type="multiple" className="space-y-3">
+                {yearGroup.months.map(monthGroup => {
+                  const booksByCategory = getBooksByCategory(monthGroup.books)
+
+                  return (
+                    <AccordionItem key={monthGroup.key} value={monthGroup.key}>
+                      <AccordionTrigger>
+                        <span>
+                          <span className="block text-base font-semibold">
+                            {monthGroup.label}
+                          </span>
+                          <span className="mt-1 block text-sm font-normal text-muted-foreground">
+                            {monthGroup.books.length}{' '}
+                            {monthGroup.books.length === 1
+                              ? 'livro registrado'
+                              : 'livros registrados'}
+                          </span>
+                        </span>
+                      </AccordionTrigger>
+
+                      <AccordionContent>
+                        <div className="grid gap-4 lg:grid-cols-2">
+                          <MonthlyBookColumn
+                            title={BookcaseTexts.monthlyTechnical}
+                            books={booksByCategory.technical}
+                            stableHeight={false}
+                          />
+                          <MonthlyBookColumn
+                            title={BookcaseTexts.monthlyNonTechnical}
+                            books={booksByCategory.nonTechnical}
+                            stableHeight={false}
+                          />
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )
+                })}
+              </Accordion>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          {BookcaseTexts.noMonthlyReadings}
+        </p>
+      )}
     </div>
   )
 }
