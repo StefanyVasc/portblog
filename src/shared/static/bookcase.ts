@@ -20,7 +20,7 @@ export const BookcaseBooks: BookcaseBook[] = [
     author: 'Tanya Reilly',
     status: 'reading',
     category: 'tecnico',
-    month: ['2026-04', '2026-05'],
+    month: ['2026-04', '2026-05', '2026-06', '2026-07'],
     favorite: true,
     note: 'Leitura em andamento para pensar crescimento tecnico, influencia, estrategia e lideranca sem virar gestao.',
     quotes: [],
@@ -29,12 +29,26 @@ export const BookcaseBooks: BookcaseBook[] = [
   {
     title: 'O ultimo adeus',
     author: 'Cynthia Hand',
-    status: 'reading',
+    status: 'read',
     category: 'ficcao',
     month: '2026-05',
     note: 'Leitura individual de maio em andamento. Uma historia sobre perda, culpa, luto e o que fica depois de uma despedida.',
-    quotes: [],
+    quotes: [
+      'O tempo passa. Essa é a regra. Não importa o que aconteça, não importa o quanto possa parecer que tudo em sua vida foi congelado em um momento particular, o tempo passa.',
+      'O perdão é complicado, Alexis, porque no final é mais sobre você do que sobre a pessoa que está sendo perdoada',
+      'Tudo muda. Essa é a única coisa constante.'
+    ],
     tags: ['luto', 'young adult', 'saude mental']
+  },
+  {
+    title: 'Uma Vida Pequena',
+    author: 'Hanya Yanagihara',
+    status: 'reading',
+    category: 'ficcao',
+    month: ['2026-06', '2026-07'],
+    note: 'Leitura nao tecnica de junho e julho. Uma narrativa longa e intensa sobre amizade, trauma, cuidado e sobrevivencia.',
+    quotes: [],
+    tags: ['literatura contemporanea', 'amizade', 'trauma']
   },
   {
     title: 'Primeiro eu tive que morrer',

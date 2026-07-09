@@ -120,8 +120,8 @@ function FavoriteQuotes({ books }: { books: BookcaseBook[] }) {
   const BookcaseTexts = texts.bookcase
 
   return (
-    <div>
-      <div className="max-h-[430px] overflow-y-auto rounded-lg border bg-background p-3">
+    <div className="min-h-0 flex-1">
+      <div className="h-full min-h-0 overflow-y-auto rounded-lg border bg-background p-3">
         <div className="space-y-3">
           {books.length > 0 ? (
             books.map(book => (
@@ -278,7 +278,10 @@ export function BookcaseView() {
     (total, book) => total + book.quotes.length,
     0
   )
-  const monthlyReadings = useMemo(() => getMonthlyReadings(BookcaseBooks), [])
+  const monthlyReadings = useMemo(
+    () => getMonthlyReadings(BookcaseBooks).slice(0, 2),
+    []
+  )
   const requestedMonth = searchParams.get('month')
   const latestMonth = monthlyReadings[0]?.key
   const selectedMonth =
@@ -331,26 +334,28 @@ export function BookcaseView() {
         </p>
       </Header>
 
-      <section className="grid gap-6 py-5 xl:grid-cols-[0.95fr_1.05fr]">
-        <div>
+      <section className="grid items-stretch gap-6 py-5 xl:h-[min(680px,calc(100vh-10rem))] xl:grid-cols-[0.95fr_1.05fr]">
+        <div className="flex h-full min-h-0 flex-col">
           <h2 className="mb-4 text-lg font-medium md:text-xl">
             {BookcaseTexts.featured}
           </h2>
-          <div className="grid auto-rows-fr grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-1">
+          <div className="grid min-h-0 flex-1 auto-rows-fr grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-1 xl:overflow-y-auto xl:pr-2">
             {featuredBooks.map(book => (
               <BookCard key={book.title} book={book} compact />
             ))}
           </div>
         </div>
-        <div className="space-y-5">
-          <h2 className="text-lg font-medium md:text-xl">
+        <div className="flex h-full min-h-0 flex-col">
+          <h2 className="mb-5 text-lg font-medium md:text-xl">
             {BookcaseTexts.quotes}
           </h2>
-          <BookcaseSummary
-            booksCount={BookcaseBooks.length}
-            favoritesCount={favoriteBooks.length}
-            quotesCount={quotesCount}
-          />
+          <div className="mb-5 shrink-0">
+            <BookcaseSummary
+              booksCount={BookcaseBooks.length}
+              favoritesCount={favoriteBooks.length}
+              quotesCount={quotesCount}
+            />
+          </div>
           <FavoriteQuotes books={booksWithQuotes} />
         </div>
       </section>
@@ -394,7 +399,7 @@ export function BookcaseView() {
                 <TabsContent
                   key={`${group.key}-content`}
                   value={group.key}
-                  className="mt-4 h-[min(620px,calc(100vh-12rem))] rounded-lg border bg-background p-4"
+                  className="mt-4 h-[min(380px,calc(100vh-16rem))] rounded-lg border bg-background p-4"
                 >
                   <div className="flex h-full min-h-0 flex-col">
                     <div className="mb-4 shrink-0">
