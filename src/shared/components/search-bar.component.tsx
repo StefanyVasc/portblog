@@ -55,6 +55,7 @@ export function SearchBar({
             />
             {search && (
               <button
+                type="button"
                 onClick={() => setSearch('')}
                 aria-label="Limpar busca"
                 className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"

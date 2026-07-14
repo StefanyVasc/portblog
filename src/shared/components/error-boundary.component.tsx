@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react'
+import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
 type Props = { children: ReactNode }
@@ -29,6 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
           </p>
           <div className="flex gap-3">
             <button
+              type="button"
               onClick={() => window.location.reload()}
               className="rounded-md border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
             >

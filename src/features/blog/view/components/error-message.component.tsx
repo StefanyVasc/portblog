@@ -9,6 +9,7 @@ export const ErrorMessage = ({
     <p className="text-red-500">{message}</p>
     {onRetry && (
       <button
+        type="button"
         onClick={onRetry}
         className="text-sm font-medium text-rose-600 underline hover:text-rose-700"
       >

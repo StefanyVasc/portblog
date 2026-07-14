@@ -1,5 +1,5 @@
 import { Sparkles } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 import { usePost } from '@/features/blog/hooks/use-post'
@@ -45,6 +45,10 @@ export function HomeView() {
   }, [])
 
   const latestPosts = posts.slice(0, 3)
+  const projectSkeletonIds = useMemo(
+    () => Array.from({ length: 3 }, () => crypto.randomUUID()),
+    []
+  )
 
   return (
     <div>
@@ -140,8 +144,8 @@ export function HomeView() {
 
         {projectsLoading ? (
           <div className="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <ProjectCardSkeleton key={i} />
+            {projectSkeletonIds.map(id => (
+              <ProjectCardSkeleton key={id} />
             ))}
           </div>
         ) : projectsHasError ? (

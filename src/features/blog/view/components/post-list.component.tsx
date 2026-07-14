@@ -3,7 +3,7 @@ import { Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { getPostContent } from '@/features/blog/api/get-post-content'
-import { Post } from '@/features/blog/types/post'
+import type { Post } from '@/features/blog/types/post'
 import {
   Badge,
   Tooltip,

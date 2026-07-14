@@ -18,7 +18,12 @@ const ReactQueryDevtoolsLazy = import.meta.env.DEV
 
 document.getElementById('app-loader')?.remove()
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root')
+if (!rootElement) {
+  throw new Error('Root element (#root) not found in index.html')
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

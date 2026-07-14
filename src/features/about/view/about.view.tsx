@@ -77,7 +77,7 @@ export function AboutView() {
                 <div className="grid grid-cols-2 gap-4">
                   {aboutILike.map((item, index) => (
                     <motion.div
-                      key={index}
+                      key={item.label}
                       className="flex flex-col justify-between"
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -114,7 +114,7 @@ export function AboutView() {
                     <div className="absolute bottom-0 left-[104px] top-1.5 w-px bg-gray-300" />
                     {educationItems.map((item, index) => (
                       <motion.li
-                        key={index}
+                        key={item.title}
                         className="relative grid grid-cols-[80px_24px_1fr] items-start gap-x-3 pb-8"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}

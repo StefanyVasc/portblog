@@ -1,6 +1,6 @@
-import { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig } from 'axios'
 
-import { AxiosGetOptions, getAsync } from './get-async'
+import { type AxiosGetOptions, getAsync } from './get-async'
 import { isNotFoundError } from './helpers/is-not-found-error'
 
 export async function getAsyncWithFallback<T>(

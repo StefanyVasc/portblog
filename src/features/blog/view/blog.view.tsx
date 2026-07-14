@@ -124,7 +124,7 @@ export function BlogView() {
         window.scrollTo({ top: savedScroll, behavior: 'auto' })
       })
     }
-  }, [routeSlug, currentPost, blogMeta.description, blogMeta.title])
+  }, [routeSlug, currentPost])
 
   return (
     <div>
@@ -143,43 +143,41 @@ export function BlogView() {
       {slug ? (
         <PostContent content={content} tags={tags} />
       ) : (
-        <>
-          <section className="pt-3">
-            <div className="mb-6 w-full">
-              <SearchBar
-                search={search}
-                setSearch={setSearch}
-                searchType={searchType}
-                setSearchType={setSearchType}
-                allTags={allTags}
-              />
-            </div>
-
-            {search && (
-              <p className="mt-2 text-right text-sm text-gray-700">
-                {blogSearchResults(currentPosts.length, search)}
-              </p>
-            )}
-
-            <PostList
-              posts={currentPosts}
-              searched={search}
-              highlightNewest={!search && currentPage === 1}
+        <section className="pt-3">
+          <div className="mb-6 w-full">
+            <SearchBar
+              search={search}
+              setSearch={setSearch}
+              searchType={searchType}
+              setSearchType={setSearchType}
+              allTags={allTags}
             />
+          </div>
 
-            {totalPages > 1 && (
-              <footer className="w-full py-4">
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  totalItems={filteredPosts.length}
-                  pageSize={postsPerPage}
-                  onPageChange={setCurrentPage}
-                />
-              </footer>
-            )}
-          </section>
-        </>
+          {search && (
+            <p className="mt-2 text-right text-sm text-gray-700">
+              {blogSearchResults(currentPosts.length, search)}
+            </p>
+          )}
+
+          <PostList
+            posts={currentPosts}
+            searched={search}
+            highlightNewest={!search && currentPage === 1}
+          />
+
+          {totalPages > 1 && (
+            <footer className="w-full py-4">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                totalItems={filteredPosts.length}
+                pageSize={postsPerPage}
+                onPageChange={setCurrentPage}
+              />
+            </footer>
+          )}
+        </section>
       )}
     </div>
   )
