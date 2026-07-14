@@ -1,8 +1,8 @@
 import {
   type QueryKey,
-  useQuery,
   type UseQueryOptions,
-  type UseQueryResult
+  type UseQueryResult,
+  useQuery
 } from '@tanstack/react-query'
 
 type UseAppQueryOptions<

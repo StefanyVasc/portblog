@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, isAxiosError } from 'axios'
+import { type AxiosRequestConfig, isAxiosError } from 'axios'
 
 import { api } from '@/lib/axios'
 import { HttpError } from '@/services/http/http'

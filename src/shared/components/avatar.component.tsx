@@ -1,4 +1,4 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 export function Avatar(props: SVGProps<SVGSVGElement>) {
   return (
@@ -6,6 +6,7 @@ export function Avatar(props: SVGProps<SVGSVGElement>) {
       width="260"
       height="260"
       viewBox="0 0 1400 1400"
+      aria-hidden="true"
       {...props}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

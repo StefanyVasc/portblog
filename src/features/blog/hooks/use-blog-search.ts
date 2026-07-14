@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { Post } from '@/features/blog/types/post'
+import type { Post } from '@/features/blog/types/post'
 
 export function useBlogSearch(
   posts: Post[],

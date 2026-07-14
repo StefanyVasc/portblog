@@ -1,4 +1,4 @@
-import { CustomTimelineProps } from '../components/custom-timeline/types'
+import type { CustomTimelineProps } from '../components/custom-timeline/types'
 
 export const careerItems: CustomTimelineProps['items'] = [
   {

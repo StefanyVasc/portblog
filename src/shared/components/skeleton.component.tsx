@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useMemo } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -14,11 +15,16 @@ export function Skeleton({ className }: { className?: string }) {
 }
 
 export function PostListSkeleton() {
+  const rowIds = useMemo(
+    () => Array.from({ length: 5 }, () => crypto.randomUUID()),
+    []
+  )
+
   return (
     <ul className="space-y-4">
-      {Array.from({ length: 5 }).map((_, i) => (
+      {rowIds.map(id => (
         <li
-          key={i}
+          key={id}
           className="flex min-h-[150px] flex-col justify-between gap-2 border-y py-4"
         >
           <div className="flex items-center gap-2">

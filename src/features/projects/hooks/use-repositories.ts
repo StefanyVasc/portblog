@@ -1,7 +1,7 @@
 import { useAppQuery } from '@/shared/hooks/use-app-query'
 
 import { getRepositories } from '../api/get-repositories'
-import { Repository } from '../schemas/repository'
+import type { Repository } from '../schemas/repository'
 
 type UseProjectsOptions = {
   limit?: number

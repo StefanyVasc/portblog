@@ -1,4 +1,4 @@
-import {
+import type {
   AxiosInstance,
   AxiosRequestHeaders,
   InternalAxiosRequestConfig

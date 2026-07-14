@@ -30,11 +30,11 @@ export const PostContent = ({
             <Tag size={20} /> {blogTexts.tagsHeading}
           </h3>
           <div className="flex flex-wrap gap-2">
-            {tags.map((tag, index) => (
+            {tags.map(tag => (
               <Badge
                 color="rose"
                 text={`#${tag}`}
-                key={index}
+                key={tag}
                 variant="outline"
               />
             ))}

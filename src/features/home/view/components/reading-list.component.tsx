@@ -12,7 +12,7 @@ import {
   TooltipTrigger
 } from '@/shared/components'
 import { texts } from '@/shared/content/texts'
-import { type Reading, type ReadingTag } from '@/shared/static'
+import type { Reading, ReadingTag } from '@/shared/static'
 
 type TagConfig = {
   icon: ComponentType<{ className?: string }>
@@ -78,6 +78,7 @@ export function ReadingList({ title, items }: ReadingListProps) {
                             >
                               <TooltipTrigger asChild>
                                 <span
+                                  role="img"
                                   className="flex h-6 w-6 items-center justify-center rounded-full bg-muted"
                                   aria-label={tagLabels[tag]}
                                 >

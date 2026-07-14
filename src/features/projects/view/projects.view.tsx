@@ -60,6 +60,7 @@ export function ProjectsView() {
     })
   }, [projects, search, selectedTag])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally resets the page whenever these filters change, not because they're read inside the effect
   useEffect(() => {
     setCurrentPage(1)
   }, [search, selectedTag, pageSize, projects])
@@ -72,6 +73,11 @@ export function ProjectsView() {
 
   const totalPages = Math.max(1, Math.ceil(filteredProjects.length / pageSize))
   const safeCurrentPage = Math.min(currentPage, totalPages)
+
+  const placeholderIds = useMemo(
+    () => Array.from({ length: pageSize }, () => crypto.randomUUID()),
+    [pageSize]
+  )
 
   useEffect(() => {
     if (currentPage !== safeCurrentPage) {
@@ -156,15 +162,11 @@ export function ProjectsView() {
                       buttonClassName="bg-white"
                     />
                   ))}
-                  {Array.from({
-                    length: pageSize - paginatedProjects.length
-                  }).map((_, i) => (
-                    <div
-                      key={`placeholder-${i}`}
-                      className="h-[320px]"
-                      aria-hidden
-                    />
-                  ))}
+                  {placeholderIds
+                    .slice(0, pageSize - paginatedProjects.length)
+                    .map(id => (
+                      <div key={id} className="h-[320px]" aria-hidden />
+                    ))}
                 </div>
               )}
             </div>

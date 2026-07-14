@@ -1,6 +1,6 @@
 /* Container principal do Markdown */
 .markdown-content {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.75;
   color: #333;
   max-width: none;
@@ -64,7 +64,7 @@
   background-color: #f3f4f6;
   padding: 2px 4px;
   border-radius: 4px;
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
 }
 
 /* Código em bloco */

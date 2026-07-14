@@ -1,8 +1,4 @@
-import {
-  type BookcaseBook,
-  type Reading,
-  type ReadingTag
-} from '@/shared/static'
+import type { BookcaseBook, Reading, ReadingTag } from '@/shared/static'
 
 const monthNames = [
   'janeiro',

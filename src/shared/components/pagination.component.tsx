@@ -30,7 +30,7 @@ export function Pagination({
       // Se total de páginas for menor ou igual ao limite, exibe todas
       for (let i = 1; i <= totalPages; i++) pages.push(i)
     } else {
-      if (currentPage > 3) pages.push(1, '...')
+      if (currentPage > 3) pages.push(1, 'ellipsis-start')
       for (
         let i = Math.max(2, currentPage - 1);
         i <= Math.min(totalPages - 1, currentPage + 1);
@@ -38,7 +38,7 @@ export function Pagination({
       ) {
         pages.push(i)
       }
-      if (currentPage < totalPages - 2) pages.push('...', totalPages)
+      if (currentPage < totalPages - 2) pages.push('ellipsis-end', totalPages)
     }
     return pages
   }
@@ -70,6 +70,7 @@ export function Pagination({
         <div className="flex items-center justify-center gap-2">
           {/* 🔙 Botão Anterior */}
           <button
+            type="button"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className="rounded-full p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
@@ -79,10 +80,11 @@ export function Pagination({
           </button>
 
           {/* 📄 Botões de Páginas */}
-          {getPageNumbers().map((page, index) =>
+          {getPageNumbers().map(page =>
             typeof page === 'number' ? (
               <button
-                key={index}
+                key={page}
+                type="button"
                 onClick={() => onPageChange(page)}
                 className={`rounded-md px-3 py-1 text-xs font-semibold uppercase transition ${
                   page === currentPage
@@ -94,14 +96,15 @@ export function Pagination({
                 {page}
               </button>
             ) : (
-              <span key={index} className="px-2 text-muted-foreground">
-                {page}
+              <span key={page} className="px-2 text-muted-foreground">
+                ...
               </span>
             )
           )}
 
           {/* 🔜 Botão Próximo */}
           <button
+            type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className="rounded-full p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-40"

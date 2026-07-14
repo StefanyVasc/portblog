@@ -1,10 +1,11 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="800px"
       height="800px"
+      aria-hidden="true"
       {...props}
       fill={props.fill ? props.fill : '#000000'}
       version="1.1"

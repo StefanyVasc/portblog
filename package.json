@@ -10,21 +10,20 @@
   "scripts": {
     "dev": "node scripts/posts/index.mjs generate && vite",
     "build": "node scripts/posts/index.mjs generate && tsc -b && vite build && node scripts/seo/generate-static-pages.mjs",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "prepare": "husky",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "cli": "node scripts/cli.mjs"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --max-warnings=0 --fix",
-      "prettier --write"
+    "*.{js,jsx,ts,tsx,json,css,html}": [
+      "biome check --write --no-errors-on-unmatched"
     ],
-    "*.{json,css,scss,md,mdx,html}": [
+    "*.md": [
       "prettier --write"
     ]
   },
@@ -56,36 +55,20 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.3",
     "@clack/prompts": "^0.7.0",
-    "@eslint/js": "^9.14.0",
-    "@rocketseat/eslint-config": "^3.0.12",
-    "@tanstack/eslint-plugin-query": "^5.91.2",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.13.0",
-    "@typescript-eslint/parser": "^8.13.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.14.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "globals": "^15.12.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
     "postcss": "^8.5.15",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "rollup-plugin-visualizer": "^6.0.5",
     "tailwindcss": "^3.4.14",
-    "typescript": "~5.6.2",
-    "typescript-eslint": "^8.13.0",
+    "typescript": "7.0.2",
     "vite": "^6.4.2"
   }
 }

@@ -58,6 +58,7 @@ const markdownComponents: Components = {
       <pre className="hljs">
         <code
           className={`hljs language-${language}`}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: output comes from highlight.js, not raw user input
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       </pre>

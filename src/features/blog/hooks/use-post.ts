@@ -1,10 +1,10 @@
-import { type UseQueryResult } from '@tanstack/react-query'
+import type { UseQueryResult } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { getPostContent } from '@/features/blog/api/get-post-content'
 import { getPosts } from '@/features/blog/api/get-posts'
-import { Post } from '@/features/blog/types/post'
+import type { Post } from '@/features/blog/types/post'
 import { useAppQuery } from '@/shared/hooks/use-app-query'
 
 type UsePostResult = {
@@ -28,7 +28,12 @@ export function usePost(): UsePostResult {
 
   const contentQuery = useAppQuery<string, Error>({
     key: ['blog', 'post-content', slug ?? ''],
-    queryFn: ({ signal }) => getPostContent({ slug: slug!, signal }),
+    queryFn: ({ signal }) => {
+      if (!slug) {
+        return Promise.reject(new Error('slug is required'))
+      }
+      return getPostContent({ slug, signal })
+    },
     enabled: Boolean(slug)
   })
 

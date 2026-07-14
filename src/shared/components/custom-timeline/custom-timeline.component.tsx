@@ -2,7 +2,7 @@ import { BackpackIcon, CalendarIcon, LapTimerIcon } from '@radix-ui/react-icons'
 import dayjs from 'dayjs'
 import { motion } from 'framer-motion'
 import { MoveHorizontal } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   Badge,
@@ -13,7 +13,7 @@ import {
 } from '@/shared/components'
 import { texts } from '@/shared/content/texts'
 
-import { CustomTimelineProps } from './types'
+import type { CustomTimelineProps } from './types'
 
 export function CustomTimeline({ items }: CustomTimelineProps) {
   const [showArrow, setShowArrow] = useState(true)
@@ -29,7 +29,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
     [items]
   )
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     setShowArrow(true)
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
@@ -37,7 +37,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
     timeoutRef.current = setTimeout(() => {
       setShowArrow(false)
     }, 500)
-  }
+  }, [])
 
   useEffect(() => {
     const scrollContainer = scrollRef.current
@@ -51,7 +51,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
         scrollContainer.removeEventListener('scroll', handleScroll)
       }
     }
-  }, [])
+  }, [handleScroll])
 
   return (
     <motion.div
@@ -85,7 +85,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
             return (
               <motion.div
-                key={`${yearStart}-${index}`}
+                key={title}
                 className="relative flex w-64 flex-shrink-0 flex-col items-start text-sm"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -110,7 +110,10 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
                   <HoverCard>
                     <HoverCardTrigger asChild>
-                      <button className="cursor-pointer text-left text-base">
+                      <button
+                        type="button"
+                        className="cursor-pointer text-left text-base"
+                      >
                         {title}
                       </button>
                     </HoverCardTrigger>
@@ -145,7 +148,7 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
                         {/* Competências */}
                         {competencies &&
                           Object.entries(competencies).map(
-                            ([sectionTitle, sectionData], i) => {
+                            ([sectionTitle, sectionData]) => {
                               if (
                                 !sectionData ||
                                 typeof sectionData !== 'object'
@@ -158,10 +161,13 @@ export function CustomTimeline({ items }: CustomTimelineProps) {
 
                               return (
                                 allValues.length > 0 && (
-                                  <Section key={i} title={sectionTitle}>
-                                    {allValues.map((item, j) => (
+                                  <Section
+                                    key={sectionTitle}
+                                    title={sectionTitle}
+                                  >
+                                    {allValues.map(item => (
                                       <Badge
-                                        key={j}
+                                        key={item}
                                         color="gray"
                                         text={item}
                                         variant="outline"

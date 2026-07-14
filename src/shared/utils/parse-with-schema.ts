@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 
 import { ValidationError } from '@/services/http/http'
 import { formatIssues } from '@/shared/utils/format-issues'

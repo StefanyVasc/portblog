@@ -1,4 +1,4 @@
-import { GitHubRepository, Repository } from '../schemas/repository'
+import type { GitHubRepository, Repository } from '../schemas/repository'
 
 export function mapRepositoryToProject(
   repository: GitHubRepository

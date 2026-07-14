@@ -18,8 +18,8 @@ import { SITE_META } from '@/shared/config/site'
 import { texts } from '@/shared/content/texts'
 import {
   type BookcaseBook,
-  BookcaseBooks,
-  type BookcaseBookStatus
+  type BookcaseBookStatus,
+  BookcaseBooks
 } from '@/shared/static'
 import {
   getBooksByCategory,
@@ -452,7 +452,7 @@ export function BookcaseHistoryView() {
       canonicalPath: '/bookcase/history',
       type: 'website'
     })
-  }, [BookcaseTexts.history])
+  }, [])
 
   return (
     <div>
